@@ -14,8 +14,7 @@ class Rocket:
         self.id = id
         self.status = status
 
-    def printing_rocket_data(self):
-        print(">>>>>>>>>>>>> <<<<<<<<<<<<<")
+    def printing_rocket_all_data(self):
         print("block: {}".format(self.block))
         print("reuse_count: {}".format(self.reuse_count))
         print("last_update: {}".format(self.last_update))
@@ -23,7 +22,12 @@ class Rocket:
         print("serial: {}".format(self.serial))
         print("id: {}".format(self.id))
         print("status: {}".format(self.status))
-        print(">>>>>>>>>>>>> <<<<<<<<<<<<<")
+
+    def printing_rocket_data(self):
+        print("serial: {}".format(self.serial))
+        print("reuse_count: {}".format(self.reuse_count))
+        print("status: {}".format(self.status))
+
 
 
 class Rockets:
