@@ -1,5 +1,5 @@
 from rockets import Rockets
-from menu import Menu, SubMenu
+from menu import Menu
 import os
 
 
@@ -10,4 +10,4 @@ import os
 
 
 if __name__ == "__main__":
-    m = Menu()
+    m = Menu(2)
