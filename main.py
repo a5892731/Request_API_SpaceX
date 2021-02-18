@@ -1,15 +1,20 @@
 from system.menu import Menu, clear_screen
 from system.user_selection import UserSelection
-from system.system_states import BoostersStatus, CapsuleStatus
-from system.rockets import Rockets, Rocket
-from system.capsules import Capsules, Capsule
-
+from system.system_states import booster_status_state, capsule_status_state
+from system.vehicles import Vehicles, Vehicle
 
 if __name__ == "__main__":
 
+    BOOSTERS_STATUS_DICT = {111: "active", 112: "inactive", 113: "unknown",
+                            114: "inactive", 115: "expended", 116: "lost"}
+    CAPSULES_STATUS_DICT = {211: "active", 212: "inactive", 213: "unknown",
+                            214: "inactive", 215: "expended", 216: "lost"}
+
     state = 0
-    rockets = Rockets(Rocket).rockets
-    capsules = Capsules(Capsule).capsules
+
+
+    rockets = Vehicles(Vehicle, "https://api.spacexdata.com/v4/cores").vehicles
+    capsules = Vehicles(Vehicle, "https://api.spacexdata.com/v4/capsules").vehicles
 
     while True:
 
@@ -19,12 +24,10 @@ if __name__ == "__main__":
 
 
         if state >= 111 and state < 117:
-            boosters = BoostersStatus(state, rockets)
-            boosters.print_rockets()
+            booster_status_state(state, rockets, BOOSTERS_STATUS_DICT)
 
         if state >= 211 and state < 217:
-            boosters = CapsuleStatus(state, capsules)
-            boosters.print_capsules()
+            capsule_status_state(state, capsules, CAPSULES_STATUS_DICT)
 
 
 
