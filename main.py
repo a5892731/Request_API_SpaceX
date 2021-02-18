@@ -20,7 +20,7 @@ if __name__ == "__main__":
     while True:
         Menu(state)
 
-        if state >= 111 and state < 117:
+        if state >= 111 and state < 118:
             booster_status_state(state, rockets, BOOSTERS_STATUS_DICT)
 
         elif state == 12:
