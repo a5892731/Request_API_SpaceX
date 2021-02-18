@@ -1,12 +1,12 @@
 import json
 import requests
 
-class VehicleStatusSort:
+class VehicleSort:
     def __init__(self, state, vehicles, STATUS_DICT):
         self.vehicles = vehicles
         self.state = state
         self.STATUS_DICT = STATUS_DICT
-    def print_vehicles(self):
+    def print_vehicles_by_status(self):
         number_of_elements = 1
         print("Sort by status: {}".format(self.STATUS_DICT[self.state]))
         for vehicle in self.vehicles:
@@ -14,6 +14,14 @@ class VehicleStatusSort:
                 print("\n{}: ".format(number_of_elements))
                 vehicle.printing_data()
                 number_of_elements += 1
+    def print_vehicle_by_serial(self, serial):
+        vehicle_in_list = False
+        for vehicle in self.vehicles:
+            if vehicle.serial == serial:
+                vehicle.printing_all_data()
+                vehicle_in_list = True
+        if vehicle_in_list == False:
+            print(">>> wrong vehicle serial number")
 
 class Vehicle:
     def __init__(self, type,  reuse_count, last_update, launches, serial, id, status):
@@ -40,8 +48,8 @@ class Vehicle:
 
 
 class Vehicles:
-    vehicles = []
-    def __init__(self, vehicle: Vehicle, request_api_adress):
+    def __init__(self, request_api_adress, vehicle = Vehicle):
+        self.vehicles = []
         r = requests.get(request_api_adress)
         try:
             spacex_data = r.json()

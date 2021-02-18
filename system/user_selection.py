@@ -11,3 +11,8 @@ class UserStateSelection:
 
 
 
+class UserSerialSelection:
+    def __init__(self):
+        self.serial = input(">>> Put vehicle serial number: ")
+    def return_serial(self):
+        return self.serial
