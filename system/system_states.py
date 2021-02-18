@@ -1,5 +1,5 @@
 from system.vehicles import VehicleSort
-from system.user_selection import UserStateSelection, UserSerialSelection
+from system.user_selection import UserSerialSelection
 
 
 def booster_status_state(state, vehicles, STATUS_DICT):

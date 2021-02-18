@@ -1,5 +1,5 @@
 from system.menu import Menu, clear_screen
-from system.user_selection import UserStateSelection, UserSerialSelection
+from system.user_selection import UserStateSelection
 from system.system_states import booster_status_state, capsule_status_state, booster_serial_state, capsule_serial_state
 from system.vehicles import Vehicles, Vehicle
 
