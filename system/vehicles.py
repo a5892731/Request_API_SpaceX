@@ -48,9 +48,9 @@ class Vehicle:
 
 
 class Vehicles:
-    def __init__(self, request_api_adress, vehicle = Vehicle):
+    def __init__(self, request_api_address, vehicle = Vehicle):
         self.vehicles = []
-        r = requests.get(request_api_adress)
+        r = requests.get(request_api_address)
         try:
             spacex_data = r.json()
         except json.decoder.JSONDecodeError:

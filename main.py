@@ -13,6 +13,8 @@ if __name__ == "__main__":
     rockets = Vehicles("https://api.spacexdata.com/v4/cores").vehicles
     capsules = Vehicles("https://api.spacexdata.com/v4/capsules").vehicles
 
+    #https://api.spacexdata.com/v4/launches/past
+    #https://api.spacexdata.com/v4/launches/upcoming
 
 
     state = 0
@@ -24,7 +26,6 @@ if __name__ == "__main__":
             booster_status_state(state, rockets, BOOSTERS_STATUS_DICT)
 
         elif state == 12:
-
             booster_serial_state(state, rockets, BOOSTERS_STATUS_DICT)
 
         elif state >= 211 and state < 217:
