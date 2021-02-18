@@ -1,5 +1,5 @@
 
-class UserSelection:
+class UserStateSelection:
     def __init__(self, state):
         try:
             self.choice = int(input(">>> Put menu number: "))
@@ -8,3 +8,6 @@ class UserSelection:
 
     def return_state(self):
         return self.choice
+
+
+
