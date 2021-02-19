@@ -13,7 +13,7 @@ if __name__ == "__main__":
     CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL"}
     CAPSULES_STATUS_DICT = {211: "active", 212: "inactive", 213: "unknown",
                             214: "inactive", 215: "expended", 216: "lost"}
-    MISSIONS_DICT = {31 : "PREVIOUSE", 32 : "FUTURE"}
+    MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE"}
 
     rockets = []
     capsules = []
