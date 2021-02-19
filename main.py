@@ -7,10 +7,13 @@ from system.lauches import Lauches
 
 if __name__ == "__main__":
 
+    BOOSTERS_MENU_DICT = {11 : "STATUS", 12: "SERIAL"}
     BOOSTERS_STATUS_DICT = {111: "active", 112: "inactive", 113: "unknown",
                             114: "inactive", 115: "expended", 116: "lost"}
+    CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL"}
     CAPSULES_STATUS_DICT = {211: "active", 212: "inactive", 213: "unknown",
                             214: "inactive", 215: "expended", 216: "lost"}
+    MISSIONS_DICT = {31 : "PREVIOUSE", 32 : "FUTURE"}
 
     rockets = []
     capsules = []
@@ -18,7 +21,7 @@ if __name__ == "__main__":
     state = 0
 
     while True:
-        Menu(state)
+        Menu(state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT)
 
         if state >= 111 and state < 118:
 

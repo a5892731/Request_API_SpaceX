@@ -15,6 +15,7 @@ class MainMenu:
         print((max(self.MENU_DICT)* 23) * "-")
 
 class Menu(MainMenu):
+    '''
     BOOSTERS_MENU_DICT = {11 : "STATUS", 12: "SERIAL"}
     BOOSTERS_STATUS_DICT = {111: "active", 112: "inactive", 113: "unknown",
                             114: "inactive", 115: "expended", 116: "lost"}
@@ -22,8 +23,14 @@ class Menu(MainMenu):
                             214: "inactive", 215: "expended", 216: "lost"}
     CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL"}
     MISSIONS_DICT = {31 : "PREVIOUSE", 32 : "FUTURE"}
+    '''
 
-    def __init__(self, state):
+    def __init__(self, state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT):
+        self.BOOSTERS_MENU_DICT = BOOSTERS_MENU_DICT
+        self.BOOSTERS_STATUS_DICT = BOOSTERS_STATUS_DICT
+        self.CAPSULES_STATUS_DICT = CAPSULES_STATUS_DICT
+        self.CAPSULES_MENU_DICT = CAPSULES_MENU_DICT
+        self.MISSIONS_DICT = MISSIONS_DICT
 
         if state == 1:
             MainMenu()
@@ -63,5 +70,5 @@ def clear_screen():
 
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # test
     m = Menu(3)
