@@ -15,7 +15,6 @@ if __name__ == "__main__":
     rockets = []
     capsules = []
     lauches = []
-
     state = 0
 
     while True:

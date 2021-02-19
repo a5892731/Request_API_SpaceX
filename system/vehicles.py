@@ -46,7 +46,6 @@ class Vehicle:
         print("serial: {}".format(self.serial))
         print("reuse_count: {}".format(self.reuse_count))
 
-
 class Vehicles:
     def __init__(self, request_api_address, vehicle = Vehicle):
         self.vehicles = []
