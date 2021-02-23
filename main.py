@@ -1,4 +1,11 @@
+'''
+version 1.2
+author: a5892731
+date: 2021-02-23
+'''
+
 from system.menu import Menu, clear_screen
+#from system_v2.menu import Menu, clear_screen
 from system.user_selection import UserStateSelection
 from system.system_states import booster_status_state, capsule_status_state, booster_serial_state, \
     capsule_serial_state, missions_previouse, missions_future
@@ -7,6 +14,7 @@ from system.lauches import Lauches
 
 if __name__ == "__main__":
 
+    HEADING_MENU_DICT = {1: "BOOSTERS", 2: "CAPSULES", 3: "MISSIONS"}
     BOOSTERS_MENU_DICT = {11 : "STATUS", 12: "SERIAL"}
     BOOSTERS_STATUS_DICT = {111: "active", 112: "inactive", 113: "unknown",
                             114: "inactive", 115: "expended", 116: "lost"}
@@ -15,6 +23,12 @@ if __name__ == "__main__":
                             214: "inactive", 215: "expended", 216: "lost"}
     MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE"}
 
+    MENU_DICT = [
+                HEADING_MENU_DICT,
+                [BOOSTERS_MENU_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT],
+                [BOOSTERS_STATUS_DICT,CAPSULES_STATUS_DICT, {}]
+                ]
+
     rockets = []
     capsules = []
     lauches = []
@@ -22,6 +36,8 @@ if __name__ == "__main__":
 
     while True:
         Menu(state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT)
+        #menu = Menu(state, MENU_DICT)
+        #menu.drow_menu()
 
         if state >= 111 and state < 118:
 
