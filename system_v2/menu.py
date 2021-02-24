@@ -27,11 +27,6 @@ class Menu:
 
         self.MENU_DICT = MENU_DICT
         self.TABLE_DATA = []
-        self.table = [
-                      ["", "", ""],
-                      ["", "", ""]
-                     ]
-
         self.create_menu_table()
 
     def create_menu_table(self):
@@ -64,9 +59,11 @@ class Menu:
     def drow_menu(self):
         #menu = AsciiTable(self.table)
         #menu = SingleTable(self.table)
-        menu = DoubleTable(self.table)
+        menu = DoubleTable(self.TABLE_DATA)
 
         print(menu.table)
+
+class SmartMenu(Menu):
 
     def cover_menu_by_state(self, state):
 
@@ -88,6 +85,13 @@ class Menu:
             self.table[1][0] = self.TABLE_DATA[2][0]
         elif state == 21:
             self.table[1][1] = self.TABLE_DATA[2][1]
+
+    def drow_menu(self):
+        #menu = AsciiTable(self.table)
+        #menu = SingleTable(self.table)
+        menu = DoubleTable(self.table)
+
+        print(menu.table)
 
 
 def clear_screen():
