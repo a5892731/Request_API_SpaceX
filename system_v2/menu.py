@@ -85,12 +85,11 @@ class SmartMenu(Menu):
             self.table[1][0] = self.TABLE_DATA[2][0]
         elif state == 21:
             self.table[1][1] = self.TABLE_DATA[2][1]
+        elif state == 31 or state == 32:
+            self.table[1][2] = self.TABLE_DATA[1][2]
 
     def drow_menu(self):
-        #menu = AsciiTable(self.table)
-        #menu = SingleTable(self.table)
         menu = DoubleTable(self.table)
-
         print(menu.table)
 
 

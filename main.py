@@ -5,7 +5,7 @@ date: 2021-02-24
 '''
 
 #from system.menu import Menu, clear_screen
-from system_v2.menu import Menu, clear_screen
+from system_v2.menu import Menu, SmartMenu, clear_screen
 
 from system.user_selection import UserStateSelection
 from system.system_states import booster_status_state, capsule_status_state, booster_serial_state, \
@@ -41,10 +41,10 @@ if __name__ == "__main__":
     launches = []
     state = 0
 
-    menu = Menu(MENU_DICT)
+    menu = SmartMenu(MENU_DICT)
+
     while True:
         #Menu(state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT)
-
         menu.cover_menu_by_state(state)
         menu.drow_menu()
 
