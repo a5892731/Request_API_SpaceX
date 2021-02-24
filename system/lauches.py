@@ -2,31 +2,31 @@ import json
 import requests
 from datetime import datetime
 
-class LauchesSort:
-    def __init__(self,  lauches):
-        self.lauches = lauches
+class LaunchesSort:
+    def __init__(self,  launches):
+        self.launches = launches
 
-    def print_prefiouse_lauches(self):
+    def print_prefiouse_launches(self):
         print("Actual date: " + str(datetime.utcnow())[:10])
         number_of_elements = 1
-        print(">>> previouse lauches: ")
-        for lauch in self.lauches:
+        print(">>> previouse launches: ")
+        for lauch in self.launches:
             if int(lauch.date_utc.replace("-", "", 2)) <= int(str(datetime.utcnow())[:10].replace("-", "", 2)):
                 print("\n{}: ".format(number_of_elements))
                 lauch.lauch_print_data()
                 number_of_elements += 1
 
-    def print_future_lauches(self):
+    def print_future_launches(self):
         print("Actual date: " + str(datetime.utcnow())[:10])
         number_of_elements = 1
-        print(">>> future lauches: ")
-        for lauch in self.lauches:
+        print(">>> future launches: ")
+        for lauch in self.launches:
             if int(lauch.date_utc.replace("-", "", 2)) >= int(str(datetime.utcnow())[:10].replace("-", "", 2)):
                 print("\n{}: ".format(number_of_elements))
                 lauch.lauch_print_short_data()
                 number_of_elements += 1
 
-class Lauch:
+class Launch:
     def __init__(self, fairings, links, static_fire_date_utc, rocket, success, details, crew, capsules,
                  payloads, failures, flight_number, name, date_utc, cores, id):
         self.fairings = fairings
@@ -44,7 +44,7 @@ class Lauch:
         self.date_utc = date_utc[:10] #up to: YYYY-MM-DD
         self.cores = cores
         self.id = id
-    def lauch_print_all_data(self):
+    def launch_print_all_data(self):
         print("rocket: {}".format(self.rocket))
         print("success: {}".format(self.success))
         print("details: {}".format(self.details))
@@ -57,7 +57,7 @@ class Lauch:
         print("cores: {}".format(self.cores))
         print("date_utc: {}".format(self.date_utc))
 
-    def lauch_print_data(self):
+    def launch_print_data(self):
         print("success: {}".format(self.success))
         print("details: {}".format(self.details))
         if len(self.crew) > 0:
@@ -68,16 +68,17 @@ class Lauch:
         print("name: {}".format(self.name))
         print("date_utc: {}".format(self.date_utc))
 
-    def lauch_print_short_data(self):
+    def launch_print_short_data(self):
         if len(self.crew) > 0:
             print("crew: {}".format(len(self.crew)))
         print("flight_number: {}".format(self.flight_number))
         print("name: {}".format(self.name))
         print("date_utc: {}".format(self.date_utc))
 
-class Lauches:
-    def __init__(self, request_api_address, lauch = Lauch):
-        self.lauches = []
+
+class Launches:
+    def __init__(self, request_api_address, launch = Launch):
+        self.launches = []
         r = requests.get(request_api_address)
         try:
             spacex_data = r.json()
@@ -85,7 +86,7 @@ class Lauches:
             print("wrong format")
         else:
             for element in spacex_data:
-                self.lauches.append(lauch(element["fairings"], element["links"], element["static_fire_date_utc"],
+                self.launches.append(launch(element["fairings"], element["links"], element["static_fire_date_utc"],
                                              element["rocket"], element["success"], element["details"],
                                           element["crew"], element["capsules"], element["payloads"],
                                           element["failures"], element["flight_number"], element["name"],

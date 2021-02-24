@@ -1,16 +1,16 @@
 '''
 version 1.2
 author: a5892731
-date: 2021-02-23
+date: 2021-02-24
 '''
 
-from system.menu import Menu, clear_screen
-#from system_v2.menu import Menu, clear_screen
+#from system.menu import Menu, clear_screen
+from system_v2.menu import Menu, clear_screen
 from system.user_selection import UserStateSelection
 from system.system_states import booster_status_state, capsule_status_state, booster_serial_state, \
     capsule_serial_state, missions_previouse, missions_future
 from system.vehicles import Vehicles
-from system.lauches import Lauches
+from system.lauches import Launches
 
 if __name__ == "__main__":
 
@@ -29,49 +29,55 @@ if __name__ == "__main__":
                 [BOOSTERS_STATUS_DICT,CAPSULES_STATUS_DICT, {}]
                 ]
 
+    API_ADDRESS_DICT = {
+                        "BOOSTERS": "https://api.spacexdata.com/v4/cores",
+                        "CAPSULES": "https://api.spacexdata.com/v4/capsules",
+                        "MISSIONS": "https://api.spacexdata.com/v4/launches"
+                        }
+
     rockets = []
     capsules = []
     lauches = []
     state = 0
 
     while True:
-        Menu(state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT)
-        #menu = Menu(state, MENU_DICT)
-        #menu.drow_menu()
+        #Menu(state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT)
+        menu = Menu(state, MENU_DICT)
+        menu.drow_menu()
 
         if state >= 111 and state < 118:
 
             if rockets == []:
-                    rockets = Vehicles("https://api.spacexdata.com/v4/cores").vehicles
+                    rockets = Vehicles(API_ADDRESS_DICT["BOOSTERS"]).vehicles
                     print(">Data received")
             booster_status_state(state, rockets, BOOSTERS_STATUS_DICT)
 
         elif state == 12:
             if rockets == []:
-                    rockets = Vehicles("https://api.spacexdata.com/v4/cores").vehicles
+                    rockets = Vehicles(API_ADDRESS_DICT["BOOSTERS"]).vehicles
                     print(">Data received")
             booster_serial_state(state, rockets, BOOSTERS_STATUS_DICT)
 
         elif state >= 211 and state < 217:
             if capsules == []:
-                    capsules = Vehicles("https://api.spacexdata.com/v4/capsules").vehicles
+                    capsules = Vehicles(API_ADDRESS_DICT["CAPSULES"]).vehicles
             capsule_status_state(state, capsules, CAPSULES_STATUS_DICT)
 
         elif state == 22:
             if capsules == []:
-                    capsules = Vehicles("https://api.spacexdata.com/v4/capsules").vehicles
+                    capsules = Vehicles(API_ADDRESS_DICT["CAPSULES"]).vehicles
                     print(">Data received")
             capsule_serial_state(state, capsules, CAPSULES_STATUS_DICT)
 
         elif state == 31:
             if lauches == []:
-                    lauches = Lauches("https://api.spacexdata.com/v4/launches").lauches
+                    lauches = Lauches(API_ADDRESS_DICT["MISSIONS"]).lauches
                     print(">Data received")
             missions_previouse(lauches)
 
         elif state == 32:
             if lauches == []:
-                    lauches = Lauches("https://api.spacexdata.com/v4/launches").lauches
+                    lauches = Lauches(API_ADDRESS_DICT["MISSIONS"]).lauches
                     print(">Data received")
             missions_future(lauches)
 

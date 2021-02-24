@@ -1,3 +1,8 @@
+'''
+menu v 1.0  - old version: not in use (file saved)
+'''
+
+
 import platform    # For getting the operating system name
 import subprocess  # For executing a shell command
 import os

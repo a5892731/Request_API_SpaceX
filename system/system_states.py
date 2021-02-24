@@ -1,6 +1,6 @@
 from system.vehicles import VehicleSort
 from system.user_selection import UserSerialSelection
-from system.lauches import LauchesSort
+from system.lauches import LaunchesSort
 
 def booster_status_state(state, vehicles, STATUS_DICT):
     boosters = VehicleSort(state, vehicles, STATUS_DICT)
@@ -22,10 +22,10 @@ def capsule_serial_state(state, vehicles, STATUS_DICT):
     capsule = VehicleSort(state, vehicles, STATUS_DICT)
     capsule.print_vehicle_by_serial(serial)
 
-def missions_future(lauches):
-    missions = LauchesSort(lauches)
-    missions.print_future_lauches()
+def missions_future(launches):
+    missions = LaunchesSort(launches)
+    missions.print_future_launches()
 
-def missions_previouse(lauches):
-    missions = LauchesSort(lauches)
-    missions.print_prefiouse_lauches()
+def missions_previouse(launches):
+    missions = LaunchesSort(launches)
+    missions.print_prefiouse_launches()
