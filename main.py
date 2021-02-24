@@ -41,9 +41,11 @@ if __name__ == "__main__":
     launches = []
     state = 0
 
+    menu = Menu(MENU_DICT)
     while True:
         #Menu(state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT)
-        menu = Menu(state, MENU_DICT)
+
+        menu.cover_menu_by_state(state)
         menu.drow_menu()
 
         if state >= 111 and state < 118:

@@ -12,7 +12,7 @@ from terminaltables import AsciiTable, SingleTable, DoubleTable
 
 class Menu:
 
-    def __init__(self, status, MENU_DICT):
+    def __init__(self, MENU_DICT):
         '''
             self.MENU_DICT = [
                             {1: "BOOSTERS", 2: "CAPSULES", 3: "MISSIONS"},
@@ -26,32 +26,26 @@ class Menu:
         '''
 
         self.MENU_DICT = MENU_DICT
-        self.status = status
         self.TABLE_DATA = []
         self.table = [
                       ["", "", ""],
                       ["", "", ""]
                      ]
 
+        self.create_menu_table()
+
+    def create_menu_table(self):
         for element in self.MENU_DICT:
             if isinstance(element, dict):
                 self.TABLE_DATA.append(self.create_row_from_dict(element))
             elif isinstance(element, list):
                 self.TABLE_DATA.append(self.create_row_from_list(element))
 
-        self.cover_menu_by_status()
-
     def create_row_from_dict(self, dict):
         row = []
         for key in dict:
             row.append("{}: {}".format(key, dict[key]))
         return row
-
-    def create_column_from_dict(self, dict):
-        column = ""
-        for key in dict:
-            column += str(key) + ": " + str(dict[key]) + "\n"
-        return column
 
     def create_row_from_list(self, list):
         row = []
@@ -61,6 +55,12 @@ class Menu:
             row.append(column_in_row.rstrip("\n"))
         return row
 
+    def create_column_from_dict(self, dict):
+        column = ""
+        for key in dict:
+            column += str(key) + ": " + str(dict[key]) + "\n"
+        return column
+
     def drow_menu(self):
         #menu = AsciiTable(self.table)
         #menu = SingleTable(self.table)
@@ -68,24 +68,26 @@ class Menu:
 
         print(menu.table)
 
-        #print(self.TABLE_DATA[0][1])
+    def cover_menu_by_state(self, state):
 
-    def cover_menu_by_status(self):
+        self.table = [
+                      ["", "", ""],
+                      ["", "", ""]
+                     ]
 
         self.table[0] = self.TABLE_DATA[0]
 
-        if self.status == 1 or (self.status > 100 and self.status < 120):
+        if state == 1 or (state > 100 and state < 120):
             self.table[1][0] = self.TABLE_DATA[1][0]
-        elif self.status == 2 or (self.status > 200 and self.status < 220) :
+        elif state == 2 or (state > 200 and state < 220) :
             self.table[1][1] = self.TABLE_DATA[1][1]
-        elif self.status == 3:
+        elif state == 3:
             self.table[1][2] = self.TABLE_DATA[1][2]
 
-        if self.status == 11:
+        if state == 11:
             self.table[1][0] = self.TABLE_DATA[2][0]
-        elif self.status == 21:
+        elif state == 21:
             self.table[1][1] = self.TABLE_DATA[2][1]
-
 
 
 def clear_screen():
