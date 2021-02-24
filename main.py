@@ -4,14 +4,17 @@ author: a5892731
 date: 2021-02-24
 '''
 
+
 #from system.menu import Menu, clear_screen
-from system_v2.menu import Menu, SmartMenu, clear_screen
 
 from system.user_selection import UserStateSelection
 from system.system_states import booster_status_state, capsule_status_state, booster_serial_state, \
     capsule_serial_state, missions_previouse, missions_future
 from system.vehicles import Vehicles
 from system.lauches import Launches
+
+from system_v2.menu import Menu, SmartMenu, clear_screen
+from system_v2.spacex_data_container import SpacexObjects, ObjectsSort
 
 if __name__ == "__main__":
 
@@ -30,6 +33,23 @@ if __name__ == "__main__":
                 [BOOSTERS_STATUS_DICT,CAPSULES_STATUS_DICT, {}]
                 ]
 
+    BOOSTERS_OBJECT_DICTIONARY = {
+                            "block": "", "reuse_count": "", "last_update": "", "launches": "",
+                             "serial": "", "id": "", "status": "",
+                         }
+
+    CAPSULES_OBJECT_DICTIONARY = {
+                            "type": "", "reuse_count": "", "last_update": "", "launches": "",
+                             "serial": "", "id": "", "status": "",
+                         }
+
+    LAUNCHES_OBJECT_DICTIONARY = {
+                            "fairings": "", "links": "", "static_fire_date_utc": "", "rocket": "",
+                             "success": "", "details": "", "crew": "", "capsules": "", "payloads": "",
+                             "failures": "", "flight_number": "", "name": "", "date_utc": "", "cores": "",
+                             "id": "",
+                                }
+
     API_ADDRESS_DICT = {
                         "BOOSTERS": "https://api.spacexdata.com/v4/cores",
                         "CAPSULES": "https://api.spacexdata.com/v4/capsules",
@@ -42,7 +62,12 @@ if __name__ == "__main__":
     state = 0
 
 #---------------------------------------------------------------------------------------
+    def request_data(data_list, API_ADDRESS, OBJECTS_DICT):
 
+        if data_list == []:
+            data_list = SpacexObjects(API_ADDRESS, OBJECTS_DICT).objects
+            print(">Data received")
+        return data_list
 
 #--------------------------------------------------------------------------------------- <<<< MAIN MENU
 
@@ -55,10 +80,18 @@ if __name__ == "__main__":
 
         if state >= 111 and state < 118:
 
-            if rockets == []:
-                    rockets = Vehicles(API_ADDRESS_DICT["BOOSTERS"]).vehicles
-                    print(">Data received")
-            booster_status_state(state, rockets, BOOSTERS_STATUS_DICT)
+            rockets = request_data(rockets, API_ADDRESS_DICT["BOOSTERS"], BOOSTERS_OBJECT_DICTIONARY)
+
+            sorted_rockets = ObjectsSort(rockets)
+            sorted_rockets.print_objects_by_status("active", {
+                "block": "", "reuse_count": "",
+                "serial": "", })
+
+            #if rockets == []:
+            #     rockets = Vehicles(API_ADDRESS_DICT["BOOSTERS"]).vehicles
+            #      print(">Data received")
+
+            #booster_status_state(state, rockets, BOOSTERS_STATUS_DICT)
 
         elif state == 12:
             if rockets == []:
