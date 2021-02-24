@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     rockets = []
     capsules = []
-    lauches = []
+    launches = []
     state = 0
 
     while True:
@@ -71,16 +71,16 @@ if __name__ == "__main__":
             capsule_serial_state(state, capsules, CAPSULES_STATUS_DICT)
 
         elif state == 31:
-            if lauches == []:
-                    lauches = Lauches(API_ADDRESS_DICT["MISSIONS"]).lauches
+            if launches == []:
+                    launches = Launches(API_ADDRESS_DICT["MISSIONS"]).launches
                     print(">Data received")
-            missions_previouse(lauches)
+            missions_previouse(launches)
 
         elif state == 32:
-            if lauches == []:
-                    lauches = Lauches(API_ADDRESS_DICT["MISSIONS"]).lauches
+            if launches == []:
+                    launches = Launches(API_ADDRESS_DICT["MISSIONS"]).launches
                     print(">Data received")
-            missions_future(lauches)
+            missions_future(launches)
 
         user = UserStateSelection(state)
         state = user.return_state()

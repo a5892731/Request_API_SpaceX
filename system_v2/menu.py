@@ -14,9 +14,10 @@ class Menu:
 
     def __init__(self, status, MENU_DICT):
         '''
-            self.MENU_DICT = [{1: "BOOSTERS", 2: "CAPSULES", 3: "MISSIONS"},
-                          [{11: "STATUS", 12: "SERIAL"}, {21: "STATUS", 22: "SERIAL"}, {31: "PREVIOUSE", 32: "FUTURE"}],
-                          [{111: "active", 112: "inactive", 113: "unknown",
+            self.MENU_DICT = [
+                            {1: "BOOSTERS", 2: "CAPSULES", 3: "MISSIONS"},
+                            [{11: "STATUS", 12: "SERIAL"}, {21: "STATUS", 22: "SERIAL"}, {31: "PREVIOUSE", 32: "FUTURE"}],
+                            [{111: "active", 112: "inactive", 113: "unknown",
                             114: "inactive", 115: "expended", 116: "lost"},
                            {211: "active", 212: "inactive", 213: "unknown",
                             214: "inactive", 215: "expended", 216: "lost"},
@@ -73,9 +74,9 @@ class Menu:
 
         self.table[0] = self.TABLE_DATA[0]
 
-        if self.status == 1:
+        if self.status == 1 or (self.status > 100 and self.status < 120):
             self.table[1][0] = self.TABLE_DATA[1][0]
-        elif self.status == 2:
+        elif self.status == 2 or (self.status > 200 and self.status < 220) :
             self.table[1][1] = self.TABLE_DATA[1][1]
         elif self.status == 3:
             self.table[1][2] = self.TABLE_DATA[1][2]

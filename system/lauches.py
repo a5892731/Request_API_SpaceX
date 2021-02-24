@@ -1,3 +1,7 @@
+"""
+version 1.1
+"""
+
 import json
 import requests
 from datetime import datetime
@@ -10,20 +14,20 @@ class LaunchesSort:
         print("Actual date: " + str(datetime.utcnow())[:10])
         number_of_elements = 1
         print(">>> previouse launches: ")
-        for lauch in self.launches:
-            if int(lauch.date_utc.replace("-", "", 2)) <= int(str(datetime.utcnow())[:10].replace("-", "", 2)):
+        for launch in self.launches:
+            if int(launch.date_utc.replace("-", "", 2)) <= int(str(datetime.utcnow())[:10].replace("-", "", 2)):
                 print("\n{}: ".format(number_of_elements))
-                lauch.lauch_print_data()
+                launch.launch_print_data()
                 number_of_elements += 1
 
     def print_future_launches(self):
         print("Actual date: " + str(datetime.utcnow())[:10])
         number_of_elements = 1
         print(">>> future launches: ")
-        for lauch in self.launches:
-            if int(lauch.date_utc.replace("-", "", 2)) >= int(str(datetime.utcnow())[:10].replace("-", "", 2)):
+        for launch in self.launches:
+            if int(launch.date_utc.replace("-", "", 2)) >= int(str(datetime.utcnow())[:10].replace("-", "", 2)):
                 print("\n{}: ".format(number_of_elements))
-                lauch.lauch_print_short_data()
+                launch.launch_print_short_data()
                 number_of_elements += 1
 
 class Launch:
