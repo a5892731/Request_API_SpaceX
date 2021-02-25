@@ -27,7 +27,6 @@ def booster_serial_state(state, vehicles, STATUS_DICT, API_ADDRESS):
 
     user = UserSerialSelection()
     serial = user.return_serial()
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
     vehicles_objects = SpacexObjects(API_ADDRESS, STATUS_DICT, vehicles)
     vehicles = vehicles_objects.objects
