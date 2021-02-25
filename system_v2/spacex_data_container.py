@@ -1,5 +1,5 @@
 """
-version 1.1
+version 1.2
 
 this is a main data class of this program.
 """
@@ -20,15 +20,15 @@ class SpacexObject:
             print("{}: {}".format(key, self.OBJECT_DICT[key]))
 
 class SpacexObjects:
-    def __init__(self, request_api_address, OBJECT_DICT, objects, object = SpacexObject):
+    def __init__(self, REQUEST_API_ADDRESS, OBJECT_DICT, objects, object = SpacexObject):
         self.OBJECT_DICT = OBJECT_DICT
         self.objects = objects
 
         if self.objects == []:
-            self.request_data(request_api_address, object)
+            self.request_data(REQUEST_API_ADDRESS, object)
 
-    def request_data(self, request_api_address, object):
-        r = requests.get(request_api_address)
+    def request_data(self, REQUEST_API_ADDRESS, object):
+        r = requests.get(REQUEST_API_ADDRESS)
         try:
             spacex_data = r.json()
         except json.decoder.JSONDecodeError:
@@ -56,7 +56,7 @@ class ObjectsSort:
                 object.printing_data(objects)
                 number_of_elements += 1
 
-    def print_objects_by_previouse_time(self, keys):
+    def print_objects_by_previouse_time(self, objects):
         print("Actual date: " + str(datetime.utcnow())[:10])
         number_of_elements = 1
         print(">>> previouse launches: ")
@@ -65,10 +65,10 @@ class ObjectsSort:
                     int(str(datetime.utcnow())[:10].replace("-", "", 2)):
 
                 print("\n{}: ".format(number_of_elements))
-                object.printing_data(keys)
+                object.printing_data(objects)
                 number_of_elements += 1
 
-    def print_objects_by_future_time(self, keys):
+    def print_objects_by_future_time(self, objects):
         print("Actual date: " + str(datetime.utcnow())[:10])
         number_of_elements = 1
         print(">>> future launches: ")
@@ -77,7 +77,7 @@ class ObjectsSort:
                     int(str(datetime.utcnow())[:10].replace("-", "", 2)):
 
                 print("\n{}: ".format(number_of_elements))
-                object.printing_data(keys)
+                object.printing_data(objects)
                 number_of_elements += 1
 
 
