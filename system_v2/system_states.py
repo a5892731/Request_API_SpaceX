@@ -1,72 +1,88 @@
 '''
 version 1.2
 
-is a state machine file
+this is a state machine file
 '''
 
 
-from system.vehicles import VehicleSort
-from system.user_selection import UserSerialSelection
-from system.lauches import LaunchesSort
 
+from system_v2.user_selection import UserSerialSelection
 from system_v2.spacex_data_container import SpacexObjects, ObjectsSort
 
 
 
-BOOSTERS_OBJECT_DICTIONARY = {
-    "block": "", "reuse_count": "", "last_update": "", "launches": "",
-    "serial": "", "id": "", "status": "",
-}
 
-CAPSULES_OBJECT_DICTIONARY = {
-    "type": "", "reuse_count": "", "last_update": "", "launches": "",
-    "serial": "", "id": "", "status": "",
-}
+def booster_status_state(state, vehicles, OBJECT_DICT, STATUS_DICT, API_ADDRESS):
 
-LAUNCHES_OBJECT_DICTIONARY = {
-    "fairings": "", "links": "", "static_fire_date_utc": "", "rocket": "",
-    "success": "", "details": "", "crew": "", "capsules": "", "payloads": "",
-    "failures": "", "flight_number": "", "name": "", "date_utc": "", "cores": "",
-    "id": "",
-}
+    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_DICT, vehicles)
+    vehicles = vehicles_objects.objects
 
-API_ADDRESS_DICT = {
-    "BOOSTERS": "https://api.spacexdata.com/v4/cores",
-    "CAPSULES": "https://api.spacexdata.com/v4/capsules",
-    "MISSIONS": "https://api.spacexdata.com/v4/launches"
-}
+    sorted_vehicles = ObjectsSort(vehicles)
+    sorted_vehicles.print_objects_by_value_of_key(STATUS_DICT[state], "status",
+                                                  {"block": "", "reuse_count": "", "serial": "", })
 
+    return vehicles
 
-def request_data(data_list, API_ADDRESS, OBJECTS_DICT):
-    if data_list == []:
-        data_list = SpacexObjects(API_ADDRESS, OBJECTS_DICT).objects
-        print(">Data received")
-    return data_list
+def booster_serial_state(state, vehicles, STATUS_DICT, API_ADDRESS):
 
-def booster_status_state(state, vehicles, STATUS_DICT):
-    boosters = VehicleSort(state, vehicles, STATUS_DICT)
-    boosters.print_vehicles_by_status()
-
-def booster_serial_state(state, vehicles, STATUS_DICT):
     user = UserSerialSelection()
     serial = user.return_serial()
-    boosters = VehicleSort(state, vehicles, STATUS_DICT)
-    boosters.print_vehicle_by_serial(serial)
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-def capsule_status_state(state, vehicles, STATUS_DICT):
-    capsules = VehicleSort(state, vehicles, STATUS_DICT)
-    capsules.print_vehicles_by_status()
+    vehicles_objects = SpacexObjects(API_ADDRESS, STATUS_DICT, vehicles)
+    vehicles = vehicles_objects.objects
 
-def capsule_serial_state(state, vehicles, STATUS_DICT):
+    sorted_vehicles = ObjectsSort(vehicles)
+    sorted_vehicles.print_objects_by_value_of_key(serial, "serial", STATUS_DICT)
+
+    return vehicles
+
+def capsule_status_state(state, vehicles,OBJECT_DICT, STATUS_DICT, API_ADDRESS):
+
+    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_DICT, vehicles)
+    vehicles = vehicles_objects.objects
+
+    sorted_vehicles = ObjectsSort(vehicles)
+    sorted_vehicles.print_objects_by_value_of_key(STATUS_DICT[state], "status",
+                                                  {"type": "", "reuse_count": "", "serial": "", })
+
+    return vehicles
+
+def capsule_serial_state(state, vehicles, STATUS_DICT, API_ADDRESS):
     user = UserSerialSelection()
     serial = user.return_serial()
-    capsule = VehicleSort(state, vehicles, STATUS_DICT)
-    capsule.print_vehicle_by_serial(serial)
 
-def missions_future(launches):
-    missions = LaunchesSort(launches)
-    missions.print_future_launches()
+    vehicles_objects = SpacexObjects(API_ADDRESS, STATUS_DICT, vehicles)
+    vehicles = vehicles_objects.objects
 
-def missions_previouse(launches):
-    missions = LaunchesSort(launches)
-    missions.print_prefiouse_launches()
+    sorted_vehicles = ObjectsSort(vehicles)
+    sorted_vehicles.print_objects_by_value_of_key(serial, "serial", STATUS_DICT)
+
+    return vehicles
+
+def missions_future(OBJECT_DICT, API_ADDRESS, objects):
+
+    so = SpacexObjects(API_ADDRESS, OBJECT_DICT, objects)
+    objects = so.objects
+
+    sorted_rockets = ObjectsSort(objects)
+    sorted_rockets.print_objects_by_future_time({
+                                                     "details": "", "crew": "",
+                                                     "payloads": "",
+                                                     "name": "", "date_utc": "",
+                                                 })
+    return objects
+
+
+
+def missions_previouse(OBJECT_DICT, API_ADDRESS, objects):
+
+    so = SpacexObjects(API_ADDRESS, OBJECT_DICT, objects)
+    objects = so.objects
+
+    sorted_rockets = ObjectsSort(objects)
+    sorted_rockets.print_objects_by_previouse_time({
+                                                "success": "",
+                                                "name": "", "date_utc": "",
+                                                 })
+    return objects

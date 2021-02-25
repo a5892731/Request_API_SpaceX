@@ -5,16 +5,12 @@ date: 2021-02-24
 '''
 
 
-#from system.menu import Menu, clear_screen
 
-from system.user_selection import UserStateSelection
-from system.system_states import booster_status_state, capsule_status_state, booster_serial_state, \
-    capsule_serial_state, missions_previouse, missions_future
-from system.vehicles import Vehicles
-from system.lauches import Launches
-
+from system_v2.user_selection import UserStateSelection
+from system_v2.system_states import booster_status_state, booster_serial_state, capsule_status_state, \
+                                    capsule_serial_state, missions_future, missions_previouse
 from system_v2.menu import Menu, SmartMenu, clear_screen
-from system_v2.spacex_data_container import SpacexObjects, ObjectsSort
+
 
 if __name__ == "__main__":
 
@@ -56,20 +52,16 @@ if __name__ == "__main__":
                         "MISSIONS": "https://api.spacexdata.com/v4/launches"
                         }
 
-    rockets = []
+    boosters = []
     capsules = []
     launches = []
     state = 0
 
 #---------------------------------------------------------------------------------------
-    def request_data(data_list, API_ADDRESS, OBJECTS_DICT):
-
-        if data_list == []:
-            data_list = SpacexObjects(API_ADDRESS, OBJECTS_DICT).objects
-            print(">Data received")
-        return data_list
 
 #--------------------------------------------------------------------------------------- <<<< MAIN MENU
+
+if __name__ == "__main__":
 
     menu = SmartMenu(MENU_DICT)
 
@@ -80,47 +72,32 @@ if __name__ == "__main__":
 
         if state >= 111 and state < 118:
 
-            rockets = request_data(rockets, API_ADDRESS_DICT["BOOSTERS"], BOOSTERS_OBJECT_DICTIONARY)
-
-            sorted_rockets = ObjectsSort(rockets)
-            sorted_rockets.print_objects_by_status("active", {
-                "block": "", "reuse_count": "",
-                "serial": "", })
-
-            #if rockets == []:
-            #     rockets = Vehicles(API_ADDRESS_DICT["BOOSTERS"]).vehicles
-            #      print(">Data received")
-
-            #booster_status_state(state, rockets, BOOSTERS_STATUS_DICT)
+            boosters = booster_status_state(state, boosters, BOOSTERS_OBJECT_DICTIONARY, BOOSTERS_STATUS_DICT,
+                                            API_ADDRESS_DICT["BOOSTERS"])
 
         elif state == 12:
-            if rockets == []:
-                    rockets = Vehicles(API_ADDRESS_DICT["BOOSTERS"]).vehicles
-                    print(">Data received")
-            booster_serial_state(state, rockets, BOOSTERS_STATUS_DICT)
+
+            boosters = booster_serial_state(state, boosters, BOOSTERS_OBJECT_DICTIONARY, API_ADDRESS_DICT["BOOSTERS"])
 
         elif state >= 211 and state < 217:
-            if capsules == []:
-                    capsules = Vehicles(API_ADDRESS_DICT["CAPSULES"]).vehicles
-            capsule_status_state(state, capsules, CAPSULES_STATUS_DICT)
+
+            capsules = capsule_status_state(state, capsules, CAPSULES_OBJECT_DICTIONARY, CAPSULES_STATUS_DICT,
+                                            API_ADDRESS_DICT["CAPSULES"])
 
         elif state == 22:
-            if capsules == []:
-                    capsules = Vehicles(API_ADDRESS_DICT["CAPSULES"]).vehicles
-                    print(">Data received")
-            capsule_serial_state(state, capsules, CAPSULES_STATUS_DICT)
+
+            capsules = capsule_serial_state(state, capsules, CAPSULES_OBJECT_DICTIONARY, API_ADDRESS_DICT["CAPSULES"])
+
 
         elif state == 31:
-            if launches == []:
-                    launches = Launches(API_ADDRESS_DICT["MISSIONS"]).launches
-                    print(">Data received")
-            missions_previouse(launches)
+
+            launches = missions_previouse(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_DICT["MISSIONS"], launches)
 
         elif state == 32:
-            if launches == []:
-                    launches = Launches(API_ADDRESS_DICT["MISSIONS"]).launches
-                    print(">Data received")
-            missions_future(launches)
+
+            launches = missions_future(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_DICT["MISSIONS"], launches)
+
+
 
         user = UserStateSelection(state)
         state = user.return_state()

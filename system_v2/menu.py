@@ -122,5 +122,6 @@ if __name__ == "__main__": # for tests
                 [BOOSTERS_STATUS_DICT,CAPSULES_STATUS_DICT, {}]
                 ]
 
-    m = Menu(1, MENU_DICT)
+    m = SmartMenu(MENU_DICT)
+    m.cover_menu_by_state(1)
     m.drow_menu()

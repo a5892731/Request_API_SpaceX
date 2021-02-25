@@ -9,6 +9,7 @@ import json
 import requests
 from datetime import datetime
 
+
 class SpacexObject:
 
     def __init__(self, OBJECT_DICT):
@@ -19,10 +20,14 @@ class SpacexObject:
             print("{}: {}".format(key, self.OBJECT_DICT[key]))
 
 class SpacexObjects:
-    def __init__(self, request_api_address, OBJECT_DICT, object = SpacexObject):
+    def __init__(self, request_api_address, OBJECT_DICT, objects, object = SpacexObject):
         self.OBJECT_DICT = OBJECT_DICT
-        self.object = object
-        self.objects = []
+        self.objects = objects
+
+        if self.objects == []:
+            self.request_data(request_api_address, object)
+
+    def request_data(self, request_api_address, object):
         r = requests.get(request_api_address)
         try:
             spacex_data = r.json()
@@ -30,7 +35,7 @@ class SpacexObjects:
             print("wrong format")
         else:
             for element in spacex_data:
-                self.objects.append(self.object(self.dict_generator(element)))
+                self.objects.append(object(self.dict_generator(element)))
 
     def dict_generator(self, element):
         dict = {}
@@ -38,29 +43,18 @@ class SpacexObjects:
             dict[key] = element[key]
         return dict
 
-
 class ObjectsSort:
     def __init__(self, objects):
         self.objects = objects
 
-    def print_objects_by_status(self, status, keys):
+    def print_objects_by_value_of_key(self, value, key, objects):
         number_of_elements = 1
-        print("Sort by status: {}".format(status))
+        print("Sort by {}: {}".format(key, value))
         for object in self.objects:
-            if object.OBJECT_DICT["status"] == status:
+            if object.OBJECT_DICT[key] == value:
                 print("\n{}: ".format(number_of_elements))
-                object.printing_data(keys)
+                object.printing_data(objects)
                 number_of_elements += 1
-
-    def print_objects_by_serial(self, serial, keys):
-        object_in_list = False
-        for object in self.objects:
-            if object.OBJECT_DICT["serial"] == serial:
-                object.printing_data(keys)
-                object_in_list = True
-        if object_in_list == False:
-            print(">>> wrong serial number")
-
 
     def print_objects_by_previouse_time(self, keys):
         print("Actual date: " + str(datetime.utcnow())[:10])
@@ -87,6 +81,7 @@ class ObjectsSort:
                 number_of_elements += 1
 
 
+#--------------------------------TESTS-------------------------------------------------------------------------------
 
 if __name__ == "__main__": # test
 
@@ -117,17 +112,26 @@ if __name__ == "__main__": # test
     objects = []
 
 
-    objects = SpacexObjects(API_ADDRESS_DICT["MISSIONS"], LAUNCHES_OBJECT_DICTIONARY).objects
-    sorted_objests = ObjectsSort(objects)
-    sorted_objests.print_objects_by_future_time({
-                             "details": "", "crew": "", "capsules": "", "payloads": "",
-                             "flight_number": "", "name": "", "date_utc": "",
-                         })
 
-    '''
-        objects = SpacexObjects(API_ADDRESS_DICT["BOOSTERS"], BOOSTERS_OBJECT_DICTIONARY).objects
-        sorted_objests = ObjectsSort(objects)
-        sorted_objests.print_objects_by_status("active",{
-                                "block": "", "reuse_count": "",
-                                 "serial": "",})
-    '''
+    so = SpacexObjects(API_ADDRESS_DICT["MISSIONS"], LAUNCHES_OBJECT_DICTIONARY, objects)
+    objects = so.objects
+
+    sorted_rockets = ObjectsSort(objects)
+    sorted_rockets.print_objects_by_future_time({
+                                                     "success": "", "details": "", "crew": "",
+                                                     "payloads": "",
+                                                     "name": "", "date_utc": "",
+                                                 })
+
+
+
+
+
+'''
+    so = SpacexObjects(API_ADDRESS_DICT["BOOSTERS"], BOOSTERS_OBJECT_DICTIONARY, objects)
+    objects = so.objects
+
+    sorted_rockets = ObjectsSort(objects)
+    sorted_rockets.print_objects_by_value_of_key("active", "status",
+                                                 {"block": "", "reuse_count": "", "serial": "", })
+'''
