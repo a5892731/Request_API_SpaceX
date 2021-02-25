@@ -1,5 +1,5 @@
 '''
-menu v 2.0
+menu v 2.1
 '''
 
 
@@ -65,12 +65,9 @@ class Menu:
 
 class SmartMenu(Menu):
 
-    def cover_menu_by_state(self, state):
+    def cover_menu_by_state(self, state, table_size = [3, 2]):
 
-        self.table = [
-                      ["", "", ""],
-                      ["", "", ""]
-                     ]
+        self.create_templane(table_size)
 
         self.table[0] = self.TABLE_DATA[0]
 
@@ -91,6 +88,15 @@ class SmartMenu(Menu):
     def drow_menu(self):
         menu = DoubleTable(self.table)
         print(menu.table)
+
+    def create_templane(self, table_size):
+        self.table = []
+        column = []
+        for _ in range(table_size[1]):
+            for _ in range(table_size[0]):
+                column.append("")
+            self.table.append(column)
+            column = []
 
 
 def clear_screen():
