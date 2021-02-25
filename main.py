@@ -66,7 +66,6 @@ if __name__ == "__main__":
     menu = SmartMenu(MENU_DICT)
 
     while True:
-        #Menu(state, BOOSTERS_MENU_DICT, BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT)
         menu.cover_menu_by_state(state)
         menu.drow_menu()
 
@@ -88,7 +87,6 @@ if __name__ == "__main__":
 
             capsules = capsule_serial_state(state, capsules, CAPSULES_OBJECT_DICTIONARY, API_ADDRESS_DICT["CAPSULES"])
 
-
         elif state == 31:
 
             launches = missions_previouse(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_DICT["MISSIONS"], launches)
@@ -96,7 +94,6 @@ if __name__ == "__main__":
         elif state == 32:
 
             launches = missions_future(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_DICT["MISSIONS"], launches)
-
 
 
         user = UserStateSelection(state)
