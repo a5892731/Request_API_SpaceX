@@ -1,9 +1,9 @@
 BOOSTERS: https://api.spacexdata.com/v4/cores
 CAPSULES: https://api.spacexdata.com/v4/capsules
-MISSIONS: https://api.spacexdata.com/v4/launches
+LAUNCHES: https://api.spacexdata.com/v4/launches
 LANDPADS: https://api.spacexdata.com/v4/landpads
 LAUNCHPADS: https://api.spacexdata.com/v4/launchpads
-MISSIONS_DATA: https://api.spacexdata.com/v3/missions
+MISSIONS: https://api.spacexdata.com/v3/missions
 PAYLOADS: https://api.spacexdata.com/v4/payloads
 ROCKETS: https://api.spacexdata.com/v4/rockets
 SHIPS: https://api.spacexdata.com/v4/ships

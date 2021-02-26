@@ -14,7 +14,7 @@ from system_v2.read_data_files import DataImport
 
 if __name__ == "__main__":
 
-    HEADING_MENU_DICT = {1: "BOOSTERS", 2: "CAPSULES", 3: "MISSIONS"}
+    HEADING_MENU_DICT = {1: "BOOSTERS", 2: "CAPSULES", 3: "LAUNCHES"}
     BOOSTERS_MENU_DICT = {11 : "STATUS", 12: "SERIAL"}
     BOOSTERS_STATUS_DICT = {111: "active", 112: "inactive", 113: "unknown",
                             114: "inactive", 115: "expended", 116: "lost"}
