@@ -24,7 +24,7 @@ class SpacexObject:
         for key in keys:
             data += str(key) + ": " + str(self.OBJECT_DICT[key]) + "\n"
 
-        data_table_to_print[0][0] = self.prepare_data_to_print(data)
+        data_table_to_print[0][0] = self.prepare_data_to_print(data).rstrip("\n")
 
         table = SingleTable(data_table_to_print, title = str(number))
         print(table.table)

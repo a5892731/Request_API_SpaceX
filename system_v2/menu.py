@@ -59,7 +59,7 @@ class Menu:
     def drow_menu(self):
         #menu = AsciiTable(self.table)
         #menu = SingleTable(self.table)
-        menu = DoubleTable(self.TABLE_DATA)
+        menu = DoubleTable(self.TABLE_DATA, title = " MENU ")
 
         print(menu.table)
 
@@ -86,7 +86,7 @@ class SmartMenu(Menu):
             self.table[1][2] = self.TABLE_DATA[1][2]
 
     def drow_menu(self):
-        menu = DoubleTable(self.table)
+        menu = DoubleTable(self.table, title = " MENU ")
         print(menu.table)
 
     def create_templane(self, table_size):
