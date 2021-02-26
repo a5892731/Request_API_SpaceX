@@ -76,11 +76,11 @@ if __name__ == "__main__":
 
         elif state == 31:
 
-            launches = missions_previouse(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["MISSIONS"], launches)
+            launches = missions_previouse(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
 
         elif state == 32:
 
-            launches = missions_future(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["MISSIONS"], launches)
+            launches = missions_future(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
 
 
         user = UserStateSelection(state)
