@@ -1,5 +1,5 @@
 """
-version 1.2
+file version 1.2
 
 this is a main data class of this program.
 """

@@ -10,7 +10,7 @@ from system_v2.user_selection import UserStateSelection
 from system_v2.system_states import booster_status_state, booster_serial_state, capsule_status_state, \
                                     capsule_serial_state, missions_future, missions_previouse
 from system_v2.menu import Menu, SmartMenu, clear_screen
-
+from system_v2.read_data_files import DataImport
 
 if __name__ == "__main__":
 
@@ -46,11 +46,9 @@ if __name__ == "__main__":
                              "id": "",
                                 }
 
-    API_ADDRESS_DICT = {
-                        "BOOSTERS": "https://api.spacexdata.com/v4/cores",
-                        "CAPSULES": "https://api.spacexdata.com/v4/capsules",
-                        "MISSIONS": "https://api.spacexdata.com/v4/launches"
-                        }
+
+    API_ADDRESS_CALL_DICT = DataImport("API_ADDRESS_DICT.txt", "dict")
+
 
     boosters = []
     capsules = []
@@ -72,28 +70,30 @@ if __name__ == "__main__":
         if state >= 111 and state < 118:
 
             boosters = booster_status_state(state, boosters, BOOSTERS_OBJECT_DICTIONARY, BOOSTERS_STATUS_DICT,
-                                            API_ADDRESS_DICT["BOOSTERS"])
+                                            API_ADDRESS_CALL_DICT()["BOOSTERS"])
 
         elif state == 12:
 
-            boosters = booster_serial_state(state, boosters, BOOSTERS_OBJECT_DICTIONARY, API_ADDRESS_DICT["BOOSTERS"])
+            boosters = booster_serial_state(state, boosters, BOOSTERS_OBJECT_DICTIONARY,
+                                            API_ADDRESS_CALL_DICT()["BOOSTERS"])
 
         elif state >= 211 and state < 217:
 
             capsules = capsule_status_state(state, capsules, CAPSULES_OBJECT_DICTIONARY, CAPSULES_STATUS_DICT,
-                                            API_ADDRESS_DICT["CAPSULES"])
+                                            API_ADDRESS_CALL_DICT()["CAPSULES"])
 
         elif state == 22:
 
-            capsules = capsule_serial_state(state, capsules, CAPSULES_OBJECT_DICTIONARY, API_ADDRESS_DICT["CAPSULES"])
+            capsules = capsule_serial_state(state, capsules, CAPSULES_OBJECT_DICTIONARY,
+                                            API_ADDRESS_CALL_DICT()["CAPSULES"])
 
         elif state == 31:
 
-            launches = missions_previouse(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_DICT["MISSIONS"], launches)
+            launches = missions_previouse(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_CALL_DICT()["MISSIONS"], launches)
 
         elif state == 32:
 
-            launches = missions_future(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_DICT["MISSIONS"], launches)
+            launches = missions_future(LAUNCHES_OBJECT_DICTIONARY, API_ADDRESS_CALL_DICT()["MISSIONS"], launches)
 
 
         user = UserStateSelection(state)
