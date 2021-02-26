@@ -31,15 +31,9 @@ class DataImport:
 
     def open_file(self, FILE_ADDRESS):
 
-       #if __name__ == "__main__":  # for running tests from this file
-            #os.chdir("..")
-
         os.chdir("data_files")
         self.file = open(FILE_ADDRESS, "r")
         os.chdir("..")
-
-       #if __name__ == "__main__":  # for running tests from this file
-            #os.chdir("system_v2")
 
     def read_list(self):
         for line in self.file:
@@ -55,9 +49,12 @@ class DataImport:
 
 if __name__ == "__main__":  # test
 
+    os.chdir("..")
+
     data = DataImport("BOOSTERS_OBJECT_LIST.txt", "list")
     print(data())
 
     data2 = DataImport("API_ADDRESS_DICT.txt", "dict")
     print(data2())
 
+    os.chdir("system_v2")
