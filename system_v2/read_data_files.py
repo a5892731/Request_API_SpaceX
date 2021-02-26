@@ -31,13 +31,15 @@ class DataImport:
 
     def open_file(self, FILE_ADDRESS):
 
-        if __name__ == "__main__":  # for running tests from this file
-            os.chdir("..")
+       #if __name__ == "__main__":  # for running tests from this file
+            #os.chdir("..")
 
         os.chdir("data_files")
         self.file = open(FILE_ADDRESS, "r")
         os.chdir("..")
-        os.chdir("system_v2")
+
+       #if __name__ == "__main__":  # for running tests from this file
+            #os.chdir("system_v2")
 
     def read_list(self):
         for line in self.file:
