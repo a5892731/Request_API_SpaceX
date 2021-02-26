@@ -8,14 +8,14 @@ this is a state machine file
 
 from system_v2.user_selection import UserSerialSelection
 from system_v2.spacex_data_container import SpacexObjects, ObjectsSort
+from system_v2.read_data_files import DataImport
 
 
 
 
+def booster_status_state(state, vehicles, OBJECT_LIST, STATUS_DICT, API_ADDRESS):
 
-def booster_status_state(state, vehicles, OBJECT_DICT, STATUS_DICT, API_ADDRESS):
-
-    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_DICT, vehicles)
+    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_LIST, vehicles)
     vehicles = vehicles_objects.objects
 
     sorted_vehicles = ObjectsSort(vehicles)
@@ -24,22 +24,22 @@ def booster_status_state(state, vehicles, OBJECT_DICT, STATUS_DICT, API_ADDRESS)
 
     return vehicles
 
-def booster_serial_state(state, vehicles, STATUS_DICT, API_ADDRESS):
+def booster_serial_state(state, vehicles, OBJECT_LIST, API_ADDRESS):
 
     user = UserSerialSelection()
     serial = user.return_serial()
 
-    vehicles_objects = SpacexObjects(API_ADDRESS, STATUS_DICT, vehicles)
+    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_LIST, vehicles)
     vehicles = vehicles_objects.objects
 
     sorted_vehicles = ObjectsSort(vehicles)
-    sorted_vehicles.print_objects_by_value_of_key(serial, "serial", STATUS_DICT)
+    sorted_vehicles.print_objects_by_value_of_key(serial, "serial", OBJECT_LIST)
 
     return vehicles
 
-def capsule_status_state(state, vehicles,OBJECT_DICT, STATUS_DICT, API_ADDRESS):
+def capsule_status_state(state, vehicles, OBJECT_LIST, STATUS_DICT, API_ADDRESS):
 
-    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_DICT, vehicles)
+    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_LIST, vehicles)
     vehicles = vehicles_objects.objects
 
     sorted_vehicles = ObjectsSort(vehicles)
@@ -48,21 +48,21 @@ def capsule_status_state(state, vehicles,OBJECT_DICT, STATUS_DICT, API_ADDRESS):
 
     return vehicles
 
-def capsule_serial_state(state, vehicles, STATUS_DICT, API_ADDRESS):
+def capsule_serial_state(state, vehicles, OBJECT_LIST, API_ADDRESS):
     user = UserSerialSelection()
     serial = user.return_serial()
 
-    vehicles_objects = SpacexObjects(API_ADDRESS, STATUS_DICT, vehicles)
+    vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_LIST, vehicles)
     vehicles = vehicles_objects.objects
 
     sorted_vehicles = ObjectsSort(vehicles)
-    sorted_vehicles.print_objects_by_value_of_key(serial, "serial", STATUS_DICT)
+    sorted_vehicles.print_objects_by_value_of_key(serial, "serial", OBJECT_LIST)
 
     return vehicles
 
-def missions_future(OBJECT_DICT, API_ADDRESS, objects):
+def missions_future(OBJECT_LIST, API_ADDRESS, objects):
 
-    so = SpacexObjects(API_ADDRESS, OBJECT_DICT, objects)
+    so = SpacexObjects(API_ADDRESS, OBJECT_LIST, objects)
     objects = so.objects
 
     sorted_rockets = ObjectsSort(objects)
@@ -75,9 +75,9 @@ def missions_future(OBJECT_DICT, API_ADDRESS, objects):
 
 
 
-def missions_previouse(OBJECT_DICT, API_ADDRESS, objects):
+def missions_previouse(OBJECT_LIST, API_ADDRESS, objects):
 
-    so = SpacexObjects(API_ADDRESS, OBJECT_DICT, objects)
+    so = SpacexObjects(API_ADDRESS, OBJECT_LIST, objects)
     objects = so.objects
 
     sorted_rockets = ObjectsSort(objects)

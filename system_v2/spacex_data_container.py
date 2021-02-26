@@ -1,5 +1,5 @@
 """
-file version 1.2
+file version 1.4
 
 this is a main data class of this program.
 """
@@ -8,16 +8,42 @@ this is a main data class of this program.
 import json
 import requests
 from datetime import datetime
+from terminaltables import SingleTable, DoubleTable
 
 
 class SpacexObject:
 
     def __init__(self, OBJECT_DICT):
         self.OBJECT_DICT = OBJECT_DICT
+        self.table_width = 70
 
-    def printing_data(self, keys):
+    def printing_data(self, number, keys):
+        data_table_to_print = [[""]]
+        data = ""
+
         for key in keys:
-            print("{}: {}".format(key, self.OBJECT_DICT[key]))
+            data += str(key) + ": " + str(self.OBJECT_DICT[key]) + "\n"
+
+        data_table_to_print[0][0] = self.prepare_data_to_print(data)
+
+        table = SingleTable(data_table_to_print, title = str(number))
+        print(table.table)
+
+    def prepare_data_to_print(self, data):
+        num_of_signs = 0
+        output = ""
+        for sign in data:
+            num_of_signs += 1
+            output += sign
+            if sign == "\n":
+                if num_of_signs < self.table_width:
+                    output = output.rstrip("\n")
+                    output += (self.table_width - num_of_signs) * " " + " \n"
+                num_of_signs = 0
+            elif num_of_signs >= self.table_width:
+                output += "\n"
+                num_of_signs = 0
+        return output
 
 class SpacexObjects:
     def __init__(self, REQUEST_API_ADDRESS, OBJECT_DICT, objects, object = SpacexObject):
@@ -52,9 +78,9 @@ class ObjectsSort:
         print("Sort by {}: {}".format(key, value))
         for object in self.objects:
             if object.OBJECT_DICT[key] == value:
-                print("\n{}: ".format(number_of_elements))
-                object.printing_data(objects)
+                object.printing_data(number_of_elements, objects)
                 number_of_elements += 1
+
 
     def print_objects_by_previouse_time(self, objects):
         print("Actual date: " + str(datetime.utcnow())[:10])
@@ -63,10 +89,8 @@ class ObjectsSort:
         for object in self.objects:
             if int(object.OBJECT_DICT["date_utc"][:10].replace("-", "", 2)) <= \
                     int(str(datetime.utcnow())[:10].replace("-", "", 2)):
-
-                print("\n{}: ".format(number_of_elements))
-                object.printing_data(objects)
-                number_of_elements += 1
+                    object.printing_data(number_of_elements, objects)
+                    number_of_elements += 1
 
     def print_objects_by_future_time(self, objects):
         print("Actual date: " + str(datetime.utcnow())[:10])
@@ -75,10 +99,12 @@ class ObjectsSort:
         for object in self.objects:
             if int(object.OBJECT_DICT["date_utc"][:10].replace("-", "", 2)) >= \
                     int(str(datetime.utcnow())[:10].replace("-", "", 2)):
+                    object.printing_data(number_of_elements, objects)
+                    number_of_elements += 1
 
-                print("\n{}: ".format(number_of_elements))
-                object.printing_data(objects)
-                number_of_elements += 1
+
+
+
 
 
 #--------------------------------TESTS-------------------------------------------------------------------------------
