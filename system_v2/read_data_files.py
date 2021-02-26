@@ -8,7 +8,6 @@ import os
 class DataImport:
 
     def __init__(self, FILE_ADDRESS, call_type):
-
         self.list = []
         self.dicionary = {}
         self.call_type = call_type
@@ -21,7 +20,6 @@ class DataImport:
             self.read_dict()
 
     def __call__(self):
-
         if self.call_type == "list":
             return self.list
         elif self.call_type == "dict":
@@ -30,7 +28,6 @@ class DataImport:
             return None
 
     def open_file(self, FILE_ADDRESS):
-
         os.chdir("data_files")
         self.file = open(FILE_ADDRESS, "r")
         os.chdir("..")
