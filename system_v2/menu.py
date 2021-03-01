@@ -66,7 +66,7 @@ class Menu:
 class SmartMenu(Menu):
 
     def cover_menu_by_state(self, state, table_size = [3, 2]):
-        self.table_width = 70
+        self.table_width = 65
 
         self.create_templane(table_size)
 

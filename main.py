@@ -1,5 +1,5 @@
 '''
-version 1.5
+version 1.6
 author: a5892731
 date: 2021-03-01
 
@@ -15,11 +15,13 @@ required modules:
 
 
 from system_v2.user_selection import UserStateSelection
-from system_v2.system_states import booster_status_state, booster_serial_state, capsule_status_state, \
-                                    capsule_serial_state, missions_future, missions_previouse, \
-                                    missions_by_object_number
-from system_v2.menu import Menu, SmartMenu, clear_screen
+from system_v2.system_states import SystemStates
+from system_v2.menu import SmartMenu, clear_screen
 from system_v2.read_data_files import DataImport
+
+#---------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------- <<<< MAIN MENU
 
 if __name__ == "__main__":
 
@@ -61,62 +63,44 @@ if __name__ == "__main__":
     launches = []
     state = 0
 
-#---------------------------------------------------------------------------------------
 
-#--------------------------------------------------------------------------------------- <<<< MAIN MENU
-
-if __name__ == "__main__":
+    system_states = SystemStates()
 
     menu = SmartMenu(MENU_DICT)
+
 
     while True:
         menu.cover_menu_by_state(state)
         menu.drow_menu()
 
         if state >= 111 and state < 118:
-
-            boosters = booster_status_state(state, boosters, BOOSTERS_OBJECT_CALL_LIST(),
-                                            VERY_SHORT_BOOSTERS_OBJECT_CALL_LIST(), BOOSTERS_STATUS_DICT,
-                                            API_ADDRESS_CALL_DICT()["BOOSTERS"])
-
+            system_states.booster_status_state(BOOSTERS_OBJECT_CALL_LIST(), VERY_SHORT_BOOSTERS_OBJECT_CALL_LIST(),
+                                               API_ADDRESS_CALL_DICT()["BOOSTERS"], BOOSTERS_STATUS_DICT[state],
+                                               "status")
         elif state == 12:
-
-            boosters = booster_serial_state(boosters, BOOSTERS_OBJECT_CALL_LIST(),
-                                            SHORT_BOOSTERS_OBJECT_CALL_LIST(),
-                                            API_ADDRESS_CALL_DICT()["BOOSTERS"])
-
+            system_states.booster_serial_state(BOOSTERS_OBJECT_CALL_LIST(), SHORT_BOOSTERS_OBJECT_CALL_LIST(),
+                                               API_ADDRESS_CALL_DICT()["BOOSTERS"],
+                                               input(">>> Put booster serial number: "), "serial")
         elif state >= 211 and state < 217:
-
-            capsules = capsule_status_state(state, capsules, CAPSULES_OBJECT_CALL_LIST(),
-                                            VERY_SHORT_CAPSULES_OBJECT_CALL_LIST(),
-                                            CAPSULES_STATUS_DICT, API_ADDRESS_CALL_DICT()["CAPSULES"])
-
+            system_states.capsule_status_state(CAPSULES_OBJECT_CALL_LIST(), VERY_SHORT_CAPSULES_OBJECT_CALL_LIST(),
+                                               API_ADDRESS_CALL_DICT()["CAPSULES"], CAPSULES_STATUS_DICT[state],
+                                               "status")
         elif state == 22:
-
-            capsules = capsule_serial_state(capsules, CAPSULES_OBJECT_CALL_LIST(),
-                                            SHORT_CAPSULES_OBJECT_CALL_LIST(),
-                                            API_ADDRESS_CALL_DICT()["CAPSULES"])
-
+            system_states.capsule_serial_state(CAPSULES_OBJECT_CALL_LIST(), SHORT_CAPSULES_OBJECT_CALL_LIST(),
+                                               API_ADDRESS_CALL_DICT()["CAPSULES"],
+                                               input(">>> Put capsule serial number: "), "serial")
         elif state == 31:
-
-            launches = missions_previouse(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
-                                          API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
-
+            system_states.missions_previouse(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
+                                             API_ADDRESS_CALL_DICT()["LAUNCHES"])
 
         elif state == 32:
-
-            launches = missions_future(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
-                                        API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
-
+            system_states.missions_future(LAUNCHES_OBJECT_CALL_LIST(), SHORT_LAUNCHES_OBJECT_CALL_LIST(),
+                                          API_ADDRESS_CALL_DICT()["LAUNCHES"])
 
         elif state == 33:
-
-            launches = missions_by_object_number(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
-                                        API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
-
-
-
-
+            system_states.missions_object_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
+                                                       API_ADDRESS_CALL_DICT()["LAUNCHES"],
+                                                       input(">>> Put launch object number: "), "OBJECT NUMBER")
 
 
         user = UserStateSelection(state)

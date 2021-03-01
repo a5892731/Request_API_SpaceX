@@ -1,5 +1,5 @@
 '''
-file version 1.1
+file version 1.2
 '''
 
 
@@ -12,9 +12,3 @@ class UserStateSelection:
 
     def return_state(self):
         return self.choice
-
-class UserSerialSelection:
-    def __init__(self, string):
-        self.serial = input(string)
-    def return_serial(self):
-        return self.serial
