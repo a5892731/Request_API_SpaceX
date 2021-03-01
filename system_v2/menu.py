@@ -66,12 +66,21 @@ class Menu:
 class SmartMenu(Menu):
 
     def cover_menu_by_state(self, state, table_size = [3, 2]):
+        self.table_width = 70
 
         self.create_templane(table_size)
 
-        self.table[0] = self.TABLE_DATA[0]
+        #self.table[0] = self.TABLE_DATA[0]
+
+        self.table[0][0] = self.TABLE_DATA[0][0] + (int(self.table_width / len(self.table[0]))
+                                                    - len(self.TABLE_DATA[0][0])) * " "
+        self.table[0][1] = self.TABLE_DATA[0][1] + (int(self.table_width / len(self.table[0]))
+                                                    - len(self.TABLE_DATA[0][1])) * " "
+        self.table[0][2] = self.TABLE_DATA[0][2] + (int(self.table_width / len(self.table[0]))
+                                                    - len(self.TABLE_DATA[0][2])) * " "
 
         if state == 1 or (state > 100 and state < 120):
+
             self.table[1][0] = self.TABLE_DATA[1][0]
         elif state == 2 or (state > 200 and state < 220) :
             self.table[1][1] = self.TABLE_DATA[1][1]

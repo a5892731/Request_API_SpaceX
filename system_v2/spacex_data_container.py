@@ -15,7 +15,7 @@ class SpacexObject:
 
     def __init__(self, OBJECT_DICT):
         self.OBJECT_DICT = OBJECT_DICT
-        self.table_width = 70
+        self.table_width = 75
 
     def printing_data(self, number, keys):
         data_table_to_print = [[""]]
@@ -43,6 +43,7 @@ class SpacexObject:
             elif num_of_signs >= self.table_width:
                 output += "\n"
                 num_of_signs = 0
+
         return output
 
 class SpacexObjects:
