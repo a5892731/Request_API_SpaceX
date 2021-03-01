@@ -21,12 +21,9 @@ class SpacexObject:
     def printing_data(self, number, keys):
         data_table_to_print = [[""]]
         data = ""
-
         for key in keys:
              data += str(key) + ": " + str(self.OBJECT_DICT[key]) + "\n"
-
         data_table_to_print[0][0] = self.prepare_data_to_print(data).rstrip("\n")
-
         table = SingleTable(data_table_to_print, title = str(number))
         print(table.table)
 
@@ -58,7 +55,6 @@ class SpacexObjects:
     def request_data(self, REQUEST_API_ADDRESS, object):
         r = requests.get(REQUEST_API_ADDRESS)
         object = object
-
         try:
             spacex_data = r.json()
         except json.decoder.JSONDecodeError:

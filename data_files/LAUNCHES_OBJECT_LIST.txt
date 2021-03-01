@@ -1,26 +1,17 @@
 static_fire_date_utc
-static_fire_date_unix
-tbd
-net
 window
-rocket
 success
 details
 crew
-ships
 capsules
-payloads
-launchpad
 auto_update
 launch_library_id
 failures
 flight_number
 name
 date_utc
-date_unix
-date_local
 date_precision
 upcoming
 cores
-id
 OBJECT NUMBER
+id

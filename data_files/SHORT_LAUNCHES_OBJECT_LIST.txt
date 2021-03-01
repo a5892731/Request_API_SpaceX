@@ -1,8 +1,5 @@
-rocket
 details
-payloads
 flight_number
 name
 date_utc
-id
 OBJECT NUMBER

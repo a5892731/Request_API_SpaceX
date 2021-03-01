@@ -12,14 +12,10 @@ required modules:
 >>> os , platform, datetime
 '''
 
-
-
 from system_v2.user_selection import UserStateSelection
 from system_v2.system_states import SystemStates
 from system_v2.menu import SmartMenu, clear_screen
 from system_v2.read_data_files import DataImport
-
-#---------------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------------- <<<< MAIN MENU
 
@@ -32,15 +28,14 @@ if __name__ == "__main__":
     CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL"}
     CAPSULES_STATUS_DICT = {211: "active", 212: "inactive", 213: "unknown",
                             214: "inactive", 215: "expended", 216: "lost"}
-    MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE", 33: "OBJECT NUMBER", 34: "FLIGHT NUMBER", 35: "SORT OBJECTS\n    BY TIME"}
+    MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE", 33: "OBJECT NUMBER", 34: "FLIGHT NUMBER",
+                     35: "SORT OBJECTS\n    BY TIME"}
 
     MENU_DICT = [
                 HEADING_MENU_DICT,
                 [BOOSTERS_MENU_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT],
                 [BOOSTERS_STATUS_DICT,CAPSULES_STATUS_DICT, {}]
                 ]
-
-
 
     BOOSTERS_OBJECT_CALL_LIST = DataImport("BOOSTERS_OBJECT_LIST.txt", "list")
     SHORT_BOOSTERS_OBJECT_CALL_LIST = DataImport("SHORT_BOOSTERS_OBJECT_LIST.txt", "list")
@@ -54,6 +49,8 @@ if __name__ == "__main__":
     SHORT_LAUNCHES_OBJECT_CALL_LIST = DataImport("SHORT_LAUNCHES_OBJECT_LIST.txt", "list")
     VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST = DataImport("VERY_SHORT_LAUNCHES_OBJECT_LIST.txt", "list")
 
+    CREW_OBJECT_CALL_LIST = DataImport("CREW_OBJECT_LIST.txt", "list")
+    VERY_SHORT_CREW_OBJECT_CALL_LIST = DataImport("CREW_OBJECT_LIST.txt", "list")
 
     API_ADDRESS_CALL_DICT = DataImport("API_ADDRESS_DICT.txt", "dict")
 
@@ -61,6 +58,8 @@ if __name__ == "__main__":
     menu = SmartMenu(MENU_DICT)
 
     state = 0
+
+    # --------------------------------------------------------------------------------------- <<<< MAIN LOOP
 
     while True:
         menu.cover_menu_by_state(state)
@@ -78,6 +77,7 @@ if __name__ == "__main__":
             state_machine.capsule_status_state(CAPSULES_OBJECT_CALL_LIST(), VERY_SHORT_CAPSULES_OBJECT_CALL_LIST(),
                                                API_ADDRESS_CALL_DICT()["CAPSULES"], CAPSULES_STATUS_DICT[state],
                                                "status")
+
         elif state == 22:
             state_machine.capsule_serial_state(CAPSULES_OBJECT_CALL_LIST(), SHORT_CAPSULES_OBJECT_CALL_LIST(),
                                                API_ADDRESS_CALL_DICT()["CAPSULES"],
@@ -93,13 +93,21 @@ if __name__ == "__main__":
         elif state == 33:
             state_machine.lauches_object_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
                                                        API_ADDRESS_CALL_DICT()["LAUNCHES"],
-                                                       input(">>> Put launch object number: "), "OBJECT NUMBER")
+                                                       input(">>> Put launch object number: "), "OBJECT NUMBER",
+                                                       CREW_OBJECT_CALL_LIST(), VERY_SHORT_CREW_OBJECT_CALL_LIST(),
+                                                       API_ADDRESS_CALL_DICT()["CREW"])
+
         elif state == 34:
             state_machine.lauches_flight_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
                                                        API_ADDRESS_CALL_DICT()["LAUNCHES"],
-                                                       input(">>> Put flight number: "), "flight_number")
+                                                       input(">>> Put flight number: "), "flight_number",
+                                                       CREW_OBJECT_CALL_LIST(), VERY_SHORT_CREW_OBJECT_CALL_LIST(),
+                                                       API_ADDRESS_CALL_DICT()["CREW"])
+
+
         elif state == 35:
             state_machine.lauches_sort_by_time(LAUNCHES_OBJECT_CALL_LIST(), [], API_ADDRESS_CALL_DICT()["LAUNCHES"])
+            print(">>> DONE!")
 
 
 
