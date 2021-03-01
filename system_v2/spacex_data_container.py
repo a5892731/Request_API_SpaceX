@@ -1,5 +1,5 @@
 """
-file version 1.4
+file version 1.5
 
 this is a main data class of this program.
 """
@@ -91,10 +91,9 @@ class ObjectsSort:
         number_of_elements = 1
         print("Sort by {}: {}".format(key, value))
         for object in self.objects:
-            if object.OBJECT_DICT[key] == value:
+            if str(object.OBJECT_DICT[key]) == value:
                 object.printing_data(number_of_elements, objects)
                 number_of_elements += 1
-
 
     def print_objects_by_previouse_time(self, objects):
         print("Actual date: " + str(datetime.utcnow())[:10])
