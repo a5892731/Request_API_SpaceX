@@ -78,7 +78,7 @@ class SystemStates:
         sorted_vehicles.print_objects_by_value_of_key(value, key, OBJECT_KEYS_LIST)
         return objects
 
-    def execute_double_element_key_value_state(self, OBJECT_LIST, OBJECT_KEYS_LIST, API_ADDRESS,
+    def execute_double_element_key_value_state(self, OBJECT_LIST, OBJECT_KEYS_LIST, API_ADDRESS,   #function to upgreade
                                                objects,
                                                OBJECT2_LIST, OBJECT2_KEYS_LIST, API_ADDRESS2,
                                                objects2,
