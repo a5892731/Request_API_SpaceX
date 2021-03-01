@@ -1,5 +1,5 @@
 '''
-version 1.6
+version 1.7
 author: a5892731
 date: 2021-03-01
 
