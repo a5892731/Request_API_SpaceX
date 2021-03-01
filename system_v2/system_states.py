@@ -1,5 +1,5 @@
 '''
-file version 2.0
+file version 2.1
 
 this is a state machine file
 '''
