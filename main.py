@@ -42,6 +42,10 @@ if __name__ == "__main__":
     BOOSTERS_OBJECT_CALL_LIST = DataImport("BOOSTERS_OBJECT_LIST.txt", "list")
     CAPSULES_OBJECT_CALL_LIST = DataImport("CAPSULES_OBJECT_LIST.txt", "list")
     LAUNCHES_OBJECT_CALL_LIST = DataImport("LAUNCHES_OBJECT_LIST.txt", "list")
+    SHORT_LAUNCHES_OBJECT_CALL_LIST = DataImport("SHORT_LAUNCHES_OBJECT_LIST.txt", "list")
+    VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST = DataImport("VERY_SHORT_LAUNCHES_OBJECT_LIST.txt", "list")
+
+
     API_ADDRESS_CALL_DICT = DataImport("API_ADDRESS_DICT.txt", "dict")
 
 
@@ -84,11 +88,14 @@ if __name__ == "__main__":
 
         elif state == 31:
 
-            launches = missions_previouse(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
+            launches = missions_previouse(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
+                                          API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
+
 
         elif state == 32:
 
-            launches = missions_future(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
+            launches = missions_future(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
+                                        API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
 
 
         user = UserStateSelection(state)

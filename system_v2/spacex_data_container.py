@@ -13,8 +13,9 @@ from terminaltables import SingleTable, DoubleTable
 
 class SpacexObject:
 
-    def __init__(self, OBJECT_DICT):
+    def __init__(self, OBJECT_DICT, OBJECT_NUMBER):
         self.OBJECT_DICT = OBJECT_DICT
+        self.OBJECT_NUMBER = OBJECT_NUMBER
         self.table_width = 75
 
     def printing_data(self, number, keys):
@@ -22,7 +23,7 @@ class SpacexObject:
         data = ""
 
         for key in keys:
-            data += str(key) + ": " + str(self.OBJECT_DICT[key]) + "\n"
+             data += str(key) + ": " + str(self.OBJECT_DICT[key]) + "\n"
 
         data_table_to_print[0][0] = self.prepare_data_to_print(data).rstrip("\n")
 
@@ -38,11 +39,16 @@ class SpacexObject:
             if sign == "\n":
                 if num_of_signs < self.table_width:
                     output = output.rstrip("\n")
-                    output += (self.table_width - num_of_signs) * " " + " \n"
+                    output += (self.table_width - num_of_signs) * " " + " \n" # filling the table window
                 num_of_signs = 0
             elif num_of_signs >= self.table_width:
                 output += "\n"
                 num_of_signs = 0
+
+        return output
+
+    def prepare_data_to_print_v2(selfself, data):
+        output = ""
 
         return output
 
@@ -56,18 +62,23 @@ class SpacexObjects:
 
     def request_data(self, REQUEST_API_ADDRESS, object):
         r = requests.get(REQUEST_API_ADDRESS)
+        object = object
+
         try:
             spacex_data = r.json()
         except json.decoder.JSONDecodeError:
             print("wrong format")
         else:
             for element in spacex_data:
-                self.objects.append(object(self.dict_generator(element)))
+                self.objects.append(object(self.dict_generator(element, len(self.objects) + 1), len(self.objects) + 1))
 
-    def dict_generator(self, element):
+    def dict_generator(self, element, object_number):
         dict = {}
         for key in self.OBJECT_DICT:
-            dict[key] = element[key]
+            if key == "OBJECT NUMBER":
+                dict[key] = object_number
+            else:
+                dict[key] = element[key]
         return dict
 
 class ObjectsSort:

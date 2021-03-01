@@ -60,29 +60,22 @@ def capsule_serial_state(state, vehicles, OBJECT_LIST, API_ADDRESS):
 
     return vehicles
 
-def missions_future(OBJECT_LIST, API_ADDRESS, objects):
+def missions_future(OBJECT_LIST, OBJECT_CALL_LIST, API_ADDRESS, objects):
 
     so = SpacexObjects(API_ADDRESS, OBJECT_LIST, objects)
     objects = so.objects
 
     sorted_rockets = ObjectsSort(objects)
-    sorted_rockets.print_objects_by_future_time({
-                                                     "details": "", "crew": "",
-                                                     "payloads": "",
-                                                     "name": "", "date_utc": "",
-                                                 })
+    sorted_rockets.print_objects_by_future_time(OBJECT_CALL_LIST)
     return objects
 
 
 
-def missions_previouse(OBJECT_LIST, API_ADDRESS, objects):
+def missions_previouse(OBJECT_LIST, OBJECT_CALL_LIST, API_ADDRESS, objects):
 
     so = SpacexObjects(API_ADDRESS, OBJECT_LIST, objects)
     objects = so.objects
 
     sorted_rockets = ObjectsSort(objects)
-    sorted_rockets.print_objects_by_previouse_time({
-                                                "success": "",
-                                                "name": "", "date_utc": "",
-                                                 })
+    sorted_rockets.print_objects_by_previouse_time(OBJECT_CALL_LIST)
     return objects
