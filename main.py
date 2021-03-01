@@ -16,7 +16,8 @@ required modules:
 
 from system_v2.user_selection import UserStateSelection
 from system_v2.system_states import booster_status_state, booster_serial_state, capsule_status_state, \
-                                    capsule_serial_state, missions_future, missions_previouse
+                                    capsule_serial_state, missions_future, missions_previouse, \
+                                    missions_by_object_number
 from system_v2.menu import Menu, SmartMenu, clear_screen
 from system_v2.read_data_files import DataImport
 
@@ -29,7 +30,7 @@ if __name__ == "__main__":
     CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL"}
     CAPSULES_STATUS_DICT = {211: "active", 212: "inactive", 213: "unknown",
                             214: "inactive", 215: "expended", 216: "lost"}
-    MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE"}
+    MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE", 33: "OBJECT NUMBER"}
 
     MENU_DICT = [
                 HEADING_MENU_DICT,
@@ -40,7 +41,13 @@ if __name__ == "__main__":
 
 
     BOOSTERS_OBJECT_CALL_LIST = DataImport("BOOSTERS_OBJECT_LIST.txt", "list")
+    SHORT_BOOSTERS_OBJECT_CALL_LIST = DataImport("SHORT_BOOSTERS_OBJECT_LIST.txt", "list")
+    VERY_SHORT_BOOSTERS_OBJECT_CALL_LIST = DataImport("VERY_SHORT_BOOSTERS_OBJECT_LIST.txt", "list")
+
     CAPSULES_OBJECT_CALL_LIST = DataImport("CAPSULES_OBJECT_LIST.txt", "list")
+    SHORT_CAPSULES_OBJECT_CALL_LIST = DataImport("SHORT_CAPSULES_OBJECT_LIST.txt", "list")
+    VERY_SHORT_CAPSULES_OBJECT_CALL_LIST = DataImport("VERY_SHORT_CAPSULES_OBJECT_LIST.txt", "list")
+
     LAUNCHES_OBJECT_CALL_LIST = DataImport("LAUNCHES_OBJECT_LIST.txt", "list")
     SHORT_LAUNCHES_OBJECT_CALL_LIST = DataImport("SHORT_LAUNCHES_OBJECT_LIST.txt", "list")
     VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST = DataImport("VERY_SHORT_LAUNCHES_OBJECT_LIST.txt", "list")
@@ -68,22 +75,26 @@ if __name__ == "__main__":
 
         if state >= 111 and state < 118:
 
-            boosters = booster_status_state(state, boosters, BOOSTERS_OBJECT_CALL_LIST(), BOOSTERS_STATUS_DICT,
+            boosters = booster_status_state(state, boosters, BOOSTERS_OBJECT_CALL_LIST(),
+                                            VERY_SHORT_BOOSTERS_OBJECT_CALL_LIST(), BOOSTERS_STATUS_DICT,
                                             API_ADDRESS_CALL_DICT()["BOOSTERS"])
 
         elif state == 12:
 
-            boosters = booster_serial_state(state, boosters, BOOSTERS_OBJECT_CALL_LIST(),
+            boosters = booster_serial_state(boosters, BOOSTERS_OBJECT_CALL_LIST(),
+                                            SHORT_BOOSTERS_OBJECT_CALL_LIST(),
                                             API_ADDRESS_CALL_DICT()["BOOSTERS"])
 
         elif state >= 211 and state < 217:
 
-            capsules = capsule_status_state(state, capsules, CAPSULES_OBJECT_CALL_LIST(), CAPSULES_STATUS_DICT,
-                                            API_ADDRESS_CALL_DICT()["CAPSULES"])
+            capsules = capsule_status_state(state, capsules, CAPSULES_OBJECT_CALL_LIST(),
+                                            VERY_SHORT_CAPSULES_OBJECT_CALL_LIST(),
+                                            CAPSULES_STATUS_DICT, API_ADDRESS_CALL_DICT()["CAPSULES"])
 
         elif state == 22:
 
-            capsules = capsule_serial_state(state, capsules, CAPSULES_OBJECT_CALL_LIST(),
+            capsules = capsule_serial_state(capsules, CAPSULES_OBJECT_CALL_LIST(),
+                                            SHORT_CAPSULES_OBJECT_CALL_LIST(),
                                             API_ADDRESS_CALL_DICT()["CAPSULES"])
 
         elif state == 31:
@@ -96,6 +107,16 @@ if __name__ == "__main__":
 
             launches = missions_future(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
                                         API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
+
+
+        elif state == 33:
+
+            launches = missions_by_object_number(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
+                                        API_ADDRESS_CALL_DICT()["LAUNCHES"], launches)
+
+
+
+
 
 
         user = UserStateSelection(state)

@@ -15,7 +15,7 @@ class SpacexObject:
 
     def __init__(self, OBJECT_DICT, OBJECT_NUMBER):
         self.OBJECT_DICT = OBJECT_DICT
-        self.OBJECT_NUMBER = OBJECT_NUMBER
+        self.OBJECT_NUMBER = str(OBJECT_NUMBER)
         self.table_width = 75
 
     def printing_data(self, number, keys):
@@ -47,11 +47,6 @@ class SpacexObject:
 
         return output
 
-    def prepare_data_to_print_v2(selfself, data):
-        output = ""
-
-        return output
-
 class SpacexObjects:
     def __init__(self, REQUEST_API_ADDRESS, OBJECT_DICT, objects, object = SpacexObject):
         self.OBJECT_DICT = OBJECT_DICT
@@ -76,7 +71,7 @@ class SpacexObjects:
         dict = {}
         for key in self.OBJECT_DICT:
             if key == "OBJECT NUMBER":
-                dict[key] = object_number
+                dict[key] = str(object_number)
             else:
                 dict[key] = element[key]
         return dict
