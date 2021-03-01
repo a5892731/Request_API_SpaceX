@@ -32,7 +32,7 @@ if __name__ == "__main__":
     CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL"}
     CAPSULES_STATUS_DICT = {211: "active", 212: "inactive", 213: "unknown",
                             214: "inactive", 215: "expended", 216: "lost"}
-    MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE", 33: "OBJECT NUMBER"}
+    MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE", 33: "OBJECT NUMBER", 34: "SORT OBJECTS\n    BY TIME"}
 
     MENU_DICT = [
                 HEADING_MENU_DICT,
@@ -101,6 +101,10 @@ if __name__ == "__main__":
             system_states.missions_object_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
                                                        API_ADDRESS_CALL_DICT()["LAUNCHES"],
                                                        input(">>> Put launch object number: "), "OBJECT NUMBER")
+
+        elif state == 34:
+            system_states.missions_sort_by_time(LAUNCHES_OBJECT_CALL_LIST(), [], API_ADDRESS_CALL_DICT()["LAUNCHES"])
+            #print(">>> 404 - FUNCTION IN PROGRESS")
 
 
         user = UserStateSelection(state)

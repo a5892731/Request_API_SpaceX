@@ -50,6 +50,13 @@ class SystemStates:
         sorted_missions.print_objects_by_future_time(ITEMS_TO_DISPLAY_LIST)
         self.missions = objects
 
+
+    def missions_sort_by_time(self, MISSIONS_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, value = "future", key = "time"):
+        so = SpacexObjects(API_ADDRESS, MISSIONS_LIST, self.missions)
+        objects = so.objects
+        sorted_missions = ObjectsSort(objects)
+        self.missions = sorted_missions.sort_objects_by_time()
+
     def execute_standard_key_value_state(self, OBJECT_LIST, OBJECT_KEYS_LIST, API_ADDRESS, objects, value = "", key = ""):
         vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_LIST, objects)
         objects = vehicles_objects.objects

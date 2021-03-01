@@ -80,6 +80,13 @@ class ObjectsSort:
     def __init__(self, objects):
         self.objects = objects
 
+    def sort_objects_by_time(self):
+        def item_to_sort(e):
+            output = e.OBJECT_DICT["date_utc"][:10].replace("-", "", 2)
+            return int(output)
+        self.objects.sort(key = item_to_sort)
+        return self.objects
+
     def print_objects_by_value_of_key(self, value, key, objects):
         number_of_elements = 1
         print("Sort by {}: {}".format(key, value))
