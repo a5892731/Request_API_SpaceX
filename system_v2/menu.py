@@ -95,6 +95,7 @@ class SmartMenu(Menu):
             self.table[1][2] = self.TABLE_DATA[1][2]
 
     def drow_menu(self):
+        print()
         menu = DoubleTable(self.table, title = " MENU ")
         print(menu.table)
 
