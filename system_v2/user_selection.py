@@ -1,5 +1,5 @@
 '''
-file version 1.0
+file version 1.1
 '''
 
 
@@ -13,10 +13,8 @@ class UserStateSelection:
     def return_state(self):
         return self.choice
 
-
-
 class UserSerialSelection:
-    def __init__(self):
-        self.serial = input(">>> Put vehicle serial number: ")
+    def __init__(self, string):
+        self.serial = input(string)
     def return_serial(self):
         return self.serial
