@@ -1,5 +1,5 @@
 '''
-version 1.8
+version 2.0
 author: a5892731
 date: 2021-03-01
 
@@ -88,21 +88,21 @@ if __name__ == "__main__":
             state_machine.get_launches_data_for_capsules_state(CAPSULES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["CAPSULES"],
                                                                LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"])
         elif state == 31:
-            state_machine.lauches_previouse(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
+            state_machine.launches_previouse(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
                                              API_ADDRESS_CALL_DICT()["LAUNCHES"])
         elif state == 32:
-            state_machine.lauches_future(LAUNCHES_OBJECT_CALL_LIST(), SHORT_LAUNCHES_OBJECT_CALL_LIST(),
+            state_machine.launches_future(LAUNCHES_OBJECT_CALL_LIST(), SHORT_LAUNCHES_OBJECT_CALL_LIST(),
                                           API_ADDRESS_CALL_DICT()["LAUNCHES"])
         elif state == 33:
-            state_machine.lauches_object_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
+            state_machine.launches_object_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
                                                        API_ADDRESS_CALL_DICT()["LAUNCHES"],
                                                        input(">>> Put launch object number: "), "OBJECT NUMBER")
         elif state == 34:
-            state_machine.lauches_flight_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
+            state_machine.launches_flight_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
                                                        API_ADDRESS_CALL_DICT()["LAUNCHES"],
                                                        input(">>> Put flight number: "), "flight_number")
         elif state == 35:
-            state_machine.lauches_sort_by_time(LAUNCHES_OBJECT_CALL_LIST(), [], API_ADDRESS_CALL_DICT()["LAUNCHES"])
+            state_machine.launches_sort_by_time(LAUNCHES_OBJECT_CALL_LIST(), [], API_ADDRESS_CALL_DICT()["LAUNCHES"])
 
         elif state == 36:
             state_machine.get_crew_data_state(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"],

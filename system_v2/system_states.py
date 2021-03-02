@@ -1,5 +1,5 @@
 '''
-file version 2.2
+file version 2.3
 
 this is a state machine file
 '''
@@ -13,7 +13,7 @@ class SystemStates:
 
         self.boosters = []
         self.capsules = []
-        self.lauches = []
+        self.launches = []
         self.crew = []
     # ------------------------------------------------------------------------------------------------------------------
     def booster_status_state(self, BOOSTERS_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, status_value, status):
@@ -33,65 +33,65 @@ class SystemStates:
         self.capsules = self.execute_standard_key_value_state(CAPSULES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
                                                               self.capsules, serial_value, serial)
 
-    def lauches_object_number_state(self, LAUCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
-                                    object_number_value, object_number):
+    def launches_object_number_state(self, LAUNCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
+                                     object_number_value, object_number):
 
-        self.lauches = self.execute_standard_key_value_state(LAUCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
-                                                             self.lauches,
-                                                             object_number_value, object_number)
+        self.launches = self.execute_standard_key_value_state(LAUNCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
+                                                              self.launches,
+                                                              object_number_value, object_number)
 
-    def lauches_flight_number_state(self, LAUCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
+    def launches_flight_number_state(self, LAUNCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
                                     flight_number_value, flight_number):
 
-        self.lauches = self.execute_standard_key_value_state(LAUCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
-                                                             self.lauches,
+        self.launches = self.execute_standard_key_value_state(LAUNCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS,
+                                                             self.launches,
                                                              flight_number_value, flight_number)
     # ------------------------------------------------------------------------------------------------------------------
-    def lauches_previouse(self, LAUCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, value = "previosue", key = "time"):
-        so = SpacexObjects(API_ADDRESS, LAUCHES_LIST, self.lauches)
+    def launches_previouse(self, LAUNCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, value = "previosue", key = "time"):
+        so = SpacexObjects(API_ADDRESS, LAUNCHES_LIST, self.launches)
         objects = so.objects
         sorted_missions = ObjectsSort(objects)
         sorted_missions.print_objects_by_previouse_time(ITEMS_TO_DISPLAY_LIST)
-        self.lauches = objects
+        self.launches = objects
 
-    def lauches_future(self, LAUCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, value = "future", key = "time"):
-        so = SpacexObjects(API_ADDRESS, LAUCHES_LIST, self.lauches)
+    def launches_future(self, LAUNCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, value = "future", key = "time"):
+        so = SpacexObjects(API_ADDRESS, LAUNCHES_LIST, self.launches)
         objects = so.objects
         sorted_missions = ObjectsSort(objects)
         sorted_missions.print_objects_by_future_time(ITEMS_TO_DISPLAY_LIST)
-        self.lauches = objects
+        self.launches = objects
     # ------------------------------------------------------------------------------------------------------------------
-    def lauches_sort_by_time(self, LAUCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, value = "future", key = "time"):
-        so = SpacexObjects(API_ADDRESS, LAUCHES_LIST, self.lauches)
+    def launches_sort_by_time(self, LAUNCHES_LIST, ITEMS_TO_DISPLAY_LIST, API_ADDRESS, value = "UP", key = "time"):
+        so = SpacexObjects(API_ADDRESS, LAUNCHES_LIST, self.launches)
         objects = so.objects
         sorted_missions = ObjectsSort(objects)
-        self.lauches = sorted_missions.sort_objects_by_time()
-        print(">>> DONE!")
+        self.launches = sorted_missions.sort_objects_by_time()
+        print(">>> data sorted by {}!".format(key))
     # ------------------------------------------------------------------------------------------------------------------
-    def get_crew_data_state(self, LAUCHES_LIST, API_ADDRESS,
+    def get_crew_data_state(self, LAUNCHES_LIST, API_ADDRESS,
                             CREW_LIST, CREW_API_ADDRESS,
                             first_object_key = "crew", second_object_key = "id", replace_key = "name"):
 
-        self.lauches = self.replace_id_whith_elements_in_object_list_standard_state(LAUCHES_LIST, API_ADDRESS, self.lauches,
+        self.launches = self.replace_id_whith_elements_in_object_list_standard_state(LAUNCHES_LIST, API_ADDRESS, self.launches,
                                                                                     CREW_LIST, CREW_API_ADDRESS, self.crew,
                                                                                     first_object_key,
                                                                                     second_object_key,
                                                                                     replace_key)
     def get_launches_data_for_capsules_state(self, CAPSULES_LIST, CAPSULES_API_ADDRESS,
-                                             LAUCHES_LIST, LAUCHES_API_ADDRESS,
+                                             LAUNCHES_LIST, LAUNCHES_API_ADDRESS,
                                              first_object_key = "launches", second_object_key = "id", replace_key = "flight_number"):
 
         self.capsules = self.replace_id_whith_elements_in_object_list_standard_state(CAPSULES_LIST, CAPSULES_API_ADDRESS, self.capsules,
-                                                                                    LAUCHES_LIST, LAUCHES_API_ADDRESS, self.lauches,
+                                                                                    LAUNCHES_LIST, LAUNCHES_API_ADDRESS, self.launches,
                                                                                     first_object_key,
                                                                                     second_object_key,
                                                                                     replace_key)
     def get_launches_data_for_boosters_state(self, BOOSTERS_LIST, BOOSTERS_API_ADDRESS,
-                                             LAUCHES_LIST, LAUCHES_API_ADDRESS,
+                                             LAUNCHES_LIST, LAUNCHES_API_ADDRESS,
                                              first_object_key = "launches", second_object_key = "id", replace_key = "flight_number"):
 
         self.boosters = self.replace_id_whith_elements_in_object_list_standard_state(BOOSTERS_LIST, BOOSTERS_API_ADDRESS, self.boosters,
-                                                                                     LAUCHES_LIST, LAUCHES_API_ADDRESS, self.lauches,
+                                                                                     LAUNCHES_LIST, LAUNCHES_API_ADDRESS, self.launches,
                                                                                      first_object_key,
                                                                                      second_object_key,
                                                                                      replace_key)
