@@ -16,7 +16,7 @@ class SpacexObject:
     def __init__(self, OBJECT_DICT, OBJECT_NUMBER):
         self.OBJECT_DICT = OBJECT_DICT
         self.OBJECT_NUMBER = str(OBJECT_NUMBER)
-        self.table_width = 70
+        self.table_width = 69
 
     def printing_data(self, number, keys):
         data_table_to_print = [[""]]

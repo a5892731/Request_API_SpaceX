@@ -22,7 +22,7 @@ from system_v2.read_data_files import DataImport
 if __name__ == "__main__":
 
     HEADING_MENU_DICT = {1: "BOOSTERS", 2: "CAPSULES", 3: "LAUNCHES"}
-    BOOSTERS_MENU_DICT = {11 : "STATUS", 12: "SERIAL"}
+    BOOSTERS_MENU_DICT = {11 : "STATUS", 12: "SERIAL", 13: "GET LAUNCHES DATA"}
     BOOSTERS_STATUS_DICT = {111: "active", 112: "inactive", 113: "unknown",
                             114: "inactive", 115: "expended", 116: "lost"}
     CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL", 23: "GET LAUNCHES DATA"}
@@ -73,6 +73,9 @@ if __name__ == "__main__":
             state_machine.booster_serial_state(BOOSTERS_OBJECT_CALL_LIST(), SHORT_BOOSTERS_OBJECT_CALL_LIST(),
                                                API_ADDRESS_CALL_DICT()["BOOSTERS"],
                                                input(">>> Put booster serial number: "), "serial")
+        elif state == 13:
+            state_machine.get_launches_data_for_boosters_state(BOOSTERS_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["BOOSTERS"],
+                                                               LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"])
         elif state >= 211 and state < 217:
             state_machine.capsule_status_state(CAPSULES_OBJECT_CALL_LIST(), VERY_SHORT_CAPSULES_OBJECT_CALL_LIST(),
                                                API_ADDRESS_CALL_DICT()["CAPSULES"], CAPSULES_STATUS_DICT[state],
@@ -82,9 +85,8 @@ if __name__ == "__main__":
                                                API_ADDRESS_CALL_DICT()["CAPSULES"],
                                                input(">>> Put capsule serial number: "), "serial")
         elif state == 23:
-            state_machine.get_launches_data_state(CAPSULES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["CAPSULES"],
-                                                  LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"])
-
+            state_machine.get_launches_data_for_capsules_state(CAPSULES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["CAPSULES"],
+                                                               LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"])
         elif state == 31:
             state_machine.lauches_previouse(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
                                              API_ADDRESS_CALL_DICT()["LAUNCHES"])

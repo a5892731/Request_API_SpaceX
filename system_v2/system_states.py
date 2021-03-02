@@ -77,17 +77,24 @@ class SystemStates:
                                                                                     first_object_key,
                                                                                     second_object_key,
                                                                                     replace_key)
-    def get_launches_data_state(self, CAPSULES_LIST, CAPSULES_API_ADDRESS,
-                               LAUCHES_LIST, LAUCHES_API_ADDRESS,
-                               first_object_key = "launches", second_object_key = "id", replace_key = "flight_number"):
+    def get_launches_data_for_capsules_state(self, CAPSULES_LIST, CAPSULES_API_ADDRESS,
+                                             LAUCHES_LIST, LAUCHES_API_ADDRESS,
+                                             first_object_key = "launches", second_object_key = "id", replace_key = "flight_number"):
 
         self.capsules = self.replace_id_whith_elements_in_object_list_standard_state(CAPSULES_LIST, CAPSULES_API_ADDRESS, self.capsules,
                                                                                     LAUCHES_LIST, LAUCHES_API_ADDRESS, self.lauches,
                                                                                     first_object_key,
                                                                                     second_object_key,
                                                                                     replace_key)
+    def get_launches_data_for_boosters_state(self, BOOSTERS_LIST, BOOSTERS_API_ADDRESS,
+                                             LAUCHES_LIST, LAUCHES_API_ADDRESS,
+                                             first_object_key = "launches", second_object_key = "id", replace_key = "flight_number"):
 
-
+        self.boosters = self.replace_id_whith_elements_in_object_list_standard_state(BOOSTERS_LIST, BOOSTERS_API_ADDRESS, self.boosters,
+                                                                                     LAUCHES_LIST, LAUCHES_API_ADDRESS, self.lauches,
+                                                                                     first_object_key,
+                                                                                     second_object_key,
+                                                                                     replace_key)
     # ------------------------------------------------------------------------------------------------------------------
     def execute_standard_key_value_state(self, OBJECT_LIST, OBJECT_KEYS_LIST, API_ADDRESS, objects, value = "", key = ""):
         vehicles_objects = SpacexObjects(API_ADDRESS, OBJECT_LIST, objects)
@@ -101,18 +108,18 @@ class SystemStates:
                                                                 first_object_key, second_object_key, replace_key):
         so = SpacexObjects(API_ADDRESS, OBJECT_LIST, objects)
         objects = so.objects
-        if objects2 == []:
-            list_bufor = []
-            so2 = SpacexObjects(API_ADDRESS2, OBJECT2_LIST, objects2)
-            objects2 = so2.objects
-            for object in objects:
-                if object.OBJECT_DICT[first_object_key] != []:
-                    list_of_persons = list(object.OBJECT_DICT[first_object_key])
-                    for id in list_of_persons:
-                        for person in objects2:
-                            if person.OBJECT_DICT[second_object_key] == id:
-                                list_bufor.append(person.OBJECT_DICT[replace_key])
-                        object.OBJECT_DICT[first_object_key] = list_bufor
-                    list_bufor = []
+        so2 = SpacexObjects(API_ADDRESS2, OBJECT2_LIST, objects2)
+        objects2 = so2.objects
+
+        list_bufor = []
+        for object in objects:
+            if object.OBJECT_DICT[first_object_key] != []:
+                list_of_persons = list(object.OBJECT_DICT[first_object_key])
+                for id in list_of_persons:
+                    for person in objects2:
+                        if person.OBJECT_DICT[second_object_key] == id or person.OBJECT_DICT[replace_key] == id:
+                            list_bufor.append(person.OBJECT_DICT[replace_key])
+                    object.OBJECT_DICT[first_object_key] = list_bufor
+                list_bufor = []
         print(">>> {} {} replaced by {} in object list.".format(first_object_key, second_object_key, replace_key))
         return objects
