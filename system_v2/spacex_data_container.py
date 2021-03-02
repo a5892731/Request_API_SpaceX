@@ -103,6 +103,11 @@ class ObjectsSort:
                     object.printing_data(number_of_elements, objects)
                     number_of_elements += 1
 
+                    if number_of_elements % 20 == 1:
+                        go = input("Continue ? (Y/N): ")
+                        if go == "N" or go == "n":
+                            break
+
     def print_objects_by_future_time(self, objects):
         print("Actual date: " + str(datetime.utcnow())[:10])
         number_of_elements = 1
@@ -112,6 +117,11 @@ class ObjectsSort:
                     int(str(datetime.utcnow())[:10].replace("-", "", 2)):
                     object.printing_data(number_of_elements, objects)
                     number_of_elements += 1
+
+                    if number_of_elements % 20 == 1:
+                        go = input("Continue ? (Y/N): ")
+                        if go == "N" or go == "n":
+                            break
 
 
 
