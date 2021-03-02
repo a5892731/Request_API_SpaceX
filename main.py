@@ -34,7 +34,7 @@ if __name__ == "__main__":
     MENU_DICT = [
                 HEADING_MENU_DICT,
                 [BOOSTERS_MENU_DICT, CAPSULES_MENU_DICT, MISSIONS_DICT],
-                [BOOSTERS_STATUS_DICT,CAPSULES_STATUS_DICT, {}]
+                [BOOSTERS_STATUS_DICT, CAPSULES_STATUS_DICT, {}]
                 ]
 
     BOOSTERS_OBJECT_CALL_LIST = DataImport("BOOSTERS_OBJECT_LIST.txt", "list")
