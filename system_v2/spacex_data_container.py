@@ -1,5 +1,5 @@
 """
-file version 1.5
+file version 1.6
 
 this is a main data class of this program.
 """
@@ -22,7 +22,9 @@ class SpacexObject:
         data_table_to_print = [[""]]
         data = ""
         for key in keys:
-             data += str(key) + ": " + str(self.OBJECT_DICT[key]) + "\n"
+            if self.OBJECT_DICT[key] == []:
+                continue
+            data += str(key) + ": " + str(self.OBJECT_DICT[key]) + "\n"
         data_table_to_print[0][0] = self.prepare_data_to_print(data).rstrip("\n")
         table = SingleTable(data_table_to_print, title = str(number))
         print(table.table)

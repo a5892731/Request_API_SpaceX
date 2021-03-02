@@ -1,5 +1,6 @@
 details
 flight_number
+crew
 name
 date_utc
 OBJECT NUMBER

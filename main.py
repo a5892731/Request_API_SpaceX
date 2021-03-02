@@ -1,5 +1,5 @@
 '''
-version 1.7
+version 1.8
 author: a5892731
 date: 2021-03-01
 
@@ -25,11 +25,11 @@ if __name__ == "__main__":
     BOOSTERS_MENU_DICT = {11 : "STATUS", 12: "SERIAL"}
     BOOSTERS_STATUS_DICT = {111: "active", 112: "inactive", 113: "unknown",
                             114: "inactive", 115: "expended", 116: "lost"}
-    CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL"}
+    CAPSULES_MENU_DICT = {21 : "STATUS", 22: "SERIAL", 23: "GET LAUNCHES DATA"}
     CAPSULES_STATUS_DICT = {211: "active", 212: "inactive", 213: "unknown",
                             214: "inactive", 215: "expended", 216: "lost"}
     MISSIONS_DICT = {31 : "PREVIOUS", 32 : "FUTURE", 33: "OBJECT NUMBER", 34: "FLIGHT NUMBER",
-                     35: "SORT OBJECTS\n    BY TIME"}
+                     35: "SORT OBJECTS\n    BY TIME", 36: "GET CREW DATA"}
 
     MENU_DICT = [
                 HEADING_MENU_DICT,
@@ -77,37 +77,34 @@ if __name__ == "__main__":
             state_machine.capsule_status_state(CAPSULES_OBJECT_CALL_LIST(), VERY_SHORT_CAPSULES_OBJECT_CALL_LIST(),
                                                API_ADDRESS_CALL_DICT()["CAPSULES"], CAPSULES_STATUS_DICT[state],
                                                "status")
-
         elif state == 22:
             state_machine.capsule_serial_state(CAPSULES_OBJECT_CALL_LIST(), SHORT_CAPSULES_OBJECT_CALL_LIST(),
                                                API_ADDRESS_CALL_DICT()["CAPSULES"],
                                                input(">>> Put capsule serial number: "), "serial")
+        elif state == 23:
+            state_machine.get_launches_data_state(CAPSULES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["CAPSULES"],
+                                                  LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"])
+
         elif state == 31:
             state_machine.lauches_previouse(LAUNCHES_OBJECT_CALL_LIST(), VERY_SHORT_LAUNCHES_OBJECT_CALL_LIST(),
                                              API_ADDRESS_CALL_DICT()["LAUNCHES"])
-
         elif state == 32:
             state_machine.lauches_future(LAUNCHES_OBJECT_CALL_LIST(), SHORT_LAUNCHES_OBJECT_CALL_LIST(),
                                           API_ADDRESS_CALL_DICT()["LAUNCHES"])
-
         elif state == 33:
             state_machine.lauches_object_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
                                                        API_ADDRESS_CALL_DICT()["LAUNCHES"],
-                                                       input(">>> Put launch object number: "), "OBJECT NUMBER",
-                                                       CREW_OBJECT_CALL_LIST(), VERY_SHORT_CREW_OBJECT_CALL_LIST(),
-                                                       API_ADDRESS_CALL_DICT()["CREW"])
-
+                                                       input(">>> Put launch object number: "), "OBJECT NUMBER")
         elif state == 34:
             state_machine.lauches_flight_number_state(LAUNCHES_OBJECT_CALL_LIST(), LAUNCHES_OBJECT_CALL_LIST(),
                                                        API_ADDRESS_CALL_DICT()["LAUNCHES"],
-                                                       input(">>> Put flight number: "), "flight_number",
-                                                       CREW_OBJECT_CALL_LIST(), VERY_SHORT_CREW_OBJECT_CALL_LIST(),
-                                                       API_ADDRESS_CALL_DICT()["CREW"])
-
-
+                                                       input(">>> Put flight number: "), "flight_number")
         elif state == 35:
             state_machine.lauches_sort_by_time(LAUNCHES_OBJECT_CALL_LIST(), [], API_ADDRESS_CALL_DICT()["LAUNCHES"])
-            print(">>> DONE!")
+
+        elif state == 36:
+            state_machine.get_crew_data_state(LAUNCHES_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["LAUNCHES"],
+                                    CREW_OBJECT_CALL_LIST(), API_ADDRESS_CALL_DICT()["CREW"])
 
 
 
