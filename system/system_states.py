@@ -5,7 +5,7 @@ this is a state machine file
 '''
 
 
-from system_v2.spacex_data_container import SpacexObjects, ObjectsSort
+from system.spacex_data_container import SpacexObjects, ObjectsSort
 
 class SystemStates:
 

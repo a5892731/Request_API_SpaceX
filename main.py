@@ -1,21 +1,21 @@
 '''
-version 2.0
+version 3.0 - in preparation!!! get version 2.0 if you want to get some spacex data ;)
 author: a5892731
 date: 2021-03-02
 
 required modules:
 
->>> terminaltables
->>> requests
->>> json
+pip install terminaltables
+pip install requests
+pip install json
 
->>> os , platform, datetime
+os , platform, datetime
 '''
 
-from system_v2.user_selection import UserStateSelection
-from system_v2.system_states import SystemStates
-from system_v2.menu import SmartMenu, clear_screen
-from system_v2.read_data_files import DataImport
+from system.user_selection import UserStateSelection
+from system.system_states import SystemStates
+from system.menu import SmartMenu, clear_screen
+from system.read_data_files import DataImport
 
 #--------------------------------------------------------------------------------------- <<<< MAIN MENU
 
