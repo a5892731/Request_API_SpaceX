@@ -11,6 +11,7 @@ class Database:
     version = "1.0"
     version_date = "2021-03-14"
     version_info = "In preparation"
+    # system need password protection
 
     def __init__(self, db_name, host_name, user_name, user_password, tables):
         self.db_name = db_name
