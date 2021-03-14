@@ -22,27 +22,6 @@ class Database:
         create_database_query = "CREATE DATABASE {}".format(db_name)
         self.create_database(connection, create_database_query, tables)
 
-    def create_tables(self, tables):
-
-        def create_columns(key, tables):
-            columns = ""
-            for column in tables[key]:
-                columns += column + ", "
-            columns += "PRIMARY KEY ({})".format(tables[key][0].split(" ")[0])
-                                                 # "test_table1_id INT AUTO_INCREMENT" and you nead test_table1_id
-            return columns
-
-        connection = self.create_connection_to_db()
-
-        for key in tables:
-            create_table = """
-            CREATE TABLE IF NOT EXISTS {} (
-              {}
-            ) ENGINE = InnoDB 
-            """.format(key, create_columns(key, tables))
-
-            self.execute_query(connection, create_table, "DB {} table created successfully".format(key))
-
     def create_connection_to_server(self):
         connection = None
         try:
@@ -69,6 +48,27 @@ class Database:
             else:
                 print(f">>> The error '{e}' occurred")
 
+    def create_tables(self, tables):
+
+        def create_columns(key, tables):
+            columns = ""
+            for column in tables[key]:
+                columns += column + ", "
+            columns += "PRIMARY KEY ({})".format(tables[key][0].split(" ")[0])
+                                                 # "test_table1_id INT AUTO_INCREMENT" and you nead test_table1_id
+            return columns
+
+        connection = self.create_connection_to_db()
+
+        for key in tables:
+            create_table = """
+            CREATE TABLE IF NOT EXISTS {} (
+              {}
+            ) ENGINE = InnoDB 
+            """.format(key, create_columns(key, tables))
+
+            self.execute_query(connection, create_table, "DB {} table created successfully".format(key))
+
     def create_connection_to_db(self):
         connection = None
         try:
@@ -94,13 +94,13 @@ class Database:
         except Error as e:
             print(f">>> The error '{e}' occurred")
 
-    def execute_sql_val(self, connection, sql, val):
+    def execute_sql_val(self, connection, sql, val, message):
 
         cursor = connection.cursor()
         try:
             cursor.executemany(sql, val)
             connection.commit()
-            print(">>> Query executed successfully")
+            print(">>> {}".format(message))
         except Error as e:
             print(f">>> The error '{e}' occurred")
 
@@ -115,6 +115,7 @@ class Database:
             print(f">>> The error '{e}' occurred")
 
 
+#-----------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
 
