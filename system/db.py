@@ -13,7 +13,7 @@ from system.read_data_files import DataImport
 class Database:
 
     version = "1.0"
-    version_date = "2021-03-14"
+    version_date = "2021-03-15"
     version_info = "In preparation"
     # system need password protection
 
@@ -119,8 +119,14 @@ class Database:
         except Error as e:
             print(f">>> The error '{e}' occurred")
 
+    def del_db(self):
+        connection = self.create_connection_to_db()
+        self.execute_query(connection, "DROP DATABASE {}".format(self.db_name))
+
     def __del__(self):
         return ">>> Class deleted"
+
+
 
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -141,7 +147,7 @@ if __name__ == "__main__":
 
     tables2 = DataImport("TABLES.txt", "dict", "db_configuration")
 
-    print(tables2())
+    #print(tables2())
 
     test = Database("spacex", "127.0.0.1", "root", "", tables2())
     #print(test.__del__())

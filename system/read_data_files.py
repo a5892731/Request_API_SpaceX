@@ -8,7 +8,7 @@ import os
 class DataImport:
 
     version = "1.2"
-    version_date = "2021-03-14"
+    version_date = "2021-03-15"
     version_info = ""
 
     def __init__(self, FILE_NAME, CALL_TYPE, FILE_FOLDER =  "data_files"):
@@ -49,7 +49,6 @@ class DataImport:
         self.file.close()
 
     def value_data_segregation(self, value):
-        print(value)
         if value[0] == "(" and value[-1] == ")":  # if string contains tuple
             output = self.cteate_tuple_from_string(value[1:-2])
         elif value[0] == "[" and value[-1] == "]":  # if string contains list
