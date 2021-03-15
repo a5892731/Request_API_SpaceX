@@ -6,6 +6,10 @@ author: a5892731
 import mysql.connector
 from mysql.connector import Error
 
+import os
+from system.read_data_files import DataImport
+
+
 class Database:
 
     version = "1.0"
@@ -115,6 +119,9 @@ class Database:
         except Error as e:
             print(f">>> The error '{e}' occurred")
 
+    def __del__(self):
+        return ">>> Class deleted"
+
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -122,9 +129,22 @@ if __name__ == "__main__":
 
 # create database test:
 
-    tables = {"test_table1": ("test_table1_id INT AUTO_INCREMENT", "column1 CHAR(20)", "column2 CHAR(20)", "column3 CHAR(20)"),
+    '''    tables = {"test_table1": ("test_table1_id INT AUTO_INCREMENT", "column1 CHAR(20)", "column2 CHAR(20)", "column3 CHAR(20)"),
               "test_table2": ("test_table2_id INT AUTO_INCREMENT", "column1 CHAR(20)", "column2 CHAR(20)", "column3 CHAR(20)")}
 
     test = Database("spacex", "127.0.0.1", "root", "", tables)
+    print(test.__del__())'''
+
 
 #-----------------------------------------------------------------------------------------------------------------------
+    os.chdir("..")
+
+    tables2 = DataImport("TABLES.txt", "dict", "db_configuration")
+
+    print(tables2())
+
+    test = Database("spacex", "127.0.0.1", "root", "", tables2())
+    #print(test.__del__())
+
+    os.chdir("system")
+
