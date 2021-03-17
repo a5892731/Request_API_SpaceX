@@ -29,9 +29,7 @@ if __name__ == "__main__":
 
     while True:
 
-        system_stete = TrafficLightMachine()
-
-        system_stete.current_state
+        None
 
 
 

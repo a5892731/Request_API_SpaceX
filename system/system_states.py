@@ -16,3 +16,20 @@ class TrafficLightMachine(StateMachine):
     slowdown = green.to(yellow)
     stop = yellow.to(red)
     go = red.to(green)
+
+
+
+
+
+
+if __name__ == "__main__":
+
+
+    traffic_light = TrafficLightMachine()
+
+    print(traffic_light.current_state)
+
+
+
+
+    print(traffic_light.current_state == TrafficLightMachine.green == traffic_light.green)
