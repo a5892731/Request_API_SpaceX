@@ -1,8 +1,14 @@
 
 from state_machine.state import State
 
+#from state_machine.states.initialization import Initialization
+
+
 # Start of our states
-class state1(State):
+
+
+# Start of our states
+class Initialization(State):
     """
     The state which indicates that there are limited device capabilities.
     """
@@ -22,7 +28,7 @@ class state2(State):
 
     def on_event(self, event):
         if event == 'device_locked':
-            return state1()
+            return Initialization()
 
         return self
 

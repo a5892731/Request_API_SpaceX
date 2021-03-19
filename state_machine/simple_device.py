@@ -1,5 +1,5 @@
 
-from state_machine.my_states import state1, state2, state3
+from state_machine.states.my_states import Initialization
 
 class SimpleDevice(object):
     """
@@ -11,7 +11,7 @@ class SimpleDevice(object):
         """ Initialize the components. """
 
         # Start with a default state.
-        self.state = state1()
+        self.state = Initialization()
 
     def on_event(self, event):
         """
