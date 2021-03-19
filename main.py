@@ -17,7 +17,7 @@ from system.user_selection import UserStateSelection
 from system.menu import SmartMenu, clear_screen
 from system.read_data_files import DataImport
 
-from system.system_states import TrafficLightMachine
+
 
 
 
