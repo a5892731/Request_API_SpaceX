@@ -1,6 +1,7 @@
 
 from state_machine.my_states import Initialization
 
+
 class SimpleDevice(object):
     """
     A simple state machine that mimics the functionality of a device from a
@@ -19,9 +20,10 @@ class SimpleDevice(object):
         delegated to the given states which then handle the event. The result is
         then assigned as the new state.
         """
-
         # The next state will be the result of the on_event function.
+
         self.state = self.state.on_event(event)
+
 
 
 if __name__ == "__main__":

@@ -1,11 +1,13 @@
+from system.menu import Menu
+
 class UserChoiceBody(object):
 
     def __init__(self):
-        print('Processing current state:', str(self))
+
+        menu_list = [[str(self), str(self), str(self)], [str(self), str(self), str(self)]]
+        self.print_menu(menu_list)
 
         self.choice = input(">>> Put menu number: ")
-
-
 
 
     def on_event(self, event):
@@ -25,3 +27,8 @@ class UserChoiceBody(object):
         Returns the name of the State.
         """
         return self.__class__.__name__
+
+    def print_menu(self, menu_list):
+        menu = Menu(menu_list)
+        menu.drow_menu(" MENU - " + str(self) + " ")
+        menu.clear_screen()
