@@ -13,18 +13,13 @@ from terminaltables import AsciiTable, SingleTable, DoubleTable
 
 class Menu:
     version = "1.0"
+    menu_width = 70
 
     def __init__(self, table_menu):
-
         self.table_menu = table_menu
 
-
-
     def drow_menu(self, menu_title = " MENU "):
-        #menu = AsciiTable(self.table)
-        #menu = SingleTable(self.table)
         menu = DoubleTable(self.table_menu, title = menu_title)
-
         print(menu.table)
 
     def clear_screen(self):
@@ -38,6 +33,8 @@ class Menu:
         return os.system(command)
 
 
+
+        return output
 
 
 
