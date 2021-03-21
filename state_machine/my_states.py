@@ -12,28 +12,28 @@ from state_machine.states.user_choice import UserChoiceBody
 
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class Initialization(InitializationBody):
-    def on_event(self, event):
+    def on_event(self, event = 'device_locked'):
 
         if event == 'device_locked':
             return GetConnectionData()
         return self
 
 class GetConnectionData(GetConnectionDataBody):
-    def on_event(self, event):
+    def on_event(self, event = 'device_locked'):
 
         if event == 'device_locked':
             return GetDataFromApi()
         return self
 
 class GetDataFromApi(GetDataFrimApiBody):
-    def on_event(self, event):
+    def on_event(self, event = 'device_locked'):
 
         if event == 'device_locked':
             return UserChoice()
         return self
 
 class UserChoice(UserChoiceBody):
-    def on_event(self, event):
+    def on_event(self, event = 'device_locked'):
 
         if event == 'device_locked':
             return Initialization()
