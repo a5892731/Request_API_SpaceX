@@ -1,5 +1,5 @@
 
-from state_machine.states.my_states import Initialization
+from state_machine.my_states import Initialization
 
 class SimpleDevice(object):
     """

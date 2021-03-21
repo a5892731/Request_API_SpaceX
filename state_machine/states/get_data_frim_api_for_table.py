@@ -1,4 +1,4 @@
-class InitializationBody(object):
+class GetDataFrimApiForTableBody(object):
 
     def __init__(self):
         print('Processing current state:', str(self))

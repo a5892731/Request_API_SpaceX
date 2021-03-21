@@ -1,7 +1,12 @@
-class InitializationBody(object):
+class UserChoiceBody(object):
 
     def __init__(self):
         print('Processing current state:', str(self))
+
+        self.choice = input(">>> Put menu number: ")
+
+
+
 
     def on_event(self, event):
         """
