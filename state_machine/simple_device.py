@@ -30,6 +30,6 @@ if __name__ == "__main__":
     device = SimpleDevice()
 
     while True:
-        device.on_event()
+        device.on_event("device_locked")
 
 
