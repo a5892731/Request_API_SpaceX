@@ -13,12 +13,7 @@ pip install python-statemachine
 os , platform, datetime
 '''
 
-from system.user_selection import UserStateSelection
-from system.menu import SmartMenu, clear_screen
-from system.read_data_files import DataImport
-
-
-
+from state_machine.simple_device import SimpleDevice
 
 
 #--------------------------------------------------------------------------------------- <<<< MAIN MENU
@@ -26,10 +21,7 @@ from system.read_data_files import DataImport
 
 
 if __name__ == "__main__":
+    device = SimpleDevice()
 
     while True:
-
-        None
-
-
-
+        device.on_event('device_locked')
