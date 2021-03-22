@@ -21,8 +21,3 @@ class ErrorBody(object):
         Returns the name of the State.
         """
         return self.__class__.__name__
-
-    def print_menu(self, menu_list):
-        menu = Menu(menu_list)
-        menu.drow_menu(" MENU - " + str(self) + " ")
-        sleep(1)
