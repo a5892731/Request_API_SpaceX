@@ -31,8 +31,9 @@ class UserChoice(UserChoiceBody):
             return self
         if event == 'device_locked' and self.choice == "4":
             return self
-        else:
+        elif event == 'device_locked':
             return UserChoice()
+        return self
 
 class GetDataFromApi(GetDataFromApiBody):
     def on_event(self, event):
