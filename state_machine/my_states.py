@@ -4,7 +4,7 @@ here are the rules of state transition
 
 from state_machine.states.initialization import InitializationBody
 from state_machine.states.get_connection_data import GetConnectionDataBody
-from state_machine.states.get_data_frim_api_for_table import GetDataFrimApiBody
+from state_machine.states.get_api import GetDataFromApiBody
 
 from state_machine.states.user_choice import UserChoiceBody
 
@@ -25,8 +25,10 @@ class GetConnectionData(GetConnectionDataBody):
             return GetDataFromApi()
         return self
 
-class GetDataFromApi(GetDataFrimApiBody):
+class GetDataFromApi(GetDataFromApiBody):
     def on_event(self, event):
+        print(self.api_data)
+
 
         if event == 'device_locked':
             return UserChoice()

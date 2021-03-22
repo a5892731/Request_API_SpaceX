@@ -1,16 +1,12 @@
 from system.menu import Menu
+#from system.db import Database
+
 
 class GetConnectionDataBody(object):
 
     def __init__(self):
-        menu_list = [[str(self), str(self), str(self)], [str(self), str(self), str(self)]]
+        menu_list = [[""]]
         self.print_menu(menu_list)
-
-    def on_event(self, event):
-        """
-        Handle events that are delegated to this State.
-        """
-        pass
 
     def __repr__(self):
         """

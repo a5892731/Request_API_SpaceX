@@ -4,8 +4,7 @@ class InitializationBody(object):
 
     def __init__(self):
 
-        menu_list = [[70 * " "]]
-        self.print_menu(menu_list)
+        self.print_menu([["START PROGRAM".center(68)]])
 
     def on_event(self, event):
         """
