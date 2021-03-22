@@ -2,44 +2,42 @@ from system.menu import Menu
 from system.read_data_files import DataImport
 from system.spacex_data_container import SpacexObjects
 import requests
-import time
 
 class GetDataFromApiBody(object):
 
     def __init__(self):
         self.api_data = {}
         self.request_status = 0
+        self.error = ""
         self.get_configuration()
 
 
     def get_configuration(self):
 
         api_adreses = DataImport("API_ADDRESS_DICT.txt", "dict", "data_files")
-        api_statuses = DataImport("API_STATUSES.txt", "dict", "data_files")
-
         objects_list = DataImport("OBJECT_LIST.txt", "list", "data_files")
         data = {}
 
         progress = 1
         for key in objects_list():
-
+            menu = Menu([["loading API data: {} %".format(int(progress / len(objects_list()) * 100))]])
+            menu.drow_menu(" MENU - " + str(self) + " ")
+            # -------------------------------------------------------------------------------------------
             r = requests.get(api_adreses()[key])
-            self.request_status = r
-            if r != 200:
-
+            self.request_status = r.status_code
+            if self.request_status == 200:
                 object_list = DataImport((key + "_OBJECT_LIST.txt"), "list", "data_files")
                 so = SpacexObjects(api_adreses()[key], object_list(), [])
                 objects = so.objects
-
                 #-------------------------------------------------------------------------------------------
-                menu_list = [["loading API data: {} %".format(int(progress / len(objects_list()) * 100))]]
-                self.print_menu(menu_list)
-                progress += 1
                 data[key] = objects
+                progress += 1
+                menu.clear_screen()
             else:
-                menu_list = [["{}: {}".format(key, api_statuses()[r])]]
-                time.sleep(5)
-                self.print_menu(menu_list)
+                api_statuses = DataImport("API_STATUSES.txt", "dict", "data_files")
+                self.error = str(self.request_status) + ": " + api_statuses()[str(self.request_status)]
+                menu.clear_screen()
+                break
 
         self.api_data = data
 
@@ -55,7 +53,3 @@ class GetDataFromApiBody(object):
         """
         return self.__class__.__name__
 
-    def print_menu(self, menu_list):
-        menu = Menu(menu_list)
-        menu.drow_menu(" MENU - " + str(self) + " ")
-        menu.clear_screen()

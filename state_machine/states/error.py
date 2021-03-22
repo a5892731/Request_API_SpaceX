@@ -1,20 +1,14 @@
 from system.menu import Menu
+from time import sleep
 
-class UserChoiceBody(object):
 
-    def __init__(self, api_data):
+class ErrorBody(object):
 
-        menu_list = [[str(self), str(self), str(self)], [str(self), str(self), str(self)]]
+    def __init__(self, error):
+        self.error = error
+
+        menu_list = [[self.error.center(68)]]
         self.print_menu(menu_list)
-
-        self.choice = input(">>> Put menu number: ")
-
-
-    def on_event(self, event):
-        """
-        Handle events that are delegated to this State.
-        """
-        pass
 
     def __repr__(self):
         """
@@ -31,4 +25,5 @@ class UserChoiceBody(object):
     def print_menu(self, menu_list):
         menu = Menu(menu_list)
         menu.drow_menu(" MENU - " + str(self) + " ")
+        sleep(1)
         menu.clear_screen()
