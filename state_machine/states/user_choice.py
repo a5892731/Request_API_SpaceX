@@ -2,19 +2,13 @@ from system.menu import Menu
 
 class UserChoiceBody(object):
 
-    def __init__(self, api_data):
+    def __init__(self):
 
-        menu_list = [[str(self), str(self), str(self)], [str(self), str(self), str(self)]]
-        self.print_menu(menu_list)
-
-        self.choice = input(">>> Put menu number: ")
-
-
-    def on_event(self, event):
-        """
-        Handle events that are delegated to this State.
-        """
-        pass
+        menu_list = [["1: Update Database", "2: Read Database", "5: Settings", "4: Close Program"]]
+        menu = Menu(menu_list)
+        menu.drow_menu(" MENU - " + str(self) + " ")
+        self.choice = input(">>> Enter menu number: ")
+        menu.clear_screen()
 
     def __repr__(self):
         """
@@ -28,7 +22,3 @@ class UserChoiceBody(object):
         """
         return self.__class__.__name__
 
-    def print_menu(self, menu_list):
-        menu = Menu(menu_list)
-        menu.drow_menu(" MENU - " + str(self) + " ")
-        menu.clear_screen()

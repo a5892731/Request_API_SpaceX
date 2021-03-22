@@ -1,12 +1,57 @@
 from system.menu import Menu
-#from system.db import Database
-
+from system.db import Database
+from system.read_data_files import DataImport
+import os
+from time import sleep
 
 class GetConnectionDataBody(object):
 
-    def __init__(self):
-        menu_list = [[""]]
-        self.print_menu(menu_list)
+    def __init__(self, ApiData):
+
+        self.api_data = ApiData
+        self.error = ""
+        self.connection_to_db()
+
+    def connection_to_db(self):
+        menu = Menu([["Connecting ...".center(68)]])
+        menu.drow_menu(" MENU - " + str(self) + " ")
+
+        connection_parameters = DataImport("CONNECTION_DATA.txt", "dict", "db_configuration")
+        tables = DataImport("TABLES.txt", "dict", "db_configuration")
+        # -----------------------------------------------------------------------------------------------------------
+        db = Database(connection_parameters()["database"], connection_parameters()["host"],
+                        connection_parameters()["user"], "", tables()) # connection_parameters()["password"]
+
+        menu.clear_screen()
+        menu = Menu([[db.status.center(68)]])
+        menu.drow_menu(" MENU - " + str(self) + " ")
+        if "Error" in db.status:
+            self.error += db.status + "\n"
+        # -----------------------------------------------------------------------------------------------------------
+        connection = db.create_connection_to_server("") # connection_parameters()["password"]
+        create_database_query = "CREATE DATABASE {}".format(connection_parameters()["database"])
+        db.create_database(connection, create_database_query, tables(), "") # connection_parameters()["password"]
+
+        menu.clear_screen()
+        menu = Menu([[db.status.center(68)]])
+        menu.drow_menu(" MENU - " + str(self) + " ")
+        if "Error" in db.status:
+            self.error += db.status + "\n"
+        # -----------------------------------------------------------------------------------------------------------
+        if db.status == "Database created successfully":
+            db.connection = db.create_connection_to_db("") # connection_parameters()["password"]
+
+            for key in tables(): # if database just been created then you need to build db tables too
+                db.create_table(key, tables())
+
+                menu.clear_screen()
+                menu = Menu([[db.status.center(68)]])
+                menu.drow_menu(" MENU - " + str(self) + " ")
+                if "error" in db.status:
+                    self.error += key + ": " + db.status + "\n\n"
+        # -----------------------------------------------------------------------------------------------------------
+        sleep(1)
+        menu.clear_screen()
 
     def __repr__(self):
         """
@@ -20,7 +65,13 @@ class GetConnectionDataBody(object):
         """
         return self.__class__.__name__
 
-    def print_menu(self, menu_list):
-        menu = Menu(menu_list)
-        menu.drow_menu(" MENU - " + str(self) + " ")
-        menu.clear_screen()
+
+if __name__ == "__main__":
+
+    os.chdir("..")
+    os.chdir("..")
+
+    test = GetConnectionDataBody()
+
+    os.chdir("state_machine")
+    os.chdir("states")

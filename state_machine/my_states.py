@@ -10,34 +10,46 @@ from state_machine.states.error import ErrorBody
 
 
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
 class Initialization(InitializationBody):
     def on_event(self, event):
 
         if event == 'device_locked':
-            return GetConnectionData()
-        return self
-
-class GetConnectionData(GetConnectionDataBody):
-    def on_event(self, event):
-
-        if event == 'device_locked':
-            return GetDataFromApi()
-        return self
-
-class GetDataFromApi(GetDataFromApiBody):
-    def on_event(self, event):
-
-        if event == 'device_locked' and self.request_status == 200:
-            return UserChoice(self.api_data)
-        elif event == 'device_locked' and self.request_status != 200:
-            return Error(self.error)
+            return UserChoice()
         return self
 
 class UserChoice(UserChoiceBody):
     def on_event(self, event):
 
-        if event == 'device_locked':
-            return Initialization()
+        if event == 'device_locked' and self.choice == "1":
+            return GetDataFromApi()
+        if event == 'device_locked' and self.choice == "2":
+            return self
+        if event == 'device_locked' and self.choice == "3":
+            return self
+        if event == 'device_locked' and self.choice == "4":
+            return self
+        else:
+            return UserChoice()
+
+class GetDataFromApi(GetDataFromApiBody):
+    def on_event(self, event):
+
+        if event == 'device_locked' and self.request_status == 200:
+            return GetConnectionData(self.api_data)
+        elif event == 'device_locked' and self.request_status != 200:
+            return Error(self.error)
+        return self
+
+class GetConnectionData(GetConnectionDataBody):
+    def on_event(self, event):
+
+        if event == 'device_locked' and self.error == "":
+            return UserChoice()
+        elif event == 'device_locked' and self.error != "":
+            return Error(self.error)
         return self
 
 class Error(ErrorBody):
