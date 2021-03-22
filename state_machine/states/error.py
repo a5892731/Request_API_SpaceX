@@ -7,8 +7,8 @@ class ErrorBody(object):
     def __init__(self, error):
         self.error = error
 
-        menu_list = [[self.error.center(68)]]
-        self.print_menu(menu_list)
+        Menu([[self.error.center(68)]], " MENU - {} ".format(str(self)))
+
 
     def __repr__(self):
         """
@@ -26,4 +26,3 @@ class ErrorBody(object):
         menu = Menu(menu_list)
         menu.drow_menu(" MENU - " + str(self) + " ")
         sleep(1)
-        menu.clear_screen()

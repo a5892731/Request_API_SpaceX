@@ -20,8 +20,7 @@ class GetDataFromApiBody(object):
 
         progress = 1
         for key in objects_list():
-            menu = Menu([["loading API data: {} %".format(int(progress / len(objects_list()) * 100))]])
-            menu.drow_menu(" MENU - " + str(self) + " ")
+            Menu([["loading API data: {} %".format(int(progress / len(objects_list()) * 100))]], " MENU - {} ".format(str(self)))
             # -------------------------------------------------------------------------------------------
             r = requests.get(api_adreses()[key])
             self.request_status = r.status_code
@@ -32,11 +31,10 @@ class GetDataFromApiBody(object):
                 #-------------------------------------------------------------------------------------------
                 data[key] = objects
                 progress += 1
-                menu.clear_screen()
+
             else:
                 api_statuses = DataImport("API_STATUSES.txt", "dict", "data_files")
                 self.error = str(self.request_status) + ": " + api_statuses()[str(self.request_status)]
-                menu.clear_screen()
                 break
 
         self.api_data = data

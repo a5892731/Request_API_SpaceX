@@ -4,7 +4,7 @@ class InitializationBody(object):
 
     def __init__(self):
 
-        self.print_menu([["START PROGRAM".center(68)]])
+        Menu([["START PROGRAM".center(68)]], " MENU - {} ".format(str(self)))
 
     def on_event(self, event):
         """
@@ -23,8 +23,3 @@ class InitializationBody(object):
         Returns the name of the State.
         """
         return self.__class__.__name__
-
-    def print_menu(self, menu_list):
-        menu = Menu(menu_list)
-        menu.drow_menu(" MENU - " + str(self) + " ")
-        menu.clear_screen()
