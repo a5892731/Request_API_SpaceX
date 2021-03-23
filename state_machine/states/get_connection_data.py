@@ -6,9 +6,9 @@ from time import sleep
 
 class GetConnectionDataBody(object):
 
-    def __init__(self, ApiData):
+    def __init__(self, api_data):
 
-        self.api_data = ApiData
+        self.api_data = api_data
         self.error = ""
         self.connection_to_db()
 
