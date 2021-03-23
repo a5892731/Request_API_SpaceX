@@ -14,8 +14,8 @@ class GetDataFromApiBody(object):
 
     def get_configuration(self):
 
-        api_adreses = DataImport("API_ADDRESS_DICT.txt", "dict", "data_files")
-        objects_list = DataImport("OBJECT_LIST.txt", "list", "data_files")
+        api_adreses = DataImport("API_ADDRESS_DICT.txt", "dict", "api_configuration")
+        objects_list = DataImport("API_OBJECT_LIST.txt", "list", "api_configuration")
         data = {}
 
         progress = 1
@@ -25,7 +25,7 @@ class GetDataFromApiBody(object):
             r = requests.get(api_adreses()[key])
             self.request_status = r.status_code
             if self.request_status == 200:
-                object_list = DataImport((key + "_OBJECT_LIST.txt"), "list", "data_files")
+                object_list = DataImport((key + "_OBJECT_LIST.txt"), "list", "api_configuration")
                 so = SpacexObjects(api_adreses()[key], object_list(), [])
                 objects = so.objects
                 #-------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class GetDataFromApiBody(object):
                 progress += 1
 
             else:
-                api_statuses = DataImport("API_STATUSES.txt", "dict", "data_files")
+                api_statuses = DataImport("API_STATUSES.txt", "dict", "api_configuration")
                 self.error = str(self.request_status) + ": " + api_statuses()[str(self.request_status)]
                 break
 

@@ -8,7 +8,7 @@ required modules:
 pip install terminaltables
 pip install requests
 pip install json
-pip install python-statemachine
+pip install mysql
 
 os , platform, datetime
 '''

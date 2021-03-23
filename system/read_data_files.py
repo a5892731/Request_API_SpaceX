@@ -11,7 +11,7 @@ class DataImport:
     version_date = "2021-03-15"
     version_info = ""
 
-    def __init__(self, FILE_NAME, CALL_TYPE, FILE_FOLDER =  "data_files"):
+    def __init__(self, FILE_NAME, CALL_TYPE, FILE_FOLDER =  "api_configuration"):
         self.list = []
         self.dicionary = {}
         self.call_type = CALL_TYPE

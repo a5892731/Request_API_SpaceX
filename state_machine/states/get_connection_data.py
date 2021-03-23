@@ -13,7 +13,7 @@ class GetConnectionDataBody(object):
         self.connection_to_db()
 
     def connection_to_db(self):
-        Menu([["Connecting ...".center(68)]]," MENU - {} ".format(str(self)))
+        Menu([["Connecting ...".center(68)]]," MENU - {} ".format(str(self))) # drow menu
 
         connection_parameters = DataImport("CONNECTION_DATA.txt", "dict", "db_configuration")
         tables = DataImport("TABLES.txt", "dict", "db_configuration")
@@ -21,7 +21,7 @@ class GetConnectionDataBody(object):
         db = Database(connection_parameters()["database"], connection_parameters()["host"],
                         connection_parameters()["user"], "", tables()) # connection_parameters()["password"]
 
-        Menu([[db.status.center(68)]]," MENU - {} ".format(str(self)))
+        Menu([[db.status.center(68)]]," MENU - {} ".format(str(self))) # drow menu
 
         if "Error" in db.status:
             self.error += db.status + "\n"
@@ -30,7 +30,7 @@ class GetConnectionDataBody(object):
         create_database_query = "CREATE DATABASE {}".format(connection_parameters()["database"])
         db.create_database(connection, create_database_query, tables(), "") # connection_parameters()["password"]
 
-        Menu([[db.status.center(68)]]," MENU - {} ".format(str(self)))
+        Menu([[db.status.center(68)]]," MENU - {} ".format(str(self))) # drow menu
         if "Error" in db.status:
             self.error += db.status + "\n"
         # -----------------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ class GetConnectionDataBody(object):
             for key in tables(): # if database just been created then you need to build db tables too
                 db.create_table(key, tables())
 
-                Menu([[db.status.center(68)]]," MENU - {} ".format(str(self)))
+                Menu([[db.status.center(68)]]," MENU - {} ".format(str(self))) # drow menu
                 if "error" in db.status:
                     self.error += key + ": " + db.status + "\n\n"
         # -----------------------------------------------------------------------------------------------------------

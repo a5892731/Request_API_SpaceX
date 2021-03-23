@@ -138,16 +138,12 @@ class Database:
 
 if __name__ == "__main__":
 
-# create database test:
+    ''' 
+    WORNING: for tests script from here, you ned to uncomment line 26, 27, 28 and 50, 51 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+    
+    '''
 
-    '''    tables = {"test_table1": ("test_table1_id INT AUTO_INCREMENT", "column1 CHAR(20)", "column2 CHAR(20)", "column3 CHAR(20)"),
-              "test_table2": ("test_table2_id INT AUTO_INCREMENT", "column1 CHAR(20)", "column2 CHAR(20)", "column3 CHAR(20)")}
-
-    test = Database("spacex", "127.0.0.1", "root", "", tables)
-    print(test.__del__())'''
-
-
-#-----------------------------------------------------------------------------------------------------------------------
     os.chdir("..")
 
     tables2 = DataImport("TABLES.txt", "dict", "db_configuration")
