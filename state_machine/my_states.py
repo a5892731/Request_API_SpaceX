@@ -9,6 +9,8 @@ from state_machine.states.user_choice import UserChoiceBody
 from state_machine.states.error import ErrorBody
 from state_machine.states.insert_db_tables import InsertDbTablesBody
 from state_machine.states.update_db_tables import UpdateDbTablesBody
+from state_machine.states.settings import SetingsBody
+from state_machine.states.read_database import ReadDbBody
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -66,6 +68,21 @@ class UpdateDbTables(UpdateDbTablesBody):
         if event == 'device_locked':
             return UserChoice()
         return self
+
+class ReadDb(ReadDbBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    def on_event(self, event):
+
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
+class Setings(SetingsBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    def on_event(self, event):
+
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
 
 class Error(ErrorBody):
     def on_event(self, event):
