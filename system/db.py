@@ -21,6 +21,7 @@ class Database:
         self.host_name = host_name
         self.user_name = user_name
         self.status = ""
+
         #self.user_password = user_password # password is protected
 
         #connection = self.create_connection_to_server(user_password)

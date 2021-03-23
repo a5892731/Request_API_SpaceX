@@ -7,8 +7,8 @@ from state_machine.states.get_connection_data import GetConnectionDataBody
 from state_machine.states.get_api import GetDataFromApiBody
 from state_machine.states.user_choice import UserChoiceBody
 from state_machine.states.error import ErrorBody
-
-
+from state_machine.states.insert_db_tables import InsertDbTablesBody
+from state_machine.states.update_db_tables import UpdateDbTablesBody
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -48,9 +48,23 @@ class GetConnectionData(GetConnectionDataBody):
     def on_event(self, event):
 
         if event == 'device_locked' and self.error == "":
-            return UserChoice()
+            return InsertDbTablesBody(self.api_data, self.db)
         elif event == 'device_locked' and self.error != "":
             return Error(self.error)
+        return self
+
+class InsertDbTables(InsertDbTablesBody):
+    def on_event(self, event):
+
+        if event == 'device_locked':
+            return UpdateDbTables(self.api_data, self.db)
+        return self
+
+class UpdateDbTables(UpdateDbTablesBody):
+    def on_event(self, event):
+
+        if event == 'device_locked':
+            return UserChoice()
         return self
 
 class Error(ErrorBody):

@@ -44,6 +44,7 @@ class GetConnectionDataBody(object):
                 if "error" in db.status:
                     self.error += key + ": " + db.status + "\n\n"
         # -----------------------------------------------------------------------------------------------------------
+        self.db = db
         sleep(1)
 
 
