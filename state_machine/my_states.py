@@ -28,9 +28,9 @@ class UserChoice(UserChoiceBody):
         if event == 'device_locked' and self.choice == "1":
             return GetDataFromApi()
         if event == 'device_locked' and self.choice == "2":
-            return self
+            return ReadDb()
         if event == 'device_locked' and self.choice == "3":
-            return self
+            return Setings()
         if event == 'device_locked' and self.choice == "4":
             return self
         elif event == 'device_locked':
