@@ -55,4 +55,9 @@ class GetConnectionData(GetConnectionDataBody):
 
 class Error(ErrorBody):
     def on_event(self, event):
-        return Error(self.error)
+        if event == 'device_locked' and self.choice.upper() == "Y":
+            return Initialization()
+        elif event != 'device_locked' or self.choice.upper() == "N":
+            return self
+        else:
+            return Error(self.error)

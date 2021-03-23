@@ -8,6 +8,7 @@ class ErrorBody(object):
         self.error = error
 
         Menu([[self.error.center(68)]], " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Continue?: Y/N")
 
 
     def __repr__(self):
