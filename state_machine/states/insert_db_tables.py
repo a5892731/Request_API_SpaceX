@@ -9,8 +9,16 @@ class InsertDbTablesBody(object):
     def __init__(self, api_data, DB):
         self.api_data = api_data
         self.db = DB
+        columns = ""
+        columns_data = ""
 
-        Menu([["...".center(68)]]," MENU - {} ".format(str(self))) # drow menu
+        Menu([[("{}".format("Update tables: "))]], " MENU - {} ".format(str(self)))  # drow menu
+
+
+
+        # zamienić funkcjonalność z UPDATE !!!!
+
+
 
     def on_event(self, event):
         """

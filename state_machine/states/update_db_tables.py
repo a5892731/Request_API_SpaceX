@@ -6,21 +6,56 @@ class UpdateDbTablesBody(object):
     individual states within the state machine.
     """
 
-    def __init__(self, api_data, DB):
+    def __init__(self, api_data, DB, db_sizes):
         self.api_data = api_data
         self.db = DB
+        self.db_sizes = db_sizes
+
+        for key in api_data:
+            row_count = 0
+            for object in api_data[key]:
+                row_count += 1
+                columns = ""
+                columns_values_count = ""  # in (%s, %s) = 2
+                columns_values = ""
+                for column in object.OBJECT_DICT:
+                    columns += column + ", "
+                    columns_values_count += "%s, "
+                    if object.OBJECT_DICT[column] != None:
+                        columns_values += str(object.OBJECT_DICT[column]) + ", "
+                    else:
+                        columns_values += "None" + ", "
 
 
-        Menu([["...".center(68)]]," MENU - {} ".format(str(self))) # drow menu
+
+
+
+                #sql = "INSERT INTO {} ({}) VALUES ({})".format(key.lower(), columns, columns_values_count)
+                #val = [(tuple(columns_values))]
+
+
+
+                #sql = "INSERT INTO {} (date, coustomer_id, order_name, order_value, status) VALUES (%s, %s, %s, %s, %s)".format("orders")
+                #val = [('SELECT DATE(NOW())', user_id, order_name, order_value, status,)]
+                #self.db.execute_sql_val(self.db.connection, sql, val, "DZIALA")
+
+
+
+                query = "INSERT INTO {} ({}) VALUES ({})".format(key.lower(), columns.lower(), columns_values)
+                self.db.execute_query(self.db.connection, query, "DZIALA")
+
+                print(self.db.status)
+                # from here
 
 
 
 
-    def on_event(self, event):
-        """
-        Handle events that are delegated to this State.
-        """
-        pass
+
+                if row_count >= (len(api_data[key]) - self.db_sizes[key]):
+                    break
+
+
+
 
     def __repr__(self):
         """
@@ -33,3 +68,7 @@ class UpdateDbTablesBody(object):
         Returns the name of the State.
         """
         return self.__class__.__name__
+
+
+if __name__ == "__main__":
+    pass

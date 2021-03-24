@@ -13,7 +13,7 @@ from system.read_data_files import DataImport
 class Database:
 
     version = "1.0"
-    version_date = "2021-03-22"
+    version_date = "2021-03-24"
     version_info = ""
 
     def __init__(self, db_name, host_name, user_name, user_password, tables):
@@ -117,12 +117,13 @@ class Database:
         except Error as e:
             self.status = f"The error '{e}' occurred"
 
-    def execute_read_query(self, connection, query):
-        cursor = connection.cursor()
+    def execute_read_query(self, connection, query, message):
+        cursor = self.connection.cursor()
         result = None
         try:
             cursor.execute(query)
             result = cursor.fetchall()
+            self.status = "{}".format(message)
             return result
         except Error as e:
             self.status = f"The error '{e}' occurred"

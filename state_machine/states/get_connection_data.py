@@ -6,14 +6,14 @@ from time import sleep
 
 class GetConnectionDataBody(object):
 
-    def __init__(self, api_data):
+    def __init__(self, api_data = {}):
 
         self.api_data = api_data
         self.error = ""
         self.connection_to_db()
 
     def connection_to_db(self):
-        Menu([["Connecting ...".center(68)]]," MENU - {} ".format(str(self))) # drow menu
+        Menu([["Connecting ..."]]," MENU - {} ".format(str(self))) # drow menu
 
         connection_parameters = DataImport("CONNECTION_DATA.txt", "dict", "db_configuration")
         tables = DataImport("TABLES.txt", "dict", "db_configuration")
@@ -21,17 +21,19 @@ class GetConnectionDataBody(object):
         db = Database(connection_parameters()["database"], connection_parameters()["host"],
                         connection_parameters()["user"], "", tables()) # connection_parameters()["password"]
 
-        Menu([[db.status.center(68)]]," MENU - {} ".format(str(self))) # drow menu
+        connection = db.create_connection_to_server("")  # connection_parameters()["password"]
 
-        if "Error" in db.status:
+        if "error" in db.status:
             self.error += db.status + "\n"
         # -----------------------------------------------------------------------------------------------------------
-        connection = db.create_connection_to_server("") # connection_parameters()["password"]
+
+        Menu([[db.status]]," MENU - {} ".format(str(self))) # drow menu
+
         create_database_query = "CREATE DATABASE {}".format(connection_parameters()["database"])
         db.create_database(connection, create_database_query, tables(), "") # connection_parameters()["password"]
 
-        Menu([[db.status.center(68)]]," MENU - {} ".format(str(self))) # drow menu
-        if "Error" in db.status:
+        Menu([[db.status]]," MENU - {} ".format(str(self))) # drow menu
+        if "error" in db.status:
             self.error += db.status + "\n"
         # -----------------------------------------------------------------------------------------------------------
         if db.status == "Database created successfully":
@@ -40,7 +42,7 @@ class GetConnectionDataBody(object):
             for key in tables(): # if database just been created then you need to build db tables too
                 db.create_table(key, tables())
 
-                Menu([[db.status.center(68)]]," MENU - {} ".format(str(self))) # drow menu
+                Menu([[db.status]]," MENU - {} ".format(str(self))) # drow menu
                 if "error" in db.status:
                     self.error += key + ": " + db.status + "\n\n"
         # -----------------------------------------------------------------------------------------------------------

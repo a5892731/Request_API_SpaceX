@@ -11,6 +11,7 @@ from state_machine.states.insert_db_tables import InsertDbTablesBody
 from state_machine.states.update_db_tables import UpdateDbTablesBody
 from state_machine.states.settings import SetingsBody
 from state_machine.states.read_database import ReadDbBody
+from state_machine.states.read_db_tables_len import ReadDbTablesLenBody
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -50,19 +51,31 @@ class GetConnectionData(GetConnectionDataBody):
     def on_event(self, event):
 
         if event == 'device_locked' and self.error == "":
-            return InsertDbTablesBody(self.api_data, self.db)
+            return ReadDbTablesLen(self.api_data, self.db)
         elif event == 'device_locked' and self.error != "":
             return Error(self.error)
+        else:
+            return self
         return self
 
-class InsertDbTables(InsertDbTablesBody):
+class ReadDbTablesLen(ReadDbTablesLenBody):
     def on_event(self, event):
 
         if event == 'device_locked':
-            return UpdateDbTables(self.api_data, self.db)
+            return UpdateDbTables(self.api_data, self.db, self.db_sizes)
+        elif event == 'device_locked' and self.error != "":
+            return Error(self.error)
+        else:
+            return self
         return self
 
 class UpdateDbTables(UpdateDbTablesBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return InsertDbTables(self.api_data, self.db)
+        return self
+
+class InsertDbTables(InsertDbTablesBody):
     def on_event(self, event):
 
         if event == 'device_locked':

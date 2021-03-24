@@ -8,7 +8,6 @@ class ReadDbBody(object):
 
     def __init__(self):
 
-
         Menu([["...".center(68)]]," MENU - {} ".format(str(self))) # drow menu
 
     def on_event(self, event):
