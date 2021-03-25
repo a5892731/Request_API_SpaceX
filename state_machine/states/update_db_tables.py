@@ -10,6 +10,7 @@ class UpdateDbTablesBody(object):
         self.api_data = api_data
         self.db = DB
         self.db_sizes = db_sizes
+        self.error = ""
 
         for key in api_data:
             row_count = 0
@@ -17,44 +18,37 @@ class UpdateDbTablesBody(object):
                 row_count += 1
                 columns = ""
                 columns_values_count = ""  # in (%s, %s) = 2
-                columns_values = ""
+                columns_values = ()
+                val = []
+
                 for column in object.OBJECT_DICT:
-                    columns += column + ", "
+                    if column == "id":
+                        columns += key.lower() + "_id" + ", "
+                    else:
+                        columns += column + ", "
                     columns_values_count += "%s, "
                     if object.OBJECT_DICT[column] != None:
-                        columns_values += str(object.OBJECT_DICT[column]) + ", "
+                        columns_values = columns_values + (str(object.OBJECT_DICT[column]),)
                     else:
-                        columns_values += "None" + ", "
+                        columns_values = columns_values + ("None",)
 
 
+                sql = "INSERT INTO {} ({}) VALUES ({})".format(key.lower(), columns.rstrip(", "), columns_values_count.rstrip(", "))
+                #val.append(columns_values)
+                val = [columns_values]
+                self.db.execute_sql_val(self.db.connection, sql, val, "IT IS WORKING !")
 
+                if "error" in self.db.status:
+                    self.error += self.db.status + " in " + key + "\n\n"
+                    Menu([[(self.db.status + " in >>> " + key)]], " MENU - {} ".format(str(self)))  # drow menu
 
-
-                #sql = "INSERT INTO {} ({}) VALUES ({})".format(key.lower(), columns, columns_values_count)
-                #val = [(tuple(columns_values))]
-
-
-
-                #sql = "INSERT INTO {} (date, coustomer_id, order_name, order_value, status) VALUES (%s, %s, %s, %s, %s)".format("orders")
-                #val = [('SELECT DATE(NOW())', user_id, order_name, order_value, status,)]
-                #self.db.execute_sql_val(self.db.connection, sql, val, "DZIALA")
-
-
-
-                query = "INSERT INTO {} ({}) VALUES ({})".format(key.lower(), columns.lower(), columns_values)
-                self.db.execute_query(self.db.connection, query, "DZIALA")
-
-                print(self.db.status)
-                # from here
-
-
-
-
-
-                if row_count >= (len(api_data[key]) - self.db_sizes[key]):
+                if (row_count - 1) >= (len(api_data[key]) - self.db_sizes[key]):
+                    print("break")
                     break
 
 
+
+            Menu([[("Insert table: {}".format(key))]], " MENU - {} ".format(str(self)))  # drow menu
 
 
     def __repr__(self):
@@ -71,4 +65,6 @@ class UpdateDbTablesBody(object):
 
 
 if __name__ == "__main__":
-    pass
+
+
+    print(type([]))

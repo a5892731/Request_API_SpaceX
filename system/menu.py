@@ -15,7 +15,7 @@ class Menu:
     version = "1.0"
     menu_width = 69
 
-    def __init__(self, table_menu, menu_title):
+    def __init__(self, table_menu, menu_title = " MENU "):
         self.table_menu = table_menu
         self.table_to_print = []
         self.prepare_table()
