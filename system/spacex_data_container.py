@@ -70,6 +70,8 @@ class SpacexObjects:
         for key in self.OBJECT_DICT:
             if key == "OBJECT NUMBER":
                 dict[key] = str(object_number)
+            elif "_id" in key:
+                dict[key] = element["id"]
             else:
                 dict[key] = element[key]
         return dict

@@ -8,3 +8,4 @@ PAYLOADS: https://api.spacexdata.com/v4/payloads
 ROCKETS: https://api.spacexdata.com/v4/rockets
 SHIPS: https://api.spacexdata.com/v4/ships
 CREW: https://api.spacexdata.com/v4/crew
+HISTORY: https://api.spacexdata.com/v4/history
