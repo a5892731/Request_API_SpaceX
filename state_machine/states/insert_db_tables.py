@@ -21,10 +21,7 @@ class InsertDbTablesBody(object):
                 if (row_count) < (len(api_data[key]) - self.db_sizes[key]):
                     # row in db
                     continue
-                elif (row_count) > (len(api_data[key]) - self.db_sizes[key]):  # or >=
-                    # print("break")
-                    # self.insert_to_table(key.lower(), columns.rstrip(", "), columns_values_count.rstrip(", "), [table_values])
-                    break
+
                 row_count += 1
                 # --------------------------------------------------------------------------------------------------
                 columns = ""
@@ -53,8 +50,9 @@ class InsertDbTablesBody(object):
                 if "error" in self.db.status:
                     self.error += self.db.status + " in " + key + "\n\n"
 
-            Menu(
-                [[("Insert table: {}\nProgress: {}%\n\n{}".format(key, (progress / len(api_data) * 100), self.error))]],
+            #self.insert_to_table(key.lower(), columns.rstrip(", "), columns_values_count.rstrip(", "), [table_values])
+
+            Menu([[("Insert table: {}\nProgress: {}%\n\n{}".format(key, (progress / len(api_data) * 100), self.error))]],
                 " MENU - {} ".format(str(self)))  # drow menu
             progress += 1
 
@@ -63,8 +61,6 @@ class InsertDbTablesBody(object):
         sql = "INSERT INTO {} ({}) VALUES ({})".format(table_name, colun_names, row_count)
         val = values  # val must be a list  > val = [(..., ...., ....)]
         self.db.execute_sql_val(self.db.connection, sql, val, message)
-
-
 
     def on_event(self, event):
         """
