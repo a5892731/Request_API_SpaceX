@@ -6,6 +6,10 @@ from time import sleep
 
 class GetConnectionDataBody(object):
 
+    '''
+    function creates connection and build database with tables if needed
+    '''
+
     def __init__(self, api_data = {}):
 
         self.api_data = api_data
@@ -45,9 +49,10 @@ class GetConnectionDataBody(object):
                 for key in tables(): # if database just been created then you need to build db tables too
                     db.create_table(key, tables())
 
-                    Menu([[db.status]]," MENU - {} ".format(str(self))) # drow menu
+
                     if "error" in db.status:
                         self.error += key + ": " + db.status + "\n\n"
+                    Menu([[db.status + "\n\n" + self.error]], " MENU - {} ".format(str(self)))  # drow menu
             # -----------------------------------------------------------------------------------------------------------
             self.db = db
             sleep(1)

@@ -81,29 +81,32 @@ class Menu:
 if __name__ == "__main__": # for tests
 
     MENU = [["testdddddddddddddddddddddXXdddddX ", "test", "test"], ["tesest sdaaaaa adssssss", "test", "test"], ]
-    m = Menu(MENU)
-    m.drow_menu()
+    m = Menu(MENU, " title ")
+
 
     MENU = [["123456789012345678901234567890123456789", "test", "test"]]
-    m = Menu(MENU)
-    m.drow_menu()
+    m = Menu(MENU, " title ")
+
 
     MENU = [["testdddd sadada sdada a sa asd  as add ", "test", "test"]]
-    m = Menu(MENU)
-    m.drow_menu()
+    m = Menu(MENU, " title ")
+
 
     MENU = [[""]]
-    m = Menu(MENU)
-    m.drow_menu()
+    m = Menu(MENU, " title ")
+
 
     MENU = [["", ""]]
-    m = Menu(MENU)
-    m.drow_menu()
+    m = Menu(MENU, " title ")
+
 
     MENU = [["", "", "", ""]]
-    m = Menu(MENU)
-    m.drow_menu()
+    m = Menu(MENU, " title ")
+
 
     MENU = [["Zadaniem programisty bardzo często jest obsługa zmiennych napisowych (łańcuchów znaków) czyli tzw. stringów. Dzieje się to szczególnie często w przypadku programowania webowego. Zagadnienie zmiennych napisowych w Pythonie jest wbrew pozorom bardzo obszerne. W tym artykule chciałbym skupić się na pokazaniu najpotrzebniejszych operacji związanych ze zmiennymi napisowymi."]]
-    m = Menu(MENU)
+    m = Menu(MENU, " title ")
+    m.table_menu = [["", "", "", ""]]
+    m.table_to_print = []
+    m.prepare_table()
     m.drow_menu()

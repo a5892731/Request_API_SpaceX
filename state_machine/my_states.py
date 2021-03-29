@@ -62,25 +62,27 @@ class ReadDbTablesLen(ReadDbTablesLenBody):
     def on_event(self, event):
 
         if event == 'device_locked':
-            return UpdateDbTables(self.api_data, self.db, self.db_sizes)
+            return InsertDbTables(self.api_data, self.db, self.db_sizes)
         elif event == 'device_locked' and self.error != "":
             return Error(self.error)
         else:
             return self
         return self
 
-class UpdateDbTables(UpdateDbTablesBody):
-    def on_event(self, event):
-        if event == 'device_locked':
-            return InsertDbTables(self.api_data, self.db)
-        return self
-
 class InsertDbTables(InsertDbTablesBody):
     def on_event(self, event):
 
         if event == 'device_locked':
+            return UpdateDbTables(self.api_data, self.db)
+        return self
+
+class UpdateDbTables(UpdateDbTablesBody):
+    def on_event(self, event):
+        if event == 'device_locked':
             return UserChoice()
         return self
+
+
 
 class ReadDb(ReadDbBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     def on_event(self, event):

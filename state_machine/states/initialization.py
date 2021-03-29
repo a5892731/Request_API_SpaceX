@@ -2,15 +2,15 @@ from system.menu import Menu
 
 class InitializationBody(object):
 
-    def __init__(self):
-
-        Menu([["START PROGRAM".center(68)]], " MENU - {} ".format(str(self)))
-
-    def on_event(self, event):
+    def __init__(self,):
         """
-        Handle events that are delegated to this State.
+        We define a state object which provides some utility functions for the
+        individual states within the state machine.
         """
-        pass
+
+
+        Menu([[("Start program")]], " MENU - {} ".format(str(self)))  # drow menu
+
 
     def __repr__(self):
         """
@@ -23,3 +23,6 @@ class InitializationBody(object):
         Returns the name of the State.
         """
         return self.__class__.__name__
+
+    if __name__ == "__main__":
+        print(type([]))
