@@ -13,21 +13,27 @@ class InsertDbTablesBody(object):
         self.error = ""
         progress = 0
 
-        for key in api_data:
 
+        for key in api_data:
+            table_values = []
             row_count = 0
+
+            Menu([[("Insert table: {}".format(key))],
+                  [("Progress: {}%".format((progress / len(api_data) * 100)))],
+                  [("{}".format(self.error))]], " MENU - {} ".format(str(self)))  # drow menu
+
             for object in api_data[key]:
 
-                if (row_count) < (len(api_data[key]) - self.db_sizes[key]):
-                    # row in db
+                if (row_count) < (len(api_data[key]) - (len(api_data[key]) - self.db_sizes[key])):
+                    row_count += 1
                     continue
 
                 row_count += 1
                 # --------------------------------------------------------------------------------------------------
                 columns = ""
-                columns_values_count = ""  # in (%s, %s) = 2
+                row_alllocation = ""  # in (%s, %s) = 2
                 row_values = ()
-                table_values = []
+
 
                 for column in object.OBJECT_DICT:
                     if column == "id":
@@ -35,26 +41,26 @@ class InsertDbTablesBody(object):
                     else:
                         columns += column + ", "
 
-                    columns_values_count += "%s, "
+                    row_alllocation += "%s, "
 
                     if object.OBJECT_DICT[column] != None:
                         row_values = row_values + (str(object.OBJECT_DICT[column]),)
                     else:
                         row_values = row_values + ("None",)
 
-                self.insert_to_table(key.lower(), columns.rstrip(", "), columns_values_count.rstrip(", "),
-                                     [row_values])
+                #self.insert_to_table(key.lower(), columns.rstrip(", "), row_alllocation.rstrip(", "),[row_values])
 
                 table_values.append(row_values)
+
 
                 if "error" in self.db.status:
                     self.error += self.db.status + " in " + key + "\n\n"
 
-            #self.insert_to_table(key.lower(), columns.rstrip(", "), columns_values_count.rstrip(", "), [table_values])
-
-            Menu([[("Insert table: {}\nProgress: {}%\n\n{}".format(key, (progress / len(api_data) * 100), self.error))]],
-                " MENU - {} ".format(str(self)))  # drow menu
+            self.insert_to_table(key.lower(), columns.rstrip(", "), row_alllocation.rstrip(", "), table_values)
             progress += 1
+
+        Menu([[("Progress: {}%".format((progress / len(api_data) * 100)))],
+              [("{}".format(self.error))]], " MENU - {} ".format(str(self)))  # drow menu
 
     def insert_to_table(self, table_name, colun_names, row_count, values, message="IT IS WORKING !"):
 

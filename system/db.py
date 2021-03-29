@@ -118,7 +118,7 @@ class Database:
             self.status = f"The error '{e}' occurred"
 
     def execute_read_query(self, connection, query, message):
-        cursor = self.connection.cursor()
+        cursor = connection.cursor()
         result = None
         try:
             cursor.execute(query)

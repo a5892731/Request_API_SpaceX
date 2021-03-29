@@ -1,4 +1,6 @@
 from system.menu import Menu
+from subprocess import Popen
+
 
 class InitializationBody(object):
 
@@ -8,7 +10,7 @@ class InitializationBody(object):
         individual states within the state machine.
         """
 
-
+        #Popen(["mode", "con:", "cols=25", "lines=80"])
         Menu([[("Start program")]], " MENU - {} ".format(str(self)))  # drow menu
 
 

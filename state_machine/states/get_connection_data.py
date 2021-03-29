@@ -52,7 +52,7 @@ class GetConnectionDataBody(object):
 
                     if "error" in db.status:
                         self.error += key + ": " + db.status + "\n\n"
-                    Menu([[db.status + "\n\n" + self.error]], " MENU - {} ".format(str(self)))  # drow menu
+                    Menu([[db.status], [self.error]], " MENU - {} ".format(str(self)))  # drow menu
             # -----------------------------------------------------------------------------------------------------------
             self.db = db
             sleep(1)

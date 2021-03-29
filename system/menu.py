@@ -76,6 +76,8 @@ class Menu:
 
         return output
 
+    def __del__(self):
+        return "data deleted"
 
 
 if __name__ == "__main__": # for tests

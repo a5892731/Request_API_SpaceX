@@ -17,11 +17,11 @@ class ReadDbTablesLenBody(object):
 
             query = "SELECT id FROM {} ORDER BY id DESC LIMIT 0 , 1".format(key.lower())
             progres_bar += 1
-            odpowiedz = self.db.execute_read_query(self.db.connection, query,
+            response = self.db.execute_read_query(self.db.connection, query,
                                                    "Loading tables length: {} %".format(int((progres_bar/len(api_data) * 100))))
             size_of_database = 0
-            if odpowiedz != []:
-                size_of_database = odpowiedz[0][0]
+            if response != []:
+                size_of_database = response[0][0]
             self.db_sizes[key] = size_of_database
 
             Menu([[("{}".format(self.db.status))]]," MENU - {} ".format(str(self)))  # drow menu

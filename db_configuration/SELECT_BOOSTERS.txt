@@ -1,0 +1,6 @@
+id
+serial
+block
+reuse_count
+last_update
+status

@@ -27,9 +27,9 @@ class Initialization(InitializationBody):
 class UserChoice(UserChoiceBody):
     def on_event(self, event):
 
-        return_dict = {"1": GetDataFromApi(), "2": ReadDb(), "3": Setings(), "4": UserChoice()}
+        #return_dict = {"1": GetDataFromApi(), "2": ReadDb(), "3": Setings(), "4": UserChoice()}
 
-        '''
+
         if event == 'device_locked' and self.choice == "1":
             return GetDataFromApi()
         elif event == 'device_locked' and self.choice == "2":
@@ -40,12 +40,7 @@ class UserChoice(UserChoiceBody):
             return self
         elif event == 'device_locked':
             return UserChoice()
-        '''
-        if event == 'device_locked':
-            try:
-                return return_dict[self.choice]
-            except KeyError:
-                return UserChoice()
+
         else:
             return self
 
