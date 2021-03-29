@@ -12,6 +12,7 @@ from state_machine.states.update_db_tables import UpdateDbTablesBody
 from state_machine.states.settings import SetingsBody
 from state_machine.states.read_database import ReadDbBody
 from state_machine.states.read_db_tables_len import ReadDbTablesLenBody
+from state_machine.states.close import CloseBody
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -26,17 +27,27 @@ class Initialization(InitializationBody):
 class UserChoice(UserChoiceBody):
     def on_event(self, event):
 
+        return_dict = {"1": GetDataFromApi(), "2": ReadDb(), "3": Setings(), "4": UserChoice()}
+
+        '''
         if event == 'device_locked' and self.choice == "1":
             return GetDataFromApi()
-        if event == 'device_locked' and self.choice == "2":
+        elif event == 'device_locked' and self.choice == "2":
             return ReadDb()
-        if event == 'device_locked' and self.choice == "3":
+        elif event == 'device_locked' and self.choice == "3":
             return Setings()
-        if event == 'device_locked' and self.choice == "4":
+        elif event == 'device_locked' and self.choice == "4":
             return self
         elif event == 'device_locked':
             return UserChoice()
-        return self
+        '''
+        if event == 'device_locked':
+            try:
+                return return_dict[self.choice]
+            except KeyError:
+                return UserChoice()
+        else:
+            return self
 
 class GetDataFromApi(GetDataFromApiBody):
     def on_event(self, event):
@@ -82,8 +93,6 @@ class UpdateDbTables(UpdateDbTablesBody):
             return UserChoice()
         return self
 
-
-
 class ReadDb(ReadDbBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     def on_event(self, event):
 
@@ -98,7 +107,6 @@ class Setings(SetingsBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             return UserChoice()
         return self
 
-
 class Error(ErrorBody):
     def on_event(self, event):
         if event == 'device_locked' and self.choice.upper() == "Y":
@@ -107,3 +115,7 @@ class Error(ErrorBody):
             return self
         else:
             return Error(self.error)
+
+class Close(CloseBody):
+    def on_event(self, event):
+        return self
