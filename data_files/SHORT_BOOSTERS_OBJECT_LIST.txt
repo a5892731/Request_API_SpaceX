@@ -1,6 +1,0 @@
-block
-reuse_count
-last_update
-launches
-serial
-status

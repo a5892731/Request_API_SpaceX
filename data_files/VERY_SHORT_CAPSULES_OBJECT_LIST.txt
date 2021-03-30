@@ -1,4 +1,0 @@
-type
-reuse_count
-serial
-launches
