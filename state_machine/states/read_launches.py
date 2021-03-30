@@ -15,16 +15,16 @@ class LaunchesBody(ReadDbBody):
         self.error = ""
         self.table = "launches"
 
-        if self.choice == 1 and self.error == "":
+        if self.choice == "1" and self.error == "":
             self.connection_to_db()
             self.all_data()
-        if self.choice == 2 and self.error == "":
+        if self.choice == "2" and self.error == "":
             self.connection_to_db()
             menu_list = [["Enter flight number"]]
             Menu(menu_list, " MENU - {} ".format(str(self)))
             self.choice = input(">>> Enter flight number: ")
             self.by_column_value(self, "flight_number", self.choice)
-        if self.choice == 3 and self.error == "":
+        if self.choice == "3" and self.error == "":
             self.connection_to_db()
             menu_list = [["Enter status"],["True", "False"]]
             Menu(menu_list, " MENU - {} ".format(str(self)))
