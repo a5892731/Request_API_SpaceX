@@ -5,8 +5,13 @@ import os
 
 class ReadDbBody(object):
 
-    def __init__(self):
+    def __init__(self,  menu_list=[["1: Launches", "2: Boosters", "3: Capsules", "4: Main Menu"]]):
+
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter menu number: ")
         self.error = ""
+
+    def on_user_choice(self):
         self.connection_to_db()
         self.choice = ""
 
@@ -29,7 +34,6 @@ class ReadDbBody(object):
             self.error += self.db.status + "\n"
         # -----------------------------------------------------------------------------------------------------------
 
-
     def read_from_table(self, table, column_list, selected_column_name = "", selected_column_value = "", order = "", order_type = "", data_view_limit = 5):
         '''
         :param table: table name
@@ -39,7 +43,7 @@ class ReadDbBody(object):
         :param order: order = "ORDER" or "". order or selected_column_value must be empty
         :param order_type: if order == "ORDER" then it shauld have a type "ASC" or "DESC"
         :param data_view_limit: limit how many tables you want to print in console (max)
-        :return:
+        :return: print server data
         '''
         query = ""
         column_names = ""
@@ -60,15 +64,17 @@ class ReadDbBody(object):
             query.rstrip(" ")
 
         response = self.send_sql_query(query)
-        self.read_sql_response(response, table, column_list, data_view_limit)
+        self.read_sql_response(response, table, column_list, data_view_limit) # read and print in console
 
     def send_sql_query(self, query):
+        '''
+        :param query:
+        query = SELECT columns FROM table BY column_name = column_value
+        query = SELECT columns FROM table order BY column_name desc
+        query = SELECT columns FROM table
 
-        #(self, column_names, table, column_name, order = "", order_type = "")
-        #query = SELECT columns FROM table order BY column_name desc
-        #query = SELECT columns FROM table BY column_name
-        #query = SELECT columns FROM table BY column_name
-        #query = "SELECT {1} FROM {2} {4} BY {3} {5}".format(column_names, table, column_name, order, order_type)
+        :return: server response
+        '''
         response = self.db.execute_read_query(self.db.connection, query, "Read {} table completed".format(table))
         Menu([[self.db.status]], " MENU - {} ".format(str(self)))  # drow menu
         if "error" in self.db.status:
@@ -118,6 +124,8 @@ if __name__ == "__main__":
     os.chdir("..")
 
     test = ReadDbBody()
+    test.on_user_choice()
+
 
     if test.error == "":
         table = "boosters"
@@ -127,10 +135,19 @@ if __name__ == "__main__":
         test.read_from_table(table, columns(), "status", "active")
 
 
+        test.read_from_table(table, columns(), "serial", "B1051")
+
+
+        test.read_from_table(table, columns(), "serial", "wrong data")
+
+
         test.read_from_table(table, columns(), "id", "", "ORDER", "DESC")
 
 
         test.read_from_table(table, columns())
+
+
+        test.read_from_table(table, columns(), "wrong data", "1")
 
 
     os.chdir("state_machine")
