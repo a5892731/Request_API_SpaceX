@@ -19,7 +19,7 @@ class InsertDbTablesBody(object):
             row_count = 0
 
             Menu([[("Insert table: {}".format(key))],
-                  [("Progress: {}%".format((progress / len(api_data) * 100)))],
+                  [("Progress: {}%".format(int(progress / len(api_data) * 100)))],
                   [("{}".format(self.error))]], " MENU - {} ".format(str(self)))  # drow menu
 
             for object in api_data[key]:
@@ -59,7 +59,7 @@ class InsertDbTablesBody(object):
             self.insert_to_table(key.lower(), columns.rstrip(", "), row_alllocation.rstrip(", "), table_values)
             progress += 1
 
-        Menu([[("Progress: {}%".format((progress / len(api_data) * 100)))],
+        Menu([[("Progress: {}%".format(int(progress / len(api_data) * 100)))],
               [("{}".format(self.error))]], " MENU - {} ".format(str(self)))  # drow menu
 
     def insert_to_table(self, table_name, colun_names, row_count, values, message="IT IS WORKING !"):

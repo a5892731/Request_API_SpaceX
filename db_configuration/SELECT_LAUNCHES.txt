@@ -6,7 +6,7 @@ window
 success
 details
 crew
-capsules
+capsules_id
 failures
 upcoming
-cores
+cores_id
