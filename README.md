@@ -1,6 +1,7 @@
 VERSION IN PREPARATION!
 
 not all functions are available ;)
+  
   to do: 
   - add relational queries
   - filter empty data 
