@@ -1,5 +1,5 @@
 VERSION IN PREPARATION!
-get version 2.0 if you want to get some spacex data ;)
+not all functions are available ;)
 -----------------------------------------------------------------------------------------------------------
 
 # Request_API_SpaceX
