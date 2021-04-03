@@ -15,9 +15,11 @@ class CapsulesBody(ReadDbBody):
         self.error = ""
         self.table = "capsules"
 
+
         if self.choice == "1" and self.error == "":
+            menu_dict = {"1": "Sort by id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
             self.connection_to_db()
-            self.all_data()
+            self.all_data(menu_dict)
         if self.choice == "2" and self.error == "":
             self.connection_to_db()
             menu_list = [["Enter capsule serial number"]]
@@ -39,31 +41,6 @@ class CapsulesBody(ReadDbBody):
             pass
 
 
-    def all_data(self):
-        menu_dict = {"1": "Sort by id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
-        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
-        order_type = "DESC"
-
-
-        Menu(menu_list, " MENU - {} ".format(str(self)))
-        self.choice = input(">>> Enter menu number: ")
-
-        try:
-            if "Sort" in menu_dict[self.choice]:
-                order_by = menu_dict[self.choice][8:]
-                columns = DataImport("SELECT_{}.txt".format(self.table.upper()), "list", "db_configuration")
-                self.read_from_table(self.table, columns(), order_by, "", "ORDER", order_type)
-        except KeyError:
-            pass
-
-    def by_column_value(self, column = "serial", value = "B1051"):
-        '''
-        :param column: sugestions: serial, flight_number, status, id
-        :param value:
-        :return:  print tables in console
-        '''
-        columns = DataImport("SELECT_{}.txt".format(self.table.upper()), "list", "db_configuration")
-        self.read_from_table(self.table, columns(), column, value)
 
 
 

@@ -16,6 +16,12 @@ from state_machine.states.close import CloseBody
 from state_machine.states.read_launches import LaunchesBody
 from state_machine.states.read_boosters import BoostersBody
 from state_machine.states.read_capsules import CapsulesBody
+from state_machine.states.read_rockets import RocketsBody
+from state_machine.states.read_crew import CrewBody
+from state_machine.states.read_payloads import PayloadsBody
+from state_machine.states.read_ships import ShipsBody
+from state_machine.states.read_launchpads import LaunchpadsBody
+from state_machine.states.read_landpads import LandpadsBody
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -101,12 +107,23 @@ class ReadDb(ReadDbBody):
                 return Boosters()
             elif event == 'device_locked' and self.choice == "3":
                 return Capsules()
+            elif event == 'device_locked' and self.choice == "4":
+                return Rockets()
+            elif event == 'device_locked' and self.choice == "5":
+                return Crew()
+            elif event == 'device_locked' and self.choice == "6":
+                return Payloads()
+            elif event == 'device_locked' and self.choice == "7":
+                return Ships()
+            elif event == 'device_locked' and self.choice == "8":
+                return Launchpads()
+            elif event == 'device_locked' and self.choice == "9":
+                return Landpads()
             elif event == 'device_locked':
                 return UserChoice()
             return self
         except AttributeError:
             return Error("Database <spacex> does not exist. Update database before reading!")
-
 
 class Launches(LaunchesBody):
     def on_event(self, event):
@@ -126,6 +143,41 @@ class Capsules(CapsulesBody):
             return UserChoice()
         return self
 
+class Rockets(RocketsBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
+class Payloads(PayloadsBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
+class Crew(CrewBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
+class Ships(ShipsBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
+class Launchpads(LaunchpadsBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
+class Landpads(LandpadsBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
 #-------------------------------------------------------------------------------------------------------------
 class Setings(SetingsBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     def on_event(self, event):

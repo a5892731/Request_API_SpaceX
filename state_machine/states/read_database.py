@@ -7,8 +7,15 @@ class ReadDbBody(object):
 
     def __init__(self):
 
-        menu_list = [["1: Launches", "2: Boosters", "3: Capsules", "4: Main Menu"],
-                     ["1: Launches", "2: Boosters", "3: Capsules", "4: Main Menu"]]
+        menu_dict = {"1": "Launches", "2": "Boosters", "3": "Capsules", "4": "Rockets",
+                     "5": "Crew", "6": "Payloads", "7": "Ships", "8": "Launchpads",
+                     "9": "Landpads", "10": "Main Menu",}
+
+
+        menu_list = [["Menu list:"]]
+
+        for key in menu_dict:
+            menu_list.append([key + ": " + menu_dict[key]])
 
         Menu(menu_list, " MENU - {} ".format(str(self)))
         self.choice = input(">>> Enter menu number: ")
@@ -114,6 +121,34 @@ class ReadDbBody(object):
                 self.choice = print_data_and_wait(menu)
         else:
             self.error += "None type object in response\n"
+
+    def all_data(self, menu_dict):
+        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
+        order_type = "DESC"
+
+
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter menu number: ")
+
+        try:
+            if "Sort" in menu_dict[self.choice]:
+                order_by = menu_dict[self.choice][8:]
+                columns = DataImport("SELECT_{}.txt".format(self.table.upper()), "list", "db_configuration")
+                self.read_from_table(self.table, columns(), order_by, "", "ORDER", order_type)
+        except KeyError:
+            pass
+
+    def by_column_value(self, column = "", value = ""):
+        '''
+        :param column: sugestions: serial, flight_number, status, id
+        :param value:
+        :return:  print tables in console
+        '''
+        columns = DataImport("SELECT_{}.txt".format(self.table.upper()), "list", "db_configuration")
+        self.read_from_table(self.table, columns(), column, value)
+
+
+
 
     def __repr__(self):
         """

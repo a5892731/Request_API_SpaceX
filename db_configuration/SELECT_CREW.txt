@@ -2,4 +2,3 @@ name
 agency
 wikipedia
 table_id
-id
