@@ -22,6 +22,7 @@ class ReadDbBody(object):
         self.error = ""
         self.table = ""
 
+
     def on_user_choice(self):
         self.connection_to_db()
         self.choice = ""
@@ -79,6 +80,46 @@ class ReadDbBody(object):
         response = self.send_sql_query(query)
         self.read_sql_response(response, table, column_list, data_view_limit) # read and print in console
 
+    def read_from_many_tables(self, table_list, column_list_list, relations_dict, order = "", order_type = "DESC", data_view_limit = 5):
+
+        query = ""
+        column_names = ""
+        tables = ""
+        relations = ""
+        new_column_list = []
+
+        for number in range(len(table_list)):
+            tables += table_list[number] + ", "
+            for column in column_list_list[number]:
+                column_names += table_list[number] + "." + column + ", "
+                if number == 0:
+                    new_column_list.append(column)
+                else:
+                    new_column_list.append(table_list[number] + " " + column)
+
+        column_names = column_names.rstrip(", ")
+        tables = tables.rstrip(", ")
+
+
+        for key in relations_dict:
+            relations = str(key) + " = " + str(relations_dict[key]) + " AND "
+        relations = relations.rstrip(" AND ")
+
+
+        if order == "":
+            query_command_list = ("SELECT", column_names, "FROM", tables, "WHERE", relations)
+        else:
+            query_command_list = ("SELECT", column_names, "FROM", tables, "WHERE", relations, "ORDER BY", order, order_type)
+
+        for command in query_command_list:
+            if command != "":
+                query += command + " "
+            query.rstrip(" ")
+
+        response = self.send_sql_query(query)
+        self.read_sql_response(response, table_list[0], new_column_list, data_view_limit)  # read and print in console
+
+
     def send_sql_query(self, query):
         '''
         :param query:
@@ -94,6 +135,8 @@ class ReadDbBody(object):
             self.error += self.db.status + "\n"
         return response
 
+
+
     def read_sql_response(self, response, table, columns, data_view_limit = 5):
         def print_data_and_wait(menu):
             m = Menu(menu, " MENU - {} ".format(str(self)))  # drow menu
@@ -106,8 +149,10 @@ class ReadDbBody(object):
             for row in response:
                 counter += 1
                 for column_number in range(len(row)):
-                    menu_segment = columns[column_number] + ": " + str(row[column_number])
-                    menu.append([menu_segment])
+
+                    if str(row[column_number]) != "[]" and str(row[column_number]) != "None":
+                        menu_segment = columns[column_number] + ": " + str(row[column_number])
+                        menu.append([menu_segment])
                 menu.append(["-" * Menu.menu_width])
 
                 if counter >= data_view_limit:
@@ -122,21 +167,22 @@ class ReadDbBody(object):
         else:
             self.error += "None type object in response\n"
 
-    def all_data(self, menu_dict):
-        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
-        order_type = "DESC"
 
+    def all_data_from_many(self, menu_dict, table_list, column_list_list, relations_dict, order_type = "DESC"):
+
+        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
 
         Menu(menu_list, " MENU - {} ".format(str(self)))
         self.choice = input(">>> Enter menu number: ")
 
         try:
             if "Sort" in menu_dict[self.choice]:
-                order_by = menu_dict[self.choice][8:]
-                columns = DataImport("SELECT_{}.txt".format(self.table.upper()), "list", "db_configuration")
-                self.read_from_table(self.table, columns(), order_by, "", "ORDER", order_type)
+                order_by = table_list[0] + "." + menu_dict[self.choice][8:]
+
+                self.read_from_many_tables(table_list, column_list_list, relations_dict, order_by, "DESC")
         except KeyError:
             pass
+
 
     def by_column_value(self, column = "", value = ""):
         '''
@@ -167,12 +213,13 @@ if __name__ == "__main__":
 
     os.chdir("..")
     os.chdir("..")
+    test_number = 2
 
     test = ReadDbBody()
     test.on_user_choice()
 
 
-    if test.error == "":
+    if test.error == "" and test_number == 1:
         table = "boosters"
         columns = DataImport("SELECT_{}.txt".format(table.upper()), "list", "db_configuration")
 
@@ -193,6 +240,23 @@ if __name__ == "__main__":
 
 
         test.read_from_table(table, columns(), "wrong data", "1")  # error :)
+
+
+    elif test.error == "" and test_number == 2:
+        table1 = "launches"
+        table2 = "launchpads"
+
+
+        booster_columns = DataImport("SELECT_{}.txt".format(table1.upper()), "list", "db_configuration")
+
+        # read_from_many_tables(self, table_list, column_list_list, relations_dict, order="", order_type="DESC", data_view_limit=5):
+
+
+        test.read_from_many_tables([table1, table2],
+                                   [booster_columns(), ["full_name"]],
+                                   {"launches.launchpad": "launchpads.id"},
+                                   "launches.flight_number", "DESC")
+
 
 
     os.chdir("state_machine")

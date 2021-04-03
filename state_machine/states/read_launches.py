@@ -14,11 +14,20 @@ class LaunchesBody(ReadDbBody):
         self.choice = input(">>> Enter menu number: ")
         self.error = ""
         self.table = "launches"
+        self.table2 = "launchpads"
+        self.relations = {"launches.launchpad": "launchpads.id"}
 
         if self.choice == "1" and self.error == "":
             menu_dict = {"1": "Sort by id", "2": "Sort by flight_number", "3": "Sort by date_utc", "4": "Go Back"}
             self.connection_to_db()
-            self.all_data(menu_dict)
+
+            columns = DataImport("SELECT_{}.txt".format(self.table.upper()), "list", "db_configuration")
+            columns_table2 = DataImport("SELECT_{}_RELATION.txt".format(self.table2.upper()), "list", "db_configuration")
+
+            # all_data_from_many(self, menu_dict, table_list, column_list_list, relations_dict, order_type = "DESC"):
+            self.all_data_from_many(menu_dict, [self.table, self.table2], [columns(), columns_table2()],
+                                    self.relations, "DESC")
+
         if self.choice == "2" and self.error == "":
             self.connection_to_db()
             menu_list = [["Enter flight number"]]
