@@ -27,4 +27,7 @@ Version 3:
 
 This version requires MySQL local server (you can create it in XAMPP: https://www.apachefriends.org/pl/index.html)
 
-If you do not want to create local server, you can get some spacex data in older script  - version 2.0
+-----------------------------------------------------------------------------------------------------------
+Version 2:
+
+If you do not want to create local server, you can get some spacex data in this version
