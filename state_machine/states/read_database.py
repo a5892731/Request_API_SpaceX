@@ -5,11 +5,15 @@ import os
 
 class ReadDbBody(object):
 
-    def __init__(self,  menu_list=[["1: Launches", "2: Boosters", "3: Capsules", "4: Main Menu"]]):
+    def __init__(self):
+
+        menu_list = [["1: Launches", "2: Boosters", "3: Capsules", "4: Main Menu"],
+                     ["1: Launches", "2: Boosters", "3: Capsules", "4: Main Menu"]]
 
         Menu(menu_list, " MENU - {} ".format(str(self)))
         self.choice = input(">>> Enter menu number: ")
         self.error = ""
+        self.table = ""
 
     def on_user_choice(self):
         self.connection_to_db()
@@ -45,6 +49,7 @@ class ReadDbBody(object):
         :param data_view_limit: limit how many tables you want to print in console (max)
         :return: print server data
         '''
+        self.table = table
         query = ""
         column_names = ""
 
@@ -101,6 +106,7 @@ class ReadDbBody(object):
                 if counter >= data_view_limit:
                     self.choice = print_data_and_wait(menu)
                     if self.choice.upper() == "N":
+                        counter = 0
                         break
                     menu = [[table.capitalize() + " data:"]]
                     counter = 0
@@ -145,7 +151,7 @@ if __name__ == "__main__":
         test.read_from_table(table, columns(), "serial", "wrong data") # no error, but empty data
 
 
-        test.read_from_table(table, columns(), "id", "", "ORDER", "DESC")
+        test.read_from_table(table, columns(), "table_id", "", "ORDER", "DESC")
 
 
         test.read_from_table(table, columns())  # error :)

@@ -1,17 +1,20 @@
+fairings
+links
 static_fire_date_utc
 window
+rocket
 success
 details
 crew
 capsules
-auto_update
-launch_library_id
+payloads
+launchpad
 failures
 flight_number
 name
 date_utc
+date_unix
 date_precision
 upcoming
 cores
-OBJECT NUMBER
 id

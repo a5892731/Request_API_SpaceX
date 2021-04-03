@@ -23,16 +23,16 @@ class BoostersBody(ReadDbBody):
             menu_list = [["Enter booster serial number"]]
             Menu(menu_list, " MENU - {} ".format(str(self)))
             self.choice = input(">>> Enter serial: ")
-            self.by_column_value(self, "serial", self.choice)
+            self.by_column_value("serial", self.choice)
         if self.choice == "3" and self.error == "":
             self.connection_to_db()
-            menu_dict = {"1": "active", "2": "inactive", "3": "lost", "4": "expended", "5": "expended"}
+            menu_dict = {"1": "active", "2": "inactive", "3": "lost", "4": "expended"}
             sub_menu_list = [key + ": " + menu_dict[key] for key in menu_dict]
-            menu_list = [["Enter status"], sub_menu_list]
+            menu_list = [sub_menu_list]
             Menu(menu_list, " MENU - {} ".format(str(self)))
-            self.choice = input(">>> Enter success status: ")
+            self.choice = input(">>> Enter status: ")
             try:
-                self.by_column_value(self, "success", menu_dict[self.choice])
+                self.by_column_value("status", menu_dict[self.choice])
             except KeyError:
                 pass
         else:
@@ -40,7 +40,7 @@ class BoostersBody(ReadDbBody):
 
 
     def all_data(self):
-        menu_dict = {"1": "Sort by id", "2": "Sort by flight_number", "3": "Sort by date_utc", "4": "Go Back"}
+        menu_dict = {"1": "Sort by id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
         menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
         order_type = "DESC"
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     os.chdir("..")
 
     test = BoostersBody()
-    test.on_user_choice()
+
 
 
 

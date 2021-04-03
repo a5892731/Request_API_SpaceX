@@ -11,4 +11,4 @@ wikipedia
 details
 launches
 status
-landpad_id
+id

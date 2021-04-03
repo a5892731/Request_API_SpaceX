@@ -1,6 +1,7 @@
-id
+table_id
 serial
 block
 reuse_count
 last_update
 status
+id

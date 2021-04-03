@@ -1,4 +1,4 @@
-id
+table_id
 type
 serial
 reuse_count
@@ -6,3 +6,5 @@ last_update
 water_landings
 land_landings
 status
+id
+launches

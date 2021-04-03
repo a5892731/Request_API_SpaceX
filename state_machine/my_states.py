@@ -13,6 +13,9 @@ from state_machine.states.settings import SetingsBody
 from state_machine.states.read_database import ReadDbBody
 from state_machine.states.read_db_tables_len import ReadDbTablesLenBody
 from state_machine.states.close import CloseBody
+from state_machine.states.read_launches import LaunchesBody
+from state_machine.states.read_boosters import BoostersBody
+from state_machine.states.read_capsules import CapsulesBody
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -82,19 +85,48 @@ class InsertDbTables(InsertDbTablesBody):
             return UpdateDbTables(self.api_data, self.db)
         return self
 
-class UpdateDbTables(UpdateDbTablesBody):
+class UpdateDbTables(UpdateDbTablesBody):  # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+#-------------------------------------------------------------------------------------------------------------
+class ReadDb(ReadDbBody):
+    def on_event(self, event):
+
+        try:
+            if event == 'device_locked' and self.choice == "1":
+                return Launches()
+            elif event == 'device_locked' and self.choice == "2":
+                return Boosters()
+            elif event == 'device_locked' and self.choice == "3":
+                return Capsules()
+            elif event == 'device_locked':
+                return UserChoice()
+            return self
+        except AttributeError:
+            return Error("Database <spacex> does not exist. Update database before reading!")
+
+
+class Launches(LaunchesBody):
     def on_event(self, event):
         if event == 'device_locked':
             return UserChoice()
         return self
 
-class ReadDb(ReadDbBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+class Boosters(BoostersBody):
     def on_event(self, event):
-
         if event == 'device_locked':
             return UserChoice()
         return self
 
+class Capsules(CapsulesBody):
+    def on_event(self, event):
+        if event == 'device_locked':
+            return UserChoice()
+        return self
+
+#-------------------------------------------------------------------------------------------------------------
 class Setings(SetingsBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     def on_event(self, event):
 

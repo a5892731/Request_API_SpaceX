@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
     tables2 = DataImport("TABLES.txt", "dict", "db_configuration")
 
-    test = Database("spacex", "127.0.0.1", "root", "", tables2())
+    test = Database("db-test", "127.0.0.1", "root", "", tables2())
 
     test.del_db()
     print(test.__del__())

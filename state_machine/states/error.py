@@ -4,7 +4,7 @@ from time import sleep
 
 class ErrorBody(object):
 
-    def __init__(self, error):
+    def __init__(self, error = ""):
         self.error = error
 
         Menu([[self.error.center(68)]], " MENU - {} ".format(str(self)))

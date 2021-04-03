@@ -1,4 +1,4 @@
-id
+table_id
 flight_number
 name
 date_utc
@@ -6,7 +6,7 @@ window
 success
 details
 crew
-capsules_id
+capsules
 failures
 upcoming
-cores_id
+id

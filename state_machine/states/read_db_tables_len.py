@@ -15,7 +15,7 @@ class ReadDbTablesLenBody(object):
         progres_bar = 0
         for key in api_data:
 
-            query = "SELECT id FROM {} ORDER BY id DESC LIMIT 0 , 1".format(key.lower())
+            query = "SELECT table_id FROM {} ORDER BY table_id DESC LIMIT 0 , 1".format(key.lower())
             progres_bar += 1
             response = self.db.execute_read_query(self.db.connection, query,
                                                    "Loading tables length: {} %".format(int((progres_bar/len(api_data) * 100))))
