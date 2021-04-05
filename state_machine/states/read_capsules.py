@@ -17,7 +17,7 @@ class CapsulesBody(ReadDbBody):
 
 
         if self.choice == "1" and self.error == "":
-            menu_dict = {"1": "Sort by id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
+            menu_dict = {"1": "Sort by table_id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
             self.connection_to_db()
             self.all_data(menu_dict)
         if self.choice == "2" and self.error == "":

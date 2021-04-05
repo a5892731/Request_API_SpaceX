@@ -15,16 +15,25 @@ class BoostersBody(ReadDbBody):
         self.error = ""
         self.table = "boosters"
 
+
         if self.choice == "1" and self.error == "":
-            menu_dict = {"1": "Sort by id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
+            menu_dict = {"1": "Sort by table_id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
             self.connection_to_db()
+
+            relations = {"table2": "launches", "2": "Sort by reuse_count",
+                         "inner_join": "boosters.launches LIKE CONCAT_WS('', '%', launches.id, '%')",
+                         "where": "boosters.serial = 'B1060'", "order": "launches.flight_number",
+                         "columns": "launches.flight_number", "row_names": "flight number"}
+
             self.all_data(menu_dict)
+
         if self.choice == "2" and self.error == "":
             self.connection_to_db()
             menu_list = [["Enter booster serial number"]]
             Menu(menu_list, " MENU - {} ".format(str(self)))
             self.choice = input(">>> Enter serial: ")
             self.by_column_value("serial", self.choice)
+
         if self.choice == "3" and self.error == "":
             self.connection_to_db()
             menu_dict = {"1": "active", "2": "inactive", "3": "lost", "4": "expended"}

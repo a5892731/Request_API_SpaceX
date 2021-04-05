@@ -28,6 +28,15 @@ class LaunchesBody(ReadDbBody):
             self.all_data_from_many(menu_dict, [self.table, self.table2], [columns(), columns_table2()],
                                     self.relations, "DESC")
 
+
+            try:
+                selected_column_name = menu_dict[self.choice][7:]
+                self.aread_from_table(self, self.table, columns(), selected_column_name, "", "", "", 5)
+            except KeyError:
+                pass
+
+
+
         if self.choice == "2" and self.error == "":
             self.connection_to_db()
             menu_list = [["Enter flight number"]]
