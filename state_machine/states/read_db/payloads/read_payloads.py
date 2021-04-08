@@ -1,7 +1,5 @@
 from system.menu import Menu
-from system.db import Database
-from system.read_data_files import DataImport
-from state_machine.states.read_database import ReadDbBody
+from state_machine.states.read_db.read_database import ReadDbBody
 import os
 
 class PayloadsBody(ReadDbBody):
@@ -26,8 +24,8 @@ class PayloadsBody(ReadDbBody):
 
 if __name__ == "__main__":
 
-    os.chdir("..")
-    os.chdir("..")
+    os.chdir("../../..")
+    os.chdir("../../..")
 
     test = PayloadsBody()
 

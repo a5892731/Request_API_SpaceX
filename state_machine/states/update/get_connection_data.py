@@ -73,8 +73,8 @@ class GetConnectionDataBody(object):
 
 if __name__ == "__main__":
 
-    os.chdir("..")
-    os.chdir("..")
+    os.chdir("../..")
+    os.chdir("../..")
 
     test = GetConnectionDataBody()
 

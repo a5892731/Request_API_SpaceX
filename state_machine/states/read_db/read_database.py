@@ -260,8 +260,8 @@ class ReadDbBody(object):
 
 if __name__ == "__main__":
 
-    os.chdir("..")
-    os.chdir("..")
+    os.chdir("../..")
+    os.chdir("../..")
     test_number = 5
 
     test = ReadDbBody()

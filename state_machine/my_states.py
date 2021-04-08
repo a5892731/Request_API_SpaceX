@@ -2,26 +2,26 @@
 here are the rules of state transition
 '''
 
-from state_machine.states.initialization import InitializationBody
-from state_machine.states.get_connection_data import GetConnectionDataBody
-from state_machine.states.get_api import GetDataFromApiBody
-from state_machine.states.user_choice import UserChoiceBody
-from state_machine.states.error import ErrorBody
-from state_machine.states.insert_db_tables import InsertDbTablesBody
-from state_machine.states.update_db_tables import UpdateDbTablesBody
-from state_machine.states.settings import SetingsBody
-from state_machine.states.read_database import ReadDbBody
-from state_machine.states.read_db_tables_len import ReadDbTablesLenBody
-from state_machine.states.close import CloseBody
-from state_machine.states.read_launches import LaunchesBody
-from state_machine.states.read_boosters import BoostersBody
-from state_machine.states.read_capsules import CapsulesBody
-from state_machine.states.read_rockets import RocketsBody
-from state_machine.states.read_crew import CrewBody
-from state_machine.states.read_payloads import PayloadsBody
-from state_machine.states.read_ships import ShipsBody
-from state_machine.states.read_launchpads import LaunchpadsBody
-from state_machine.states.read_landpads import LandpadsBody
+from state_machine.states.initialization.initialization import InitializationBody
+from state_machine.states.update.get_connection_data import GetConnectionDataBody
+from state_machine.states.update.get_api import GetDataFromApiBody
+from state_machine.states.initialization.user_choice import UserChoiceBody
+from state_machine.states.error.error import ErrorBody
+from state_machine.states.update.insert_db_tables import InsertDbTablesBody
+from state_machine.states.update.update_db_tables import UpdateDbTablesBody
+from state_machine.states.settings.settings import SetingsBody
+from state_machine.states.read_db.read_database import ReadDbBody
+from state_machine.states.update.read_db_tables_len import ReadDbTablesLenBody
+from state_machine.states.close.close import CloseBody
+from state_machine.states.read_db.launches.read_launches import LaunchesBody
+from state_machine.states.read_db.boosters.read_boosters import BoostersBody
+from state_machine.states.read_db.capsules.read_capsules import CapsulesBody
+from state_machine.states.read_db.rockets.read_rockets import RocketsBody
+from state_machine.states.read_db.crew.read_crew import CrewBody
+from state_machine.states.read_db.payloads.read_payloads import PayloadsBody
+from state_machine.states.read_db.ships.read_ships import ShipsBody
+from state_machine.states.read_db.launchpads.read_launchpads import LaunchpadsBody
+from state_machine.states.read_db.landpads.read_landpads import LandpadsBody
 # Start of our states <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
