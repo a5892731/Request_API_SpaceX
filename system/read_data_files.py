@@ -8,12 +8,13 @@ import os
 class DataImport:
 
     version = "1.2"
-    version_date = "2021-03-15"
+    version_date = "2021-04-08"
     version_info = ""
 
     def __init__(self, FILE_NAME, CALL_TYPE, FILE_FOLDER =  "api_configuration"):
         self.list = []
         self.dicionary = {}
+        self.string = ""
         self.call_type = CALL_TYPE
 
         self.open_file(FILE_NAME, FILE_FOLDER)
@@ -22,12 +23,16 @@ class DataImport:
             self.read_list()
         elif CALL_TYPE == "dict":
             self.read_dict()
+        elif CALL_TYPE == "string":
+            self.read_string()
 
     def __call__(self):
         if self.call_type == "list":
             return self.list
         elif self.call_type == "dict":
             return self.dicionary
+        elif self.call_type == "string":
+            return self.string
         else:
             return None
 
@@ -42,11 +47,13 @@ class DataImport:
         self.file.close()
 
     def read_dict(self):
-
         for line in self.file:
             line = line.rstrip("\n").split(": ")
             self.dicionary[line[0]] = self.value_data_segregation(line[1])
         self.file.close()
+
+    def read_string(self):
+        self.string = self.file.readline()
 
     def value_data_segregation(self, value):
         if value[0] == "(" and value[-1] == ")":  # if string contains tuple

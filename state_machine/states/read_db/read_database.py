@@ -75,7 +75,7 @@ class ReadDbBody(object):
                 query += command + " "
             query.rstrip(" ")
 
-        print(query)
+        #print(query)
         response = self.send_sql_query(query)
         self.read_sql_response(response, table, column_list, data_view_limit) # read and print in console
 
