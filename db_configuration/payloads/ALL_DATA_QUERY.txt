@@ -1,0 +1,9 @@
+SELECT payloads.table_id, payloads.name, payloads.type, launches.flight_number, payloads.customers, payloads.norad_ids,
+payloads.nationalities, payloads.manufacturers, payloads.mass_kg, payloads.mass_lbs,
+payloads.orbit, payloads.reference_system, payloads.regime, payloads.longitude, payloads.semi_major_axis_km,
+payloads.eccentricity, payloads.periapsis_km, payloads.apoapsis_km,
+payloads.inclination_deg, payloads.period_min, payloads.lifespan_years, payloads.epoch, payloads.mean_motion,
+payloads.raan, payloads.arg_of_pericenter, payloads.mean_anomaly
+FROM payloads, launches
+WHERE payloads.launch = launches.id
+ORDER BY {} DESC

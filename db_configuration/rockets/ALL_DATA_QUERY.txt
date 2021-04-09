@@ -1,0 +1,16 @@
+SELECT name, type, height, diameter, mass, first_stage, second_stage, engines, landing_legs, payload_weights, flickr_images
+active, stages, boosters, cost_per_launch, success_rate_pct, first_flight, country, wikipedia, description
+FROM rockets
+ORDER BY table_id ASC
+
+
+
+
+
+
+
+
+
+
+
+

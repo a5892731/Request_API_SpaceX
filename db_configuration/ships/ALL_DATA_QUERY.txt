@@ -1,0 +1,12 @@
+SELECT table_id, name, model, type, roles, imo, mmsi, class, mass_kg, mass_lbs, year_built,
+home_port, status, speed_kn, course_deg, latitude, longitude, last_ais_update, link
+image, launches, active, legacy_id
+FROM ships
+ORDER BY table_id ASC
+
+
+
+
+
+
+

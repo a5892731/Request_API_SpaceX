@@ -18,4 +18,3 @@ first_flight
 country
 wikipedia
 description
-id

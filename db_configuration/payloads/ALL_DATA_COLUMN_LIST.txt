@@ -1,7 +1,7 @@
 table_id
 name
 type
-launch
+launch_number
 customers
 norad_ids
 nationalities
