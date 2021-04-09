@@ -34,7 +34,7 @@ class LaunchesBody(ReadDbBody):
         elif self.choice == "4" and self.error == "":
             self.by_time(">")
         elif self.choice == "5" and self.error == "":
-            self.by_time("<")
+            self.by_time("<", 2)
         elif self.choice == "6" and self.error == "":
             self.go_back = True
         else:
@@ -119,8 +119,7 @@ class LaunchesBody(ReadDbBody):
         self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
 
 
-    def by_time(self, time_condition = ">"): # where > is future and < is past
-        data_view_limit = 5
+    def by_time(self, time_condition = ">", data_view_limit = 5): # where > is future and < is past
         today = date.today()
 
         column_list = DataImport("BY_FUTURE_COLUMN_LIST.txt", "list", "db_configuration/{}".format(self.table))
