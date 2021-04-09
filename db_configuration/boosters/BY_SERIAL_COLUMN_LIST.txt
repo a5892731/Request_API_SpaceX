@@ -1,0 +1,5 @@
+table_id
+serial
+block
+reuse_count
+status

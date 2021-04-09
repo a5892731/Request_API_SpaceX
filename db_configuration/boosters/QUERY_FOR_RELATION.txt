@@ -1,6 +1,0 @@
-SELECT launches.flight_number
-FROM boosters
-INNER JOIN launches
-ON boosters.launches
-LIKE CONCAT_WS('', '%', launches.id, '%')
-WHERE boosters.{} = '{}'

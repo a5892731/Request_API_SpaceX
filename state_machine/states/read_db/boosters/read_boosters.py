@@ -8,12 +8,12 @@ class BoostersBody(ReadDbBody):
 
     def __init__(self):
 
-        self.error = ""
         self.table = "boosters"
+        self.error = ""
         self.choice = ""
+        self.query = ""
+        self.go_back = False
 
-        select = DataImport("SELECT_BOOSTERS.txt", "string", "db_configuration")
-        self.select = select()
         self.initialization()
 
     def initialization(self):
@@ -34,63 +34,73 @@ class BoostersBody(ReadDbBody):
             pass
 
     def all_data(self):
+        data_view_limit = 5
+
         self.connection_to_db()
+        column_list = DataImport("ALL_DATA_COLUMN_LIST.txt", "list", "db_configuration/boosters")
+        os.chdir("..")
+        query = DataImport("ALL_DATA_QUERY.txt", "string", "db_configuration/boosters")
+        os.chdir("..")
+        self.query = query()
 
-
-
-
-
-
-        self.query = "SELECT boosters.serial, launches.flight_number FROM boosters INNER JOIN launches ON boosters.launches LIKE CONCAT_WS('', '%', launches.id, '%')"
-
-        pass
+        response = self.send_sql_query(self.query)
+        self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
 
     def by_serial(self):
+        data_view_limit = 5
+        menu_list = [["Enter booster serial number"]]
+
         self.connection_to_db()
-        pass
+        column_list = DataImport("BY_SERIAL_COLUMN_LIST.txt", "list", "db_configuration/boosters")
+        os.chdir("..")
+        query = DataImport("BY_SERIAL_QUERY.txt", "string", "db_configuration/boosters")
+        os.chdir("..")
+        column_list2 = DataImport("BY_SERIAL_COLUMN_LIST_2.txt", "list", "db_configuration/boosters")
+        os.chdir("..")
+        query2 = DataImport("BY_SERIAL_QUERY_2.txt", "string", "db_configuration/boosters")
+        os.chdir("..")
+        rows = column_list()
+
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter serial: ")
+
+        self.query = query().format(self.choice)
+        response = self.send_sql_query(self.query)
+
+        self.query = query2().format(self.choice)
+        response2 = self.send_sql_query(self.query)
+
+        for object in response2:
+            for element in object:
+                response[0] += element,
+        duplicats = len(response2)
+
+        for number in range(int(duplicats)):
+            for object in column_list2():
+                rows.append(str(number + 1) + ") " + object )
+
+        self.read_sql_response(response, self.table, rows, data_view_limit) # read and print in console
 
     def by_status(self):
+        data_view_limit = 5
+        menu_dict = {"1": "active", "2": "inactive", "3": "lost", "4": "expended"}
+        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
+
         self.connection_to_db()
-        pass
+        column_list = DataImport("ALL_DATA_COLUMN_LIST.txt", "list", "db_configuration/boosters")
+        os.chdir("..")
+        query = DataImport("ALL_DATA_QUERY.txt", "string", "db_configuration/boosters")
+        os.chdir("..")
+
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter serial: ")
+        self.query = query().format(self.choice)
+
+        response = self.send_sql_query(self.query)
+        self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
 
     def go_back(self):
-        self.initialization(self)
-
-
-    def read_db(self, query, table, column_list, data_view_limit):
-        response = self.send_sql_query(query)
-        self.read_sql_response(response, table, column_list, data_view_limit) # read and print in console
-
-
-    def read_sql_response(self, response, table, columns, data_view_limit = 5):
-        def print_data_and_wait(menu):
-            m = Menu(menu, " MENU - {} ".format(str(self)))  # drow menu
-            m.__del__()
-            return input("Continue? Y/N: ")
-
-        menu = [[table.capitalize() + " data:"]]
-        counter = 0
-        if response != None:
-            for row in response:
-                counter += 1
-                for column_number in range(len(row)):
-
-                    if str(row[column_number]) != "[]" and str(row[column_number]) != "None":
-                        menu_segment = columns[column_number] + ": " + str(row[column_number])
-                        menu.append([menu_segment])
-                menu.append(["-" * Menu.menu_width])
-
-                if counter >= data_view_limit:
-                    self.choice = print_data_and_wait(menu)
-                    if self.choice.upper() == "N":
-                        counter = 0
-                        break
-                    menu = [[table.capitalize() + " data:"]]
-                    counter = 0
-            if counter > 0:
-                self.choice = print_data_and_wait(menu)
-        else:
-            self.error += "None type object in response\n"
+        self.go_back = True
 
 
 

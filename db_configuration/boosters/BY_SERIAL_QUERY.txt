@@ -1,3 +1,4 @@
 SELECT table_id, serial, block, reuse_count, status
 FROM boosters
-WHERE {} = '{}'
+WHERE serial = '{}'
+ORDER BY table_id DESC

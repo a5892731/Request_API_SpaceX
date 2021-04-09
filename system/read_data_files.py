@@ -53,7 +53,11 @@ class DataImport:
         self.file.close()
 
     def read_string(self):
-        self.string = self.file.readline()
+        string = ""
+        for line in self.file:
+            string += line.rstrip("\n") + " "
+        self.string = string.rstrip(" ")
+        self.file.close()
 
     def value_data_segregation(self, value):
         if value[0] == "(" and value[-1] == ")":  # if string contains tuple
