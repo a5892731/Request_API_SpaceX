@@ -6,6 +6,5 @@ window
 success
 details
 crew
-capsules
 failures
 upcoming

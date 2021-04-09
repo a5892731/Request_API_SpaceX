@@ -1,3 +1,3 @@
-SELECT table_id, flight_number, name, date_utc, window, success, details, capsules, failures, upcoming
+SELECT table_id, flight_number, name, date_utc, window, details, failures, upcoming, success
 FROM launches
 ORDER BY {} DESC

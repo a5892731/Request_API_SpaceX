@@ -3,8 +3,8 @@ flight_number
 name
 date_utc
 window
-success
 details
 capsules
 failures
 upcoming
+success

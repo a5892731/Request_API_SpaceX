@@ -1,4 +1,4 @@
-SELECT table_id, flight_number, name, date_utc, window, details, capsules, failures, upcoming, success
+SELECT table_id, flight_number, name, date_utc, window, details, failures, upcoming, success
 FROM launches
-WHERE date_utc {}= '{}'
-ORDER BY date_utc ASC
+WHERE launches.date_utc {}= '{}'
+ORDER BY date_utc DESC
