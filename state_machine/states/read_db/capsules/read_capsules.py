@@ -1,42 +1,120 @@
 from system.menu import Menu
 from state_machine.states.read_db.read_database import ReadDbBody
+from system.read_data_files import DataImport
+
 import os
 
 class CapsulesBody(ReadDbBody):
 
     def __init__(self):
 
+        self.table = "boosters"
+        self.error = ""
+        self.choice = ""
+        self.query = ""
+        self.go_back = False
+
+        self.initialization()
+
+    def initialization(self):
         menu_dict = {"1": "All data", "2": "By serial", "3": "By status", "4": "Go Back"}
         menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
         Menu(menu_list, " MENU - {} ".format(str(self)))
         self.choice = input(">>> Enter menu number: ")
-        self.error = ""
-        self.table = "capsules"
-
 
         if self.choice == "1" and self.error == "":
-            menu_dict = {"1": "Sort by table_id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
-            self.connection_to_db()
-            self.all_data(menu_dict)
-        if self.choice == "2" and self.error == "":
-            self.connection_to_db()
-            menu_list = [["Enter capsule serial number"]]
-            Menu(menu_list, " MENU - {} ".format(str(self)))
-            self.choice = input(">>> Enter serial: ")
-            self.by_column_value("serial", self.choice)
-        if self.choice == "3" and self.error == "":
-            self.connection_to_db()
-            menu_dict = {"1": "active", "2": "inactive", "3": "lost", "4": "expended"}
-            sub_menu_list = [key + ": " + menu_dict[key] for key in menu_dict]
-            menu_list = [sub_menu_list]
-            Menu(menu_list, " MENU - {} ".format(str(self)))
-            self.choice = input(">>> Enter status: ")
-            try:
-                self.by_column_value("status", menu_dict[self.choice])
-            except KeyError:
-                pass
+            self.all_data()
+        elif self.choice == "2" and self.error == "":
+            self.by_serial()
+        elif self.choice == "3" and self.error == "":
+            self.by_status()
+        elif self.go_back == "4" and self.error == "":
+            self.by_status()
         else:
             pass
+
+    def all_data(self):
+        data_view_limit = 5
+        menu_dict = {"1": "Sort by table_id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
+        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter menu number: ")
+        try:
+            self.choice = menu_dict[self.choice][7:]
+        except KeyError:
+            pass
+
+        self.connection_to_db()
+        column_list = DataImport("ALL_DATA_COLUMN_LIST.txt", "list", "db_configuration/capsules")
+        os.chdir("..")
+        query = DataImport("ALL_DATA_QUERY.txt", "string", "db_configuration/capsules")
+        os.chdir("..")
+        self.query = query().format(self.choice)
+
+        response = self.send_sql_query(self.query)
+        self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
+
+
+    def by_serial(self):
+        data_view_limit = 5
+        menu_list = [["Enter booster serial number"]]
+
+        self.connection_to_db()
+        column_list = DataImport("BY_SERIAL_COLUMN_LIST.txt", "list", "db_configuration/capsules")
+        os.chdir("..")
+        query = DataImport("BY_SERIAL_QUERY.txt", "string", "db_configuration/capsules")
+        os.chdir("..")
+        column_list2 = DataImport("BY_SERIAL_COLUMN_LIST_2.txt", "list", "db_configuration/capsules")
+        os.chdir("..")
+        query2 = DataImport("BY_SERIAL_QUERY_2.txt", "string", "db_configuration/capsules")
+        os.chdir("..")
+        rows = column_list()
+
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter serial: ")
+
+        self.query = query().format(self.choice)
+        response = self.send_sql_query(self.query)
+
+        self.query = query2().format(self.choice)
+        response2 = self.send_sql_query(self.query)
+
+        for object in response2:
+            for element in object:
+                response[0] += element,
+        duplicats = len(response2)
+
+        for number in range(int(duplicats)):
+            for object in column_list2():
+                rows.append(str(number + 1) + ") " + object )
+
+        self.read_sql_response(response, self.table, rows, data_view_limit) # read and print in console
+
+    def by_status(self):
+        data_view_limit = 5
+        menu_dict = {"1": "active", "2": "inactive", "3": "lost", "4": "expended"}
+        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
+
+        self.connection_to_db()
+        column_list = DataImport("ALL_DATA_COLUMN_LIST.txt", "list", "db_configuration/capsules")
+        os.chdir("..")
+        query = DataImport("ALL_DATA_QUERY.txt", "string", "db_configuration/capsules")
+        os.chdir("..")
+
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter serial: ")
+        self.query = query().format(self.choice)
+
+        response = self.send_sql_query(self.query)
+        self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
+
+    def go_back(self):
+        self.go_back = True
+
+
+
+
+
 
 
 
@@ -44,8 +122,11 @@ class CapsulesBody(ReadDbBody):
 
 if __name__ == "__main__":
 
-    os.chdir("../../..")
-    os.chdir("../../..")
+    os.chdir("..")
+    os.chdir("..")
+    os.chdir("..")
+    os.chdir("..")
+
 
     test = CapsulesBody()
 
@@ -53,7 +134,7 @@ if __name__ == "__main__":
 
 
 
-
-
     os.chdir("state_machine")
     os.chdir("states")
+    os.chdir("read_db")
+    os.chdir("boosters")

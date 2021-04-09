@@ -1,0 +1,7 @@
+SELECT launches.flight_number, launches.date_utc
+FROM capsules
+INNER JOIN launches
+ON capsules.launches
+LIKE CONCAT_WS('', '%', launches.id, '%')
+WHERE capsules.serial = '{}'
+ORDER BY launches.flight_number ASC

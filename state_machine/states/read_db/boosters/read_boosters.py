@@ -35,13 +35,21 @@ class BoostersBody(ReadDbBody):
 
     def all_data(self):
         data_view_limit = 5
+        menu_dict = {"1": "Sort by table_id", "2": "Sort by reuse_count", "3": "Sort by serial", "4": "Go Back"}
+        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
+        Menu(menu_list, " MENU - {} ".format(str(self)))
+        self.choice = input(">>> Enter menu number: ")
+        try:
+            self.choice = menu_dict[self.choice][7:]
+        except KeyError:
+            pass
 
         self.connection_to_db()
         column_list = DataImport("ALL_DATA_COLUMN_LIST.txt", "list", "db_configuration/boosters")
         os.chdir("..")
         query = DataImport("ALL_DATA_QUERY.txt", "string", "db_configuration/boosters")
         os.chdir("..")
-        self.query = query()
+        self.query = query().format(self.choice)
 
         response = self.send_sql_query(self.query)
         self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
@@ -50,7 +58,6 @@ class BoostersBody(ReadDbBody):
         data_view_limit = 5
         menu_list = [["Enter booster serial number"]]
 
-        self.connection_to_db()
         column_list = DataImport("BY_SERIAL_COLUMN_LIST.txt", "list", "db_configuration/boosters")
         os.chdir("..")
         query = DataImport("BY_SERIAL_QUERY.txt", "string", "db_configuration/boosters")
@@ -64,20 +71,22 @@ class BoostersBody(ReadDbBody):
         Menu(menu_list, " MENU - {} ".format(str(self)))
         self.choice = input(">>> Enter serial: ")
 
+        self.connection_to_db()
+
         self.query = query().format(self.choice)
-        response = self.send_sql_query(self.query)
+        response = self.send_sql_query(self.query)  # ask for booster data
 
         self.query = query2().format(self.choice)
-        response2 = self.send_sql_query(self.query)
+        response2 = self.send_sql_query(self.query)  # ask for relation data from another table
 
-        for object in response2:
+        for object in response2:        # create response list for printing
             for element in object:
                 response[0] += element,
         duplicats = len(response2)
 
         for number in range(int(duplicats)):
             for object in column_list2():
-                rows.append(str(number + 1) + ") " + object )
+                rows.append(str(number + 1) + ") " + object )   # create row titles list for response
 
         self.read_sql_response(response, self.table, rows, data_view_limit) # read and print in console
 

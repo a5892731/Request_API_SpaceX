@@ -1,0 +1,9 @@
+SELECT name, agency, wikipedia, table_id
+FROM crew
+ORDER BY table_id ASC
+
+
+
+
+
+

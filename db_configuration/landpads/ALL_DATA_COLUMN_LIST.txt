@@ -1,0 +1,14 @@
+table_id
+name
+full_name
+type
+locality
+region
+latitude
+longitude
+landing_attempts
+landing_successes
+wikipedia
+details
+launches
+status

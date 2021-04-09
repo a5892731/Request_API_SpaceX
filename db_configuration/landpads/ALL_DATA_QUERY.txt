@@ -1,0 +1,3 @@
+SELECT table_id, name, full_name, type, locality, region, latitude, longitude, landing_attempts, landing_successes, wikipedia, details, status
+FROM landpads
+ORDER BY table_id DESC
