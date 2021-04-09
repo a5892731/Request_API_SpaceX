@@ -17,7 +17,5 @@ latitude
 longitude
 last_ais_update
 link
-image
 launches
-active
 legacy_id

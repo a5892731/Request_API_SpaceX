@@ -15,8 +15,6 @@ class PayloadsBody(ReadDbBody):
 
         self.initialization()
 
-
-
     def initialization(self):
         menu_dict = {"1": "All data", "2": "Go Back"}
         menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
@@ -26,7 +24,7 @@ class PayloadsBody(ReadDbBody):
         if self.choice == "1" and self.error == "":
             self.all_data()
         else:
-            self.go_back = False
+            self.go_back = True
 
     def all_data(self):
         data_view_limit = 5

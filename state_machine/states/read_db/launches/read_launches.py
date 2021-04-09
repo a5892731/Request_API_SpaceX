@@ -3,6 +3,7 @@ from state_machine.states.read_db.read_database import ReadDbBody
 from system.read_data_files import DataImport
 
 import os
+from datetime import date
 
 class LaunchesBody(ReadDbBody):
 
@@ -17,8 +18,10 @@ class LaunchesBody(ReadDbBody):
         self.initialization()
 
     def initialization(self):
-        menu_dict = {"1": "All data", "2": "By flight number", "3": "By status", "4": "Go Back"}
-        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict]]
+        menu_dict = {"1": "All data", "2": "By flight number", "3": "By status", "4": "By Future Flights"}
+        secondary_menu_dict = {"5": "By Past Flights", "6": "Go Back", "7": "-", "8": "-"}
+        menu_list = [[key + ": " + menu_dict[key] for key in menu_dict],
+                     [key + ": " + secondary_menu_dict[key] for key in secondary_menu_dict]]
         Menu(menu_list, " MENU - {} ".format(str(self)))
         self.choice = input(">>> Enter menu number: ")
 
@@ -28,10 +31,14 @@ class LaunchesBody(ReadDbBody):
             self.by_flight_number()
         elif self.choice == "3" and self.error == "":
             self.by_status()
-        elif self.go_back == "4" and self.error == "":
-            self.go_back()
+        elif self.choice == "4" and self.error == "":
+            self.by_time(">")
+        elif self.choice == "5" and self.error == "":
+            self.by_time("<")
+        elif self.choice == "6" and self.error == "":
+            self.go_back = True
         else:
-            self.go_back = False
+            self.go_back = True
 
     def all_data(self):
         data_view_limit = 5
@@ -93,15 +100,20 @@ class LaunchesBody(ReadDbBody):
         self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
 
 
+    def by_time(self, time_condition = ">"): # where > is future and < is past
+        data_view_limit = 5
+        today = date.today()
 
+        column_list = DataImport("BY_FUTURE_COLUMN_LIST.txt", "list", "db_configuration/{}".format(self.table))
+        os.chdir("..")
+        query = DataImport("BY_FUTURE_QUERY.txt", "string", "db_configuration/{}".format(self.table))
+        os.chdir("..")
 
-    def go_back(self):
-        self.go_back = True
+        self.connection_to_db()
+        self.query = query().format(time_condition, str(today.strftime("%Y-%m-%d")))
 
-
-
-
-
+        response = self.send_sql_query(self.query)
+        self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
 
 
 

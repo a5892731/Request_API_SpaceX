@@ -9,6 +9,12 @@ class CrewBody(ReadDbBody):
 
         self.table = "crew"
         self.error = ""
+        self.go_back = False
+
+
+        self.initialization()
+
+    def initialization(self):
         self.all_data()
 
 
@@ -27,7 +33,6 @@ class CrewBody(ReadDbBody):
 
         response = self.send_sql_query(self.query)
         self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
-
 
 
 

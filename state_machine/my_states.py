@@ -127,56 +127,62 @@ class ReadDb(ReadDbBody):
 
 class Launches(LaunchesBody):
     def on_event(self, event):
-        if event == 'device_locked':
-            return UserChoice()
+        if event == 'device_locked' and self.go_back == True:
+            return ReadDb()
+        elif event == 'device_locked' and self.go_back == False:
+            return Launches()
         return self
 
 class Boosters(BoostersBody):
     def on_event(self, event):
-        if event == 'device_locked':
-            return UserChoice()
+        if event == 'device_locked' and self.go_back == True:
+            return ReadDb()
+        elif event == 'device_locked' and self.go_back == False:
+            return Boosters()
         return self
 
 class Capsules(CapsulesBody):
     def on_event(self, event):
-        if event == 'device_locked':
-            return UserChoice()
+        if event == 'device_locked' and self.go_back == True:
+            return ReadDb()
+        elif event == 'device_locked' and self.go_back == False:
+            return Capsules()
         return self
 
 class Rockets(RocketsBody):
     def on_event(self, event):
         if event == 'device_locked':
-            return UserChoice()
+            return ReadDb()
         return self
 
 class Payloads(PayloadsBody):
     def on_event(self, event):
         if event == 'device_locked':
-            return UserChoice()
+            return ReadDb()
         return self
 
 class Crew(CrewBody):
     def on_event(self, event):
         if event == 'device_locked':
-            return UserChoice()
+            return ReadDb()
         return self
 
 class Ships(ShipsBody):
     def on_event(self, event):
         if event == 'device_locked':
-            return UserChoice()
+            return ReadDb()
         return self
 
 class Launchpads(LaunchpadsBody):
     def on_event(self, event):
         if event == 'device_locked':
-            return UserChoice()
+            return ReadDb()
         return self
 
 class Landpads(LandpadsBody):
     def on_event(self, event):
         if event == 'device_locked':
-            return UserChoice()
+            return ReadDb()
         return self
 #-------------------------------------------------------------------------------------------------------------
 class Setings(SetingsBody): # not in use <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

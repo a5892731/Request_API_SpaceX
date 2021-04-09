@@ -29,9 +29,9 @@ class CapsulesBody(ReadDbBody):
         elif self.choice == "3" and self.error == "":
             self.by_status()
         elif self.go_back == "4" and self.error == "":
-            self.by_status()
+            self.go_back = True
         else:
-            pass
+            self.go_back = True
 
     def all_data(self):
         data_view_limit = 5
@@ -107,10 +107,6 @@ class CapsulesBody(ReadDbBody):
 
         response = self.send_sql_query(self.query)
         self.read_sql_response(response, self.table, column_list(), data_view_limit) # read and print in console
-
-    def go_back(self):
-        self.go_back = True
-
 
 
 
