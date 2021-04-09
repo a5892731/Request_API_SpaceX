@@ -13,7 +13,7 @@ class LandpadsBody(ReadDbBody):
 
 
     def all_data(self):
-        data_view_limit = 5
+        data_view_limit = 1
 
 
         self.connection_to_db()

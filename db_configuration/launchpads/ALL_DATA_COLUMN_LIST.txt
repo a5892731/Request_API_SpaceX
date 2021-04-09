@@ -8,7 +8,5 @@ latitude
 longitude
 launch_attempts
 launch_successes
-rockets
-launches
 details
 status

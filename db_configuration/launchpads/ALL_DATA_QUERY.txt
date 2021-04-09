@@ -1,0 +1,9 @@
+SELECT table_id, name, full_name, locality, region, timezone, latitude, longitude, launch_attempts, launch_successes, details, status
+FROM launchpads
+ORDER BY table_id DESC
+
+
+
+
+
+

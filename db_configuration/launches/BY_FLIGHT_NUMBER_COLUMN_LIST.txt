@@ -1,0 +1,11 @@
+table_id
+flight_number
+name
+date_utc
+window
+success
+details
+crew
+capsules
+failures
+upcoming

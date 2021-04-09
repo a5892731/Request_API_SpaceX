@@ -1,0 +1,9 @@
+SELECT launches.table_id, launches.flight_number, launches.name, launches.date_utc, launches.window, launches.success,
+launches.details, launches.crew, capsules.serial, launches.failures, launches.upcoming
+FROM launches, capsules
+WHERE flight_number = {}
+AND
+(launches.capsules = '[]' OR launches.capsules LIKE CONCAT_WS('', '%', capsules.id, '%'))
+
+
+

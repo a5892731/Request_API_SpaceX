@@ -1,0 +1,4 @@
+SELECT table_id, flight_number, name, date_utc, window, details, crew, capsules, failures, upcoming, success
+FROM launches
+WHERE success = '{}'
+ORDER BY table_id DESC
