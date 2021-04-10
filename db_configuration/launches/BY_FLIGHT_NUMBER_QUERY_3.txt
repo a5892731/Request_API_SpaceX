@@ -1,0 +1,7 @@
+SELECT crew.name, crew.wikipedia
+FROM crew
+INNER JOIN launches
+ON crew.launches
+LIKE CONCAT_WS('', '%', launches.id, '%')
+WHERE launches.flight_number = '{}'
+ORDER BY crew.table_id ASC

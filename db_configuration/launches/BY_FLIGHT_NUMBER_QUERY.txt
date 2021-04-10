@@ -1,5 +1,5 @@
 SELECT table_id, flight_number, name, date_utc, window, success,
-details, crew, failures, upcoming
+details, failures, upcoming
 FROM launches
 WHERE flight_number = {}
 

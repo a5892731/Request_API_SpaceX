@@ -5,6 +5,5 @@ date_utc
 window
 success
 details
-crew
 failures
 upcoming

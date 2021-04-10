@@ -73,9 +73,13 @@ class LaunchesBody(ReadDbBody):
         os.chdir("..")
         column_list2 = DataImport("BY_FLIGHT_NUMBER_COLUMN_LIST_2.txt", "list", "db_configuration/{}".format(self.table))
         os.chdir("..")
+        column_list3 = DataImport("BY_FLIGHT_NUMBER_COLUMN_LIST_3.txt", "list", "db_configuration/{}".format(self.table))
+        os.chdir("..")
         query = DataImport("BY_FLIGHT_NUMBER_QUERY.txt", "string", "db_configuration/{}".format(self.table))
         os.chdir("..")
         query2 = DataImport("BY_FLIGHT_NUMBER_QUERY_2.txt", "string", "db_configuration/{}".format(self.table))
+        os.chdir("..")
+        query3 = DataImport("BY_FLIGHT_NUMBER_QUERY_3.txt", "string", "db_configuration/{}".format(self.table))
         os.chdir("..")
         rows = column_list()
 
@@ -86,6 +90,9 @@ class LaunchesBody(ReadDbBody):
         self.query = query2().format(self.choice)
         response2 = self.send_sql_query(self.query)  # ask for relation data from another table
 
+        self.query = query3().format(self.choice)
+        response3 = self.send_sql_query(self.query)  # ask for relation data from another table
+
 
         for object in response2:        # create response list for printing
             for element in object:
@@ -94,11 +101,18 @@ class LaunchesBody(ReadDbBody):
 
         for number in range(int(duplicats)):
             for object in column_list2():
+                rows.append(object)   # create row titles list for response
+
+        for object in response3:        # create response list for printing
+            for element in object:
+                response[0] += element,
+        duplicats = len(response3)
+
+        for number in range(int(duplicats)):
+            for object in column_list3():
                 rows.append(str(number + 1) + ") " + object )   # create row titles list for response
 
         self.read_sql_response(response, self.table, rows, data_view_limit) # read and print in console
-
-
 
     def by_status(self):
         data_view_limit = 5
